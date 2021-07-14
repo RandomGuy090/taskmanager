@@ -1,0 +1,91 @@
+
+.sky{
+	display: flex;
+	align-items: flex-end;
+}
+.cloud{ 
+   margin-top:70px;
+   width:350px;
+   height:120px;
+   background:#ECEFF1;
+   box-shadow: 10px 10px rgba(0,0,0,0.2);
+   border-radius:100px;
+}
+.cloud::after, .cloud::before{
+    content:"";
+    position:relative;
+    display:inline-block;
+    background:inherit;
+    border-radius:inherit;
+}
+.cloud::after{
+    width:100px;
+    height:100px;
+    top:-220px;
+    left:50px;
+}
+.cloud::before{
+    width:180px;
+    height:180px;
+    top: -70px;
+    left:130px;
+}
+
+.cloud:first-child{
+	background-color: red;
+}
+
+.cloud:first-child{
+	background-color: #E8E8E8;
+	transform: scale(1.7) rotateY(180deg);
+	z-index: 1;
+	margin-bottom: 15%;
+	margin-left: 13%;
+	animation: example 64s infinite;
+
+}
+.cloud:first-child:after{
+	background-color: #DCDCDC;
+	z-index: -1;
+	width:200px;
+    height:200px;
+    top:-300px;
+    left:-30px;
+}
+
+.cloud{
+	transform: scale(2);
+	z-index: 1;
+	margin-bottom: 10%;
+	animation: example 16s infinite;
+
+}
+
+.cloud:last-child:before{
+	background-color: white;
+	transform: scale(1) rotateY(180deg);
+	z-index: 1;
+	left: 50px;
+	margin-bottom: 10%;
+
+}
+
+.cloud:last-child:after{
+	background-color: white;
+	transform: scale(1) rotateY(180deg);
+	z-index: 1;
+	left: -40px;
+	top: -50px;
+	margin-bottom: 10%;
+}
+
+
+.cloud:last-child{
+	background-color: white;
+	transform: scale(0.9) rotateY(180deg);
+	z-index: 1;
+	margin-bottom: 10%;
+
+	animation: example 4s infinite;
+}
+

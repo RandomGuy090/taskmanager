@@ -1,0 +1,14 @@
+:root {
+  --1Col: #EDF2EF;
+  --2Col: #57C4E5;
+  --3Col: #D1D646;
+  --4Col: #F97068;
+  --5Col: #212738;
+}
+
+body{
+	background-color: var(--1Col);
+	height: 98vh;
+	width: 98vw;
+}
+
