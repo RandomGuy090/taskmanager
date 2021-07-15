@@ -1,0 +1,86 @@
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #FFFFFF;
+
+}
+
+header{
+	width: 100%;
+	min-height: 100px;
+	flex-grow: 1.5;
+	max-height: 150px;
+	background-color: #99D9EA;
+
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+header>img{
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+	border-radius: 30%;
+}
+header>p{
+	margin: 0 5%;
+	color:#FFFFFF;
+	font-size: 200%;
+}
+
+content{
+	flex-grow: 8.5;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: start;
+}
+.new_cal{
+	background-color: transparent;
+	height: 10vw;
+	width: 10vw;
+	margin: 1%;
+}
+a {
+	margin: 1%;
+	text-decoration: none; 
+}
+.cal{
+	height: 10vw;
+	width: 10vw;
+	background-color:#B5E61D;
+	border: 5px solid #8cae22;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+
+}
+.add_new{
+	background-color: transparent;
+	border-radius: 50%;
+	border: 5px solid red;
+	height: 60%;
+	width: 60%;
+	display: flex;
+}
+
+.add_new_img{
+	height: 90%;
+	width: 90%;
+}
+[class="cal"] > p{
+ transform: rotate(45deg);
+ color: white;
+ font-size: 230%;
+}
+ 
+.cal:hover{
+	animation: size_up 100000000s infinite;
+	
+}

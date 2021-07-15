@@ -34,7 +34,10 @@ class UserManagement(object):
 		cursor = connection.cursor()
 		cursor.execute('''SELECT
 		     taskmanager_user.name,
-		     taskmanager_tables.name
+		     taskmanager_tables.name,
+		     taskmanager_tables.url,
+		     taskmanager_tables.color,
+		     taskmanager_tables.borderColor
 		     FROM
 		     taskmanager_particip
 		     LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id

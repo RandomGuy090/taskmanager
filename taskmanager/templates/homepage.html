@@ -1,0 +1,73 @@
+{% extends "temp.html" %}
+
+{% block header %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/homeAnim.css' %}">
+
+<title>{{ title }}</title>
+{% endblock header %}
+
+
+
+{% block body %}
+
+<header>
+	<p>{{ login }}</p>
+	<img src="{% static 'img/profile.png'%}">
+</header>
+<content>
+	<a href="/tables/new">
+		<div  class="cal new_cal">
+			<img class="add_new_img" src="{% static 'img/add_new.png' %}">
+		</div>
+	</a>
+
+{% for elem in tables %}
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: {{ elem.color }}">
+			<p>{{ elem.name }}</p>
+		</div>
+	</a>
+{% endfor %}
+	
+
+<!-- 
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a>
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a>
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a>
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a>
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a>
+	<a href="/tables/{{ elem.url }}">
+		<div class="cal" style="background-color: red">
+			<p>asdf</p>
+		</div>
+	</a> -->
+
+
+
+
+
+</content>
+
+{% endblock body %}
