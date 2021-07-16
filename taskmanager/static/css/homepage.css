@@ -44,10 +44,14 @@ content{
 	height: 10vw;
 	width: 10vw;
 	margin: 1%;
-}
-a {
+
 	margin: 1%;
 	text-decoration: none; 
+}
+a, .new_cal{
+	margin: 1%;
+	text-decoration: none; 
+	height: 10vw;
 }
 .cal{
 	height: 10vw;
@@ -80,7 +84,47 @@ a {
  font-size: 230%;
 }
  
-.cal:hover{
+.cal:hover {
 	animation: size_up 100000000s infinite;
-	
 }
+
+.logout{
+	display: flex;
+	height: 50%;
+	width: 9%;
+	min-width: 50px;
+	min-height: 50px;
+	background-color: red;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 150%;
+}
+
+#background_blurred{
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgb(88 123 133 / 33%);
+	--webkit-backdrop-filter: blur(5px);
+  	backdrop-filter: blur(5px);
+  	z-index: 10;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	visibility: hidden;
+}
+
+#new_table_menu{
+	position: absolute;
+	height: 70vh;
+	width: 50vw;
+	background-color: #d7f7ff;
+	z-index: 15;
+}
+
+/*
+#99D9EA
+#E4E4E4
+#B5E61D*/

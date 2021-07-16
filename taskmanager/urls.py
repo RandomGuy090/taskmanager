@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import login, logout, views, tables
+from . import login, logout, views, tables, create_table
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('login/', login.Login.as_view(), name="login"),
     path('logout/', logout.Logout.as_view(), name="logout"),
     path('tables/<str:tableid>', tables.Tables.as_view(), name="table"),
+    path('create/', create_table.Table.as_view(), name="create"),
 ]

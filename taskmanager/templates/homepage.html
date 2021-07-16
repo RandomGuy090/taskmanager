@@ -4,7 +4,6 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/homeAnim.css' %}">
-
 <title>{{ title }}</title>
 {% endblock header %}
 
@@ -12,12 +11,41 @@
 
 {% block body %}
 
+	<div id="background_blurred">
+		<div id="new_table_menu" class="no_hid">
+			{% csrf_token %}
+			<label for="name" class="no_hid"> New table name</label>
+			<input type="text" name="name" class="no_hid">
+
+			<label for="color_main" class="no_hid"> color </label>
+			<input type="color" name="color_main" class="no_hid">
+
+			<label for="password" class="no_hid"> color </label>
+			<input type="password" name="password" class="no_hid">
+			
+
+			<label for="send" class="no_hid"> send </label>
+			<input type="button" id="send" name="send" class="no_hid">
+			
+			<div class="link no_hid">
+				<label for="linkCont" class="no_hid"> link </label>
+				<p name="linkCont" class="no_hid" id="tableLink"></p>
+
+			</div>
+
+			
+		</div>
+	</div>
 <header>
+	<a href="/logout" class="logout">
+		<div>Logout</div>
+	</a>
 	<p>{{ login }}</p>
 	<img src="{% static 'img/profile.png'%}">
 </header>
 <content>
-	<a href="/tables/new">
+
+	<a id="new_table" >
 		<div  class="cal new_cal">
 			<img class="add_new_img" src="{% static 'img/add_new.png' %}">
 		</div>
@@ -25,7 +53,8 @@
 
 {% for elem in tables %}
 	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: {{ elem.color }}">
+		<div class="cal" style="background-color: {{ elem.color }};
+								border-color: {{ elem.border }}">
 			<p>{{ elem.name }}</p>
 		</div>
 	</a>
@@ -69,5 +98,8 @@
 
 
 </content>
+
+ <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<script type="text/javascript" src="{% static 'script/newTable.js' %}"></script>
 
 {% endblock body %}

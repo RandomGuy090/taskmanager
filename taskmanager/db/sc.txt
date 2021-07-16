@@ -1,0 +1,72 @@
+/*taking user from one group*/
+SELECT
+     taskmanager_user.name,
+     taskmanager_tables.name
+     FROM
+     taskmanager_particip
+     LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+     LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+     WHERE
+     taskmanager_tables.name = "maintable";
+
+
+lol = cursor.execute('''
+
+     SELECT
+     id, 
+     taskmanager_user.id as user_id,
+     taskmanager_tables.id as table_id,
+     taskmanager_user.name,
+     taskmanager_tables.name
+     FROM
+     taskmanager_particip
+     LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+     LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+     WHERE
+     taskmanager_tables.name = "maintable";
+     ''')
+for elem in lol: print(elem)
+
+SELECT name FROM pragma_table_info('taskmanager_user') JOIN (SELECT COUNT(*) FROM taskmanager_user);
+
+
+SELECT
+ taskmanager_user.name,
+ taskmanager_tables.name
+ FROM
+ taskmanager_particip
+ LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+ LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+ 
+ cursor.execute('''SELECT * 
+			SELECT name FROM pragma_table_info('%s') 
+			JOIN (SELECT COUNT(*) 
+			FROM %s);
+			'''% ("taskmanager_user", "taskmanager_user"))
+
+
+#list columns
+SELECT name FROM pragma_table_info('taskmanager_user') JOIN (SELECT COUNT(*) FROM taskmanager_user);
+
+## inserting new table to user
+insert into taskmanager_particip (tableId_id, userId_id) values (
+(select id from taskmanager_tables where name = 'maintable'),
+(select id from taskmanager_user where name = 'adam')
+);
+
+
+
+#get users via table
+SELECT
+ taskmanager_user.name as user,
+ taskmanager_tables.name as tablename
+ FROM
+ taskmanager_particip
+ LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+ LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+ WHERE taskmanager_tables.name = "maintable"
+ WHERE tablename IS NOT NULL
+ GROUP BY user
+ ;
+
+
