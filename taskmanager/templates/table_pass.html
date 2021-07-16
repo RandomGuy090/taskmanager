@@ -1,0 +1,37 @@
+{% extends "temp.html" %}
+{% block header %}
+	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/clouds.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cloudAnim.css' %}">
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'table_pass.css' %}">
+<title>{{ title }}</title>
+{% endblock header %}
+
+{% block body %}
+
+	<form method="POST"  style="flex-direction: row">
+		{% csrf_token %}
+		<div class="loginSpace">
+		
+			<input type="password" name="password" placeholder="Password to table">
+
+			<input type="submit" name="submit" value="Check">
+			{% if error %}
+			<div class="error">
+				{{ error }}
+			</div>
+		{% endif %}
+		
+		</div>
+
+		<div class="sky">
+			 <div class="cloud"></div>
+			 <div class="cloud"></div>
+			 <div class="cloud"></div>
+		</div>
+
+	</form>
+{% endblock body %}

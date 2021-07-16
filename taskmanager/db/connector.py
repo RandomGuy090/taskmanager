@@ -9,23 +9,31 @@ class UserManagement(ToJson):
 		self.password = ""
 	
 	def createUser(self, name, password):
-		try:
-			usr = db.User(name=name, password=password)
-			usr.save()
-			return True
-		except:
-			return False
+		cursor = connection.cursor()
+		cursor.execute('''
+			insert into taskmanager_user (name, password, profImg, singupDate) values
+			("%s", "%s", "%s",%s);
+			'''% (name, password, "/static/img/profile.png", "datetime('now')"))
+		# try:
+		# 	# usr = db.User(name=name, password=password)
+		# 	# usr.save()
+		# 	return True
+		# except:
+		# 	return False
 
 	def deleteUser(self, name):
 		try:
-			usr = db.User.objects.get(name=name)
-			usr.delete()
-			usr.save()
+			cursor = connection.cursor()
+			cursor.execute('''SELECT password
+				FROM taskmanager_user
+			     WHERE
+			     name = '%s'
+				'''% name)
 			return True
 		except:
 			return False
 	
-	def getUserInfo(self, name):
+	def getUserInfo(self, name): # dep
 		cursor = connection.cursor()
 		cursor.execute('''SELECT * 
 			FROM taskmanager_user
@@ -38,12 +46,19 @@ class UserManagement(ToJson):
 
 	def getPassword(self, name):
 		try:
-			usr = db.User.objects.get(name=name)
-			return usr.password
+			cursor = connection.cursor()
+			cursor.execute('''SELECT password
+				FROM taskmanager_user
+			     WHERE
+			     name = '%s'
+				'''% name)
+			res = cursor.fetchall()[0][0]
+
+			return res
 		except:
 			return False
 
-	def getUsersTables(self, name):
+	def getUsersTables(self, name): #updated
 		cursor = connection.cursor()
 		cursor.execute('''SELECT
 		     taskmanager_user.name,
@@ -65,11 +80,11 @@ class UserManagement(ToJson):
 
 
 class TablesManagement(ToJson):
+
 	def getTableInfo(self, link):
 		cursor = connection.cursor()
 
 		cursor.execute('''SELECT
-
 			''')
 		
 		return cursor.fetchall()
@@ -97,9 +112,6 @@ class TablesManagement(ToJson):
 		if color.startswith("#"):
 			color = color[1:]
 		ret = "#"
-		print(color)
-		print(color)
-		print(color)
 		for elem in color:
 			print(elem)
 			tmp = int(elem, 16) 
@@ -110,31 +122,48 @@ class TablesManagement(ToJson):
 			ret+=str(hex(tmp)[2:])
 		return ret
 	
-	def createTable(self, name, color, password):
-		
-		table = db.Tables(name=name, color=color, 
-			borderColor=self.makeBorderColor(color),
-			password=password)
-		table.save()
-		cursor = connection.cursor()
-		
-		cursor.execute('''SELECT url 
-			FROM taskmanager_tables
-			WHERE name = '%s' 
-			ORDER BY  id DESC '''%  name)
-		return cursor.fetchall()[0][0]
 
-	def addUserTable(self, user, table):
+	def createTable(self, name, color, password, user): #to opt
+		url = self.generate_url()
+		cursor = connection.cursor()
+		cursor.execute('''
+			insert into
+			   taskmanager_tables (name, url, color, borderColor, password) 
+			values
+			   (
+			      "%s", "%s", "%s", "%s","%s"
+			   ) '''% (name, url, color, self.makeBorderColor(color), password))
+		self.addUserTable(user=user, url=url)
+
+		return url
+
+	def addUserTable(self, user, url):
+		cursor = connection.cursor()
+
+		cursor.execute('''INSERT 
+				into taskmanager_particip (tableId_id, userId_id) 
+				values (
+				(select id from taskmanager_tables where url = '%s'),
+				(select id from taskmanager_user where name = '%s')
+				);
+				 '''%  (url, user))
+		return True
+
+
+
+	def getTableInfo(self, url):
 		cursor = connection.cursor()
 		try:
-			cursor.execute('''INSERT into taskmanager_particip (tableId_id, userId_id) 
-				values (
-			(select id from taskmanager_tables where name = '%s'),
-			(select id from taskmanager_user where name = '%s')
-			);
-			 '''%  (table, user))
-			return True
+			cursor.execute('''
+				SELECT * 
+				FROM taskmanager_tables
+				WHERE url = '%s'
+				;
+			 '''%  url)
+			return cursor.fetchall()
 		except:
 			return False
+
+
 
 

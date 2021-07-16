@@ -1,14 +1,19 @@
 /*taking user from one group*/
 SELECT
-     taskmanager_user.name,
-     taskmanager_tables.name
-     FROM
-     taskmanager_particip
-     LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
-     LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
-     WHERE
-     taskmanager_tables.name = "maintable";
+		 taskmanager_user.name as user,
+		 taskmanager_tables.name as table_name,
+		 taskmanager_tables.url as table_url,
+		 taskmanager_tables.color as table_color,
+		 taskmanager_tables.borderColor as table_b_color
+		 FROM
+		 taskmanager_particip
+		 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+		 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
 
+		 WHERE 
+		 table_name IS NOT NULL
+		 GROUP BY table_name
+		 ORDER BY taskmanager_tables.id DESC
 
 lol = cursor.execute('''
 
@@ -70,3 +75,106 @@ SELECT
  ;
 
 
+INSERT 
+into taskmanager_particip (tableId_id, userId_id) 
+values (
+(select id from taskmanager_tables where name = ''),
+(select id from taskmanager_user where name = '%s')
+);
+
+/*
+*
+*
+*	*	*	*	*	*	*	*
+*
+*
+*/
+/*---------main page*/
+list all tables with userid
+user.name.
+user.profile_pic
+
+table.name
+table.url
+table.color
+table.borderColor
+
+/*_______ views*/
+
+create view main_page_info as
+SELECT
+	 taskmanager_user.name as user,
+	 taskmanager_user.profImg as prof_pic,
+	 taskmanager_tables.id as table_id,
+	 taskmanager_tables.name as table_name,
+	 taskmanager_tables.url as table_url,
+	 taskmanager_tables.color as table_color,
+	 taskmanager_tables.borderColor as table_b_color
+	 
+	 FROM
+	 taskmanager_particip
+	 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+	 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id;
+/*_______ queries*/
+select * from main_page_info
+	 WHERE user = "admin" AND
+	 table_name IS NOT NULL
+	 GROUP BY table_name
+	 ORDER BY table_id DESC
+
+
+/*_____create_table*/
+
+
+/*______queries*/
+insert into
+   taskmanager_tables (name, url, color, borderColor, password) 
+values
+   (
+      "manual add", "asdfghjklpoiuyt", " # 555555", " # 222222", "password"
+   )
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS "taskmanager_particip" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "tableId_id" bigint NOT NULL REFERENCES "taskmanager_tables" ("id") DEFERRABLE INITIALLY DEFERRED, "userId_id" bigint NOT NULL REFERENCES "taskmanager_user" ("id") DEFERRABLE INITIALLY DEFERRED);
+## broken CREATE TABLE IF NOT EXISTS "taskmanager_user" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(100) NOT NULL, "password" varchar(100) NOT NULL, "profImg" varchar(100) NOT NULL DEFAULT "/static/img/profile.png" , "singupDate" datetime NOT NULL DEFAULT datetime('now') );
+CREATE TABLE IF NOT EXISTS "taskmanager_tables" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(100) NOT NULL, "url" varchar(16) NOT NULL, "color" varchar(7) NOT NULL, "borderColor" varchar(7) NOT NULL, "password" varchar(200) NOT NULL DEFAULT "");
+
+CREATE VIEW name as 
+SELECT
+		 taskmanager_user.name,
+		 taskmanager_tables.name,
+		 taskmanager_tables.url,
+		 taskmanager_tables.color,
+		 taskmanager_tables.borderColor
+		 FROM
+		 taskmanager_particip
+		 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+		 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+/* name(name,"name:1",url,color,borderColor) */;
+CREATE VIEW main_page_info as
+
+SELECT
+	 taskmanager_user.name as user,
+	 taskmanager_user.profImg as prof_pic,
+	 taskmanager_tables.id as table_id,
+	 taskmanager_tables.name as table_name,
+	 taskmanager_tables.url as table_url,
+	 taskmanager_tables.color as table_color,
+	 taskmanager_tables.borderColor as table_b_color
+	 
+	 FROM
+	 taskmanager_particip
+	 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+	 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+/* main_page_info(user,prof_pic,table_id,table_name,table_url,table_color,table_b_color) */;

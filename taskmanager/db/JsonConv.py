@@ -1,7 +1,15 @@
 from django.db import connection
+import random
 
 
 class ToJson(object):
+	def generate_url(self, lenght=16):
+		rstr = ""
+		for _ in range(lenght):
+		    integ = random.randint(97, 97 + 26 - 1)
+		    rstr += (chr(integ))
+		return rstr
+
 	def getTableCols(self, table):
 		cursor = connection.cursor()
 		cursor.execute('''
@@ -60,6 +68,6 @@ class ToJson(object):
 				'''% name)
 			users = cursor.fetchall()
 
-		return self.colsToData(self.getTableCols("taskmanager_user"), users, "name")
+		return self.colsToData(self.getTableCols("taskmanager_user"), users, "id")
 
 
