@@ -1,9 +1,9 @@
 import taskmanager.db.Db as db
 from django.db import connection
-from .JsonConv import ToJson
+from .dbutils import Ddbutils
 
 
-class UserManagement(ToJson):
+class UserManagement(Ddbutils):
 	def __init__(self):
 		self.name = ""
 		self.password = ""
@@ -79,7 +79,7 @@ class UserManagement(ToJson):
 		return cursor.fetchall()
 
 
-class TablesManagement(ToJson):
+class TablesManagement(Ddbutils):
 
 	def getTableInfo(self, link):
 		cursor = connection.cursor()

@@ -11,7 +11,9 @@ from taskmanager.forms.table_password_form  import Table_password
 
 class Tables(View):
 	def get(self, request, tableid):
-		
+		print(tableid)
+		print(tableid)
+		print(tableid)
 		info = Table().getTableInfo(url=tableid)[0]
 		if info[5] == "":
 			return HttpResponse(f"access  {info}")
@@ -19,9 +21,9 @@ class Tables(View):
 		try:
 			login = request.session["login"]
 			if login == None:
-				return HttpResponseRedirect("/login")
+				return HttpResponseRedirect(f"/login/{tableid}")
 		except:
-			return HttpResponseRedirect("/login")
+			return HttpResponseRedirect(f"/login/{tableid}")
 
 		userInfo = Table().listUsersTable(tablename=tableid)
 

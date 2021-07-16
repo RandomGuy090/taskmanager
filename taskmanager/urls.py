@@ -24,6 +24,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', landpg.Homepage.as_view(), name="index"),
     path('login/', login.Login.as_view(), name="login"),
+    path('login/<str:tableid>', login.Login.as_view(), name="login"),
     path('logout/', logout.Logout.as_view(), name="logout"),
     path('tables/<str:tableid>', tables.Tables.as_view(), name="table"),
     path('create/', create_table.Table.as_view(), name="create"),

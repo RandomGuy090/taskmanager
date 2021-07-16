@@ -122,19 +122,26 @@ select * from main_page_info
 	 GROUP BY table_name
 	 ORDER BY table_id DESC
 
-
+/**/
+/**/
 /*_____create_table*/
-
-
-/*______queries*/
-insert into
-   taskmanager_tables (name, url, color, borderColor, password) 
-values
-   (
-      "manual add", "asdfghjklpoiuyt", " # 555555", " # 222222", "password"
-   )
-
-
+just inserting data
+	
+/*create new table*/
+	insert into
+	   taskmanager_tables (name, url, color, borderColor, password) 
+	values
+	   (
+	      "%s", "%s", "%s", "%s","%s"
+	   ) % (name, url, color, self.makeBorderColor(color), password))
+		/*add new table to user*/
+			INSERT 
+			into taskmanager_particip (tableId_id, userId_id) 
+			values (
+			(select id from taskmanager_tables where url = '%s'),
+			(select id from taskmanager_user where name = '%s')
+			);
+			 %  (url, user)
 
 
 

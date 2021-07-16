@@ -2,7 +2,23 @@ from django.db import connection
 import random
 
 
-class ToJson(object):
+class Ddbutils(object):
+
+	def prepareDict(content, column, index):
+		'''
+		content e.g. =[('foo', 'bar')]
+		table e.g. = [('foo',), ('bar',)]
+		index e.g. = "table_id"
+		'''
+		ret = dict()
+		for user in users:
+			tmp = {}
+			for pos, val in enumerate(user):
+				tmp[table[pos][0]] = val
+			ret[tmp["table_url"]]= tmp
+
+		return ret
+		
 	def generate_url(self, lenght=16):
 		rstr = ""
 		for _ in range(lenght):

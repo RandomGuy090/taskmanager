@@ -6,11 +6,12 @@ from taskmanager.db.connector import UserManagement as User
 from taskmanager.forms.loginForm  import LoginForm
 
 class Login(View):
-	def get(self, request):
+	def get(self, request, tableid=""):
 		return render(request, "login.html", {
 			"title": "Log in"})
 	
-	def post(self, request):
+	def post(self, request, tableid=""):
+
 		form = LoginForm(request.POST)
 		print(form.is_valid())
 
@@ -23,6 +24,13 @@ class Login(View):
 		ret = User().getPassword(name=login)
 		if ret == password:	
 			request.session["login"] = login
+			print(tableid)
+			print(tableid)
+			print(tableid)
+			print(tableid)
+			if tableid  != "":
+				return HttpResponseRedirect(f"/tables/{tableid}")
+
 			return HttpResponseRedirect("/")
 
 
