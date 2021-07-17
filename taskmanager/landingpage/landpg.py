@@ -14,22 +14,14 @@ class Homepage(View):
 
 		if login == None:
 			return HttpResponseRedirect("/login")
-		res = {}
-		ret = []
 		
 		userInfo = User().getUserInfo(name=login)
-		data = User().getUsersTables(name=login)
-		print(data)
-		res["login"] = login
 
-		for elem in data:
-			tmp = dict()
-			tmp["name"] = elem[1]
-			tmp["url"] = elem[2]
-			tmp["color"] = elem[3]
-			tmp["border"] = elem[4]
-			ret.append(tmp)
+		data = User().getUsersTables(name=login)
+		res = {"name": login,
+			"posts":data}
 			
-		res["tables"] =  ret
+		
 		
 		return render(request, "homepage.html", res)
+		

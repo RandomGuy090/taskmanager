@@ -40,9 +40,10 @@
 	<a href="/logout" class="logout">
 		<div>Logout</div>
 	</a>
-	<p>{{ login }}</p>
+	<p>{{ user.name }}</p>
 	<img src="{% static 'img/profile.png'%}">
 </header>
+
 <content>
 
 	<a id="new_table" >
@@ -51,56 +52,20 @@
 		</div>
 	</a>
 
-{% for elem in tables %}
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: {{ elem.color }};
-								border-color: {{ elem.border }}">
-			<p>{{ elem.name }}</p>
+{% for elem in posts %}
+<p>{{ posts.elem.table_url }}</p>
+	<a href="/tables/{{ elem.table_url }}">
+		<div class="cal" style="background-color: {{ elem.table_color }};
+								border-color: {{ elem.table_b_color }}">
+			<p>{{ elem.table_name }}</p>
 		</div>
 	</a>
 {% endfor %}
 	
 
-<!-- 
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a>
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a>
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a>
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a>
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a>
-	<a href="/tables/{{ elem.url }}">
-		<div class="cal" style="background-color: red">
-			<p>asdf</p>
-		</div>
-	</a> -->
-
-
-
-
-
 </content>
 
- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	<script type="text/javascript" src="{% static 'script/newTable.js' %}"></script>
-	<!-- <script type="text/javascript" src="{% static 'script/homepage.js' %}"></script> -->
+	<script type="text/javascript" src="{% static 'script/homepage.js' %}"></script>
 
 {% endblock body %}

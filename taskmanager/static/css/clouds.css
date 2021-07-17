@@ -5,7 +5,7 @@
 }
 .cloud{ 
    margin-top:70px;
-   width:35vh;
+   width:350px;
    height:120px;
    background:#ECEFF1;
    box-shadow: 10px 10px rgba(0,0,0,0.2);
@@ -22,13 +22,13 @@
     width:10vh;
     height:10vh;
     top:-220px;
-    left:5vh;
+    left:50px;
 }
 .cloud::before{
     width:180px;
     height:180px;
     top: -70px;
-    left:13vh;
+    left:130px;
 }
 
 .cloud:first-child{
@@ -50,7 +50,7 @@
 	width:20vh;
     height:20vh;
     top:-30vh;
-    left:-3vh;
+    left:-30px;
 }
 
 .cloud{
@@ -65,7 +65,7 @@
 	background-color: white;
 	transform: scale(1) rotateY(180deg);
 	z-index: 1;
-	left: 5vh;
+	left: 50px;
 	margin-bottom: 10%;
 
 }
@@ -74,8 +74,8 @@
 	background-color: white;
 	transform: scale(1) rotateY(180deg);
 	z-index: 1;
-	left: -4vh;
-	top: -5vh;
+	left: -40px;
+	top: -50px;
 	margin-bottom: 10%;
 }
 

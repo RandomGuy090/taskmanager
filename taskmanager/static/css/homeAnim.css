@@ -1,7 +1,7 @@
 @keyframes size_up{
 	0.0000005%{
 		position: relative;
-		z-index: 99;
+
 		height: 15vw;
 		width: 15vw;
 		margin: -10% 1%;

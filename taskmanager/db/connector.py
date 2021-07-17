@@ -58,25 +58,22 @@ class UserManagement(Ddbutils):
 		except:
 			return False
 
-	def getUsersTables(self, name): #updated
+	def getUsersTables(self, name): 
 		cursor = connection.cursor()
 		cursor.execute('''SELECT
-		     taskmanager_user.name,
-		     taskmanager_tables.name,
-		     taskmanager_tables.url,
-		     taskmanager_tables.color,
-		     taskmanager_tables.borderColor
+		     *
 		     FROM
-		     taskmanager_particip
-		     LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
-		     LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
-		     WHERE taskmanager_user.name = '%s' AND
-		     taskmanager_tables.name IS NOT NULL
-		     GROUP BY taskmanager_tables.name
-		     ORDER BY taskmanager_tables.id DESC
+		     main_page_info
+		     WHERE user = '%s' AND
+		     user IS NOT NULL
+		     GROUP BY table_url
+		     ORDER BY table_id DESC
 			'''% name)
 
-		return cursor.fetchall()
+		cols = self.getColumn("main_page_info")
+		content = cursor.fetchall()
+
+		return self.queryToDict(content=content, column=cols)
 
 
 class TablesManagement(Ddbutils):

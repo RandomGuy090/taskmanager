@@ -93,7 +93,6 @@ values (
 list all tables with userid
 user.name.
 user.profile_pic
-
 table.name
 table.url
 table.color
@@ -115,6 +114,7 @@ SELECT
 	 taskmanager_particip
 	 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
 	 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id;
+
 /*_______ queries*/
 select * from main_page_info
 	 WHERE user = "admin" AND
@@ -144,7 +144,29 @@ just inserting data
 			 %  (url, user)
 
 
+/**/
+/**/
+/**/
+/* _____  tables*/
+taskamanager_tables.name  as table_name,
+taskamanager_user.name  as user,
+taskamanager_user.profImg  as user
 
+
+
+
+
+
+SELECT
+ *
+ FROM
+ taskmanager_particip
+ LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
+ LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
+ WHERE taskmanager_tables.url = "uqcdwfdvilywzcqv" AND
+ taskmanager_tables.name IS NOT NULL
+ GROUP BY user
+ ;
 
 
 
@@ -185,3 +207,7 @@ SELECT
 	 LEFT JOIN taskmanager_user ON taskmanager_particip.userId_id = taskmanager_user.id
 	 LEFT JOIN taskmanager_tables ON taskmanager_particip.tableId_id = taskmanager_tables.id
 /* main_page_info(user,prof_pic,table_id,table_name,table_url,table_color,table_b_color) */;
+
+
+
+

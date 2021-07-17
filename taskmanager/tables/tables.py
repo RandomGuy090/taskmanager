@@ -11,12 +11,9 @@ from taskmanager.forms.table_password_form  import Table_password
 
 class Tables(View):
 	def get(self, request, tableid):
-		print(tableid)
-		print(tableid)
-		print(tableid)
 		info = Table().getTableInfo(url=tableid)[0]
 		if info[5] == "":
-			return HttpResponse(f"access  {info}")
+			return HttpResponse(f"no password  {info}")
 
 		try:
 			login = request.session["login"]
@@ -31,11 +28,12 @@ class Tables(View):
 			pass
 		else:
 			return render(request, "table_pass.html", {})
-		return HttpResponse(userInfo)
+		
+		return render(request, "table_cal.html", {})
+		
 
 	
 	def post(self, request, tableid):
-		print(tableid)
 
 		try:
 			login = request.session["login"]
@@ -54,15 +52,11 @@ class Tables(View):
 		print(info)
 		if info[5] == password:
 			status = Table().addUserTable(user=login,url=info[2])
-			print(status)
-			print(status)
-			print(status)
-			print(status)
 		else:
 			return render(request, "table_pass.html", {"error": "invalid password"})
 
 		print("end")
-		return HttpResponse(f"access  {info}")
+		return HttpResponse(f"no password  {info}")
 
 
 

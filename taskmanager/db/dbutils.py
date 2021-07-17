@@ -4,21 +4,34 @@ import random
 
 class Ddbutils(object):
 
-	def prepareDict(content, column, index):
+	def getColumn(self, name):
+		cursor = connection.cursor()
+		cursor.execute('''
+			SELECT name FROM pragma_table_info('%s') 
+			JOIN (SELECT COUNT(*) FROM %s);
+
+			'''% (name, name))
+
+		return cursor.fetchall()
+
+	def queryToDict(self, content, column, index=""):
 		'''
 		content e.g. =[('foo', 'bar')]
 		table e.g. = [('foo',), ('bar',)]
 		index e.g. = "table_id"
 		'''
-		ret = dict()
-		for user in users:
+
+		# ret = dict()
+		ret = list()
+		for user in content:
 			tmp = {}
 			for pos, val in enumerate(user):
-				tmp[table[pos][0]] = val
-			ret[tmp["table_url"]]= tmp
+				tmp[column[pos][0]] = val
+			# ret[tmp[index]]= tmp
+			ret.append(tmp)
 
 		return ret
-		
+
 	def generate_url(self, lenght=16):
 		rstr = ""
 		for _ in range(lenght):

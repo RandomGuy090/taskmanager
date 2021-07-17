@@ -25,5 +25,6 @@ class Tables(models.Model):
 class Particip(models.Model):
 	userId = models.ForeignKey(User, on_delete=models.CASCADE)
 	tableId = models.ForeignKey(Tables, on_delete=models.CASCADE)
+	color = models.CharField(max_length=7, default="#BB7AF8")
 
 #FF0000
