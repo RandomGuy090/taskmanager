@@ -42,14 +42,30 @@ $("#send_task").click((event)=>{
 
 document.onclick = function(event){
 	var opWind =  document.getElementById("newTaskMenu")
-	
+	var errWin = document.getElementById("sendingError")
+
 	if(opWind.style["visibility"] == "visible"){
 		if (event.target.className.indexOf("nohid") == -1) {
-			opWind.style["visibility"] = "hidden";
+			console.log("aaaa")
+			
+			$("#newTaskMenu").animate({
+				bottom: "-40vh"
+			},1000, function(){
+				bottom: "0vh"
+				opWind.style["visibility"] = "hidden";
+			})
+			
 		}
 	}else{
+			console.log("bbbbbbbbb")
 		if(event.target.id.indexOf("addNewNote") != -1){
+
 			opWind.style["visibility"] = "visible";
+			$("#newTaskMenu").animate({
+				bottom: "0vh"
+			},1000, function(){
+				bottom: "-41vh"
+			})
 
 		}
 
@@ -155,27 +171,34 @@ function fetchMonth(year, month, day) {
 		"year": year,
 		"url": tableId,
 		}
+	$(".usedBy").empty()
 		post(url, ret)
   	.then(data => {
   	data.json().then( data =>{
   		data = data["tasks"];
+  		console.log(data)
 
   		for(i=0; i<data.length; i++){
   			var elem = data[i];
   			console.log(elem)
-  			console.log(elem["to_do_date"])
 
   			var day = elem["to_do_date"];
+  			console.log(day)
+
 
   			day = day.split("-")[2].split("T")[0];
+  			day = parseInt(day)
   			console.log(day)
 
   			
   			/*var divHandler = $(`dayCount_${day}`);*/
   			var divHandler = document.getElementsByClassName(`dayCount_${day}`)[0];
+  			/*divHandler.innerHTML = ""*/
 
             var lol = document.createElement("div");
             lol.style["background-color"] = elem["task_color"]
+
+  			
   			divHandler.append(lol)
   		
   		}

@@ -86,6 +86,20 @@ insert into taskmanager_user (name, password, profImg, singupDate) values
 
 
 select 
+* 
+from 
+get_tasks
+WHERE table_name IS NOT NULL 
+AND added_date IS NOT NULL 
+AND strftime('%%Y-%%m-%%d', to_do_date) >= date("2021-10-01")
+AND strftime('%%Y-%%m-%%d', to_do_date) <= date("2021-10-31")
+AND table_url = "eulmefqhqndhiviv"
+GROUP BY user_id, table_url, note_id
+ORDER BY to_do_date ASC
+
+
+
+select 
 taskmanager_table.id as id,
 tableNote
 FROM

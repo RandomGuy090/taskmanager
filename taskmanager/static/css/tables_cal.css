@@ -213,7 +213,7 @@ aside > header > .date{
 	visibility: hidden;
 	
 	right: 0;
-	bottom: 0;
+	bottom: -40vh;
 	z-index: 99;
 	background-color: #ffffff;
 	display: flex;
@@ -238,7 +238,12 @@ aside > header > .date{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	justify-content: center
+	 -moz-transition: width 1s; /* Firefox 4 */
+    -webkit-transition: width 1s; /* Safari and Chrome */
+    -o-transition: width 1s; /* Opera */
+
 }
 .menuinfo > div{
 	width: 100%;

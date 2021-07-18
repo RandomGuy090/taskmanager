@@ -300,13 +300,13 @@ class TasksManagement(Ddbutils):
 			get_tasks
 			WHERE table_name IS NOT NULL 
 			AND added_date IS NOT NULL 
-			AND strftime('%%Y-%%m-%%d', to_do_date) >= date("2021-%s-01")
-			AND strftime('%%Y-%%m-%%d', to_do_date) <= date("2021-%s-31")
+			AND strftime('%%Y-%%m-%%d', to_do_date) >= date("%s-%s-01")
+			AND strftime('%%Y-%%m-%%d', to_do_date) <= date("%s-%s-31")
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
 			ORDER BY to_do_date ASC
 			;
-			 '''%  (month, month, url))
+			 '''%  (year, month, year, month, url))
 		try:
 			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
