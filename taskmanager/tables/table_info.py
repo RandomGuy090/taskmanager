@@ -23,6 +23,7 @@ class Info(View):
 			login = request.session["login"]
 		except:
 			login = None;
+		login = "admin"
 
 		info = Table().getTableInfo(url=tableid)[0]
 		users = Table().listUsersTable(url=tableid)

@@ -33,27 +33,26 @@ JOIN taskmanager_taskcolor ON taskmanager_taskcolor.userId_id = user_id
 ;
 
 
-create view  get_tasks as
-SELECT
-taskmanager_tables.name  as table_name,
-taskmanager_user.name  as user,
-taskmanager_user.id  as user_id,
-taskmanager_user.profImg  as user_prof_pic,
+create view get_tasks as
+select  
+taskmanager_tables.name as table_name,
+taskmanager_user.name as user,
+taskmanager_user.id as user_id,
+taskmanager_user.profImg as user_prof_pic,
 taskmanager_tables.color as table_color,
 taskmanager_taskcolor.color as task_color,
 taskmanager_tables.url as table_url,
-taskmanager_particip.color_id as user_color,
-taskmanager_notes.id as note_id,
 taskmanager_notes.tableNote as note,
+taskmanager_notes.addedDate as added_date,
 taskmanager_notes.todoDate as to_do_date,
-taskmanager_notes.addedDate as added_date
-FROM
+taskmanager_notes.id as note_id
+
+from 
 taskmanager_notes
 JOIN taskmanager_user ON taskmanager_notes.userId_id = taskmanager_user.id
 JOIN taskmanager_tables ON taskmanager_notes.tableId_id = taskmanager_tables.id
-JOIN taskmanager_particip ON taskmanager_notes.userId_id = taskmanager_particip.userId_id
-JOIN taskmanager_taskcolor ON taskmanager_user.id = taskmanager_taskcolor.userId_id
-;
+JOIN taskmanager_taskcolor ON taskmanager_notes.userId_id = taskmanager_taskcolor.userId_id AND taskmanager_notes.tableId_id = taskmanager_taskcolor.tableId_id
+
 
 create view get_table_color as
 select 
@@ -82,35 +81,6 @@ insert into taskmanager_user (name, password, profImg, singupDate) values
 ("guest", "guest", "/img/profile.png","datetime('now')");
 
 
-id 
-tableNote   
-addedDate      
-todoDate       
-tableId_id 
-userId_id 
-id 
-name   
-password 
-singupDate    
-profImg      
-id 
-name      
-url        
-color  
-borderColor 
-password 
-passwordNeeded 
-id 
-color_id 
-tableId_id 
-userId_id 
-joinedDate      
-user_name 
-user_prof     
-user_color 
-table_name 
-table_url     
-table_color 
 
 
 
@@ -130,14 +100,62 @@ group by user_name
 
 WHERE table_name IS NOT NULL 
 AND added_date IS NOT NULL 
-AND strftime('%%Y-%%m-%%d', to_do_date) >= date("2021-%s-01")
-AND strftime('%%Y-%%m-%%d', to_do_date) <= date("2021-%s-31")
+AND strftime('%Y-%m-%d', to_do_date) >= date("2021-%s-01")
+AND strftime('%Y-%m-%d', to_do_date) <= date("2021-%s-31")
 AND table_url = "%s"
 GROUP BY user_id, table_url, note_id
 ORDER BY to_do_date ASC
 
 
 
+
+
+
+
+
+
+
+select * 
+from 
+get_tasks_info
+WHERE table_name IS NOT NULL 
+AND added_date IS NOT NULL 
+
+AND strftime('%Y-%m-%d', to_do_date) >= date("2021-07-01")
+AND strftime('%Y-%m-%d', to_do_date) <= date("2021-07-31")
+ORDER BY to_do_date ASC
+;
+
+
+GROUP BY note;
+ORDER BY todoDate ASC;
+
+select * from get_tasks_info
+GROUP BY user_id, table_url, note_id
+ORDER BY todoDate ASC;
+
+
+
+
+
+WHERE table_name IS NOT NULL 
+AND addedDate IS NOT NULL 
+AND strftime('%Y-%m-%d', todoDate) >= date("2021-08-01")
+AND strftime('%Y-%m-%d', todoDate) <= date("2021-08-31")
+AND table_url = "%s"
+
+
+select 
+* 
+from 
+get_tasks_info
+WHERE table_name IS NOT NULL 
+AND added_date IS NOT NULL 
+AND strftime('%Y-%m-%d', to_do_date) >= date("%s-01-01")
+AND strftime('%Y-%m-%d', to_do_date) <= date("%s-12-31")
+AND table_url = "ocrjjusneaoeqdtf"
+ORDER BY to_do_date ASC
+;
 
 
 

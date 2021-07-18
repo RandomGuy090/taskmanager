@@ -291,7 +291,7 @@ class TasksManagement(Ddbutils):
 		if len(str(month)) == 1:
 			month = f"0{month}"
 		
-		dateFrom = f"{year}-{month}-1"
+		dateFrom = f"{year}-{month}-01"
 		dateTo = f"{year}-{month}-31"
 		cursor.execute('''
 			select 
@@ -305,13 +305,15 @@ class TasksManagement(Ddbutils):
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
 			ORDER BY to_do_date ASC
-
 			;
-			
 			 '''%  (month, month, url))
 		try:
 			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
+			print("content")
+			print("content")
+			print("content")
+			print(content)
 			response = self.queryToDict(content=content, column=cols)
 			
 			if len(response) == 0:
@@ -349,8 +351,6 @@ class TasksManagement(Ddbutils):
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
 			ORDER BY to_do_date ASC
-
-
 			;
 			
 			 '''%  (year, year, url))

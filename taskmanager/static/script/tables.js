@@ -154,8 +154,14 @@ function fetchMonth(year, month, day) {
 
   		for(i=0; i<data.length; i++){
   			var elem = data[i];
+  			console.log(elem)
+  			console.log(elem["to_do_date"])
+
   			var day = elem["to_do_date"];
+
   			day = day.split("-")[2].split("T")[0];
+  			console.log(day)
+
   			
   			/*var divHandler = $(`dayCount_${day}`);*/
   			var divHandler = document.getElementsByClassName(`dayCount_${day}`)[0];
