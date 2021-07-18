@@ -1,3 +1,4 @@
+/*calendar*/
 var month = [
     "January",
     "February",
@@ -39,7 +40,7 @@ var YEAR = "";
 
 
 function getNextMonth() {
-	console.log("getNextMonth")
+    console.log("getNextMonth")
     monthDirection++;
     var current;
     var now = new Date();
@@ -52,7 +53,7 @@ function getNextMonth() {
 }
 
 function getPrevMonth() {
-	console.log("getPrevMonth")
+    console.log("getPrevMonth")
 
     monthDirection--;
     var current;
@@ -100,7 +101,7 @@ function getMonth(currentDay) {
 }
 
 function clearCalender() {
-	console.log("clearCalender")
+    console.log("clearCalender")
 
     $("table tbody tr").each(function() {
         $(this).find("td").removeClass("active selectable currentDay between hover").html("");
@@ -115,7 +116,7 @@ function clearCalender() {
 }
 
 function initCalender(monthData) {
-	console.log("initCalender")
+    console.log("initCalender")
 
     var row = 0;
     var classToAdd = "";
@@ -138,14 +139,6 @@ function initCalender(monthData) {
             }
             YEAR = value.date.year;
 
-            /*var month = $(".month").html();
-            var year = $(".year").html();*/
-
-            /*var month = month.indexOf($(".month").html()) +1*/
-
-            
-        	/*console.log(`init  day: ${day}  month: ${month} year: ${year}` )*/
-          
 
             
             $(".sideb .header .month").html(value.date.month);
@@ -186,10 +179,10 @@ function initCalender(monthData) {
             }
         });
     $("td.selectable").click(function() {
-    	var day = $(this).find(".day").html();
-    	var year = $(".year").html();
-    	var monthInt = month.indexOf($(".month").html()) + 1;
-    	/*console.log(`${day}.${monthInt}.${year}`)*/
+        var day = $(this).find(".day").html();
+        var year = $(".year").html();
+        var monthInt = month.indexOf($(".month").html()) + 1;
+        /*console.log(`${day}.${monthInt}.${year}`)*/
         
         clearLastClicked()
         this.style['background-color'] = "var(--3Col)";
@@ -227,7 +220,7 @@ $(".fa-angle-double-right").click(function() {
 });
 */
 /*function dateClickHandler(elem) {
-	console.log("dateClickHandler")
+    console.log("dateClickHandler")
 
 
     var day1 = parseInt($(elem).html());

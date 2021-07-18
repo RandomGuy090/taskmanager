@@ -1,4 +1,4 @@
-
+/*tables*/
 $("#send_task").click((event)=>{
 	var time = $("#hour_task").val();
 	var day = $("#day_task").val();
@@ -22,9 +22,13 @@ $("#send_task").click((event)=>{
 		data.json().then(d => {
 			
 			if (d["success"]) {
-				console.log("success")
-				fetchMonth()
 				/*window.location.reload()*/
+/*				 var day = $("#sideDay").html();
+   				 var monthX = $("#sideMonth").html();
+   				 monthX = month.indexOf(monthX)+1
+   				 var year = */
+				fetchMonth(YEAR, MONTH)
+
 			}else if(d["success"] == false){
 				var errDiv = document.getElementById("sendingError")
 				errDiv.style["visibility"] = "visible";
@@ -125,6 +129,8 @@ window.onload =  setTimeout(fetchMonth(), 1000)
 
 
 function fetchMonth(year, month, day) { 
+	console.log("fetch")
+
   	
 
 	var lol = new Date()
@@ -132,7 +138,7 @@ function fetchMonth(year, month, day) {
   	var day = (typeof day !== 'undefined') ? day : lol.getDate();;
 	var month = (typeof month !== 'undefined') ? month : lol.getMonth() + 1;
 	var year = (typeof year !== 'undefined') ? year : lol.getFullYear();
-
+	console.log(`${year} ${month} ${day}`)
 	
 
 
