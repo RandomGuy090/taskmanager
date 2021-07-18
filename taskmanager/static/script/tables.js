@@ -22,7 +22,9 @@ $("#send_task").click((event)=>{
 		data.json().then(d => {
 			
 			if (d["success"]) {
-				window.location.reload()
+				console.log("success")
+				fetchMonth()
+				/*window.location.reload()*/
 			}else if(d["success"] == false){
 				var errDiv = document.getElementById("sendingError")
 				errDiv.style["visibility"] = "visible";

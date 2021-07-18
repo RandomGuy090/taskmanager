@@ -274,23 +274,34 @@ $(".fa-angle-double-right").click(function() {
 }*/
 
 $(".fa-angle-left").click(function() {
+    console.log("getPrevMonth")
     clearLastClicked();
     getPrevMonth();
-    /*console.log(YEAR, MONTH, DAY)<*/
+    console.log(YEAR, MONTH, DAY)
+    
     $(".main").addClass("is-rotated-left");
     setTimeout(function() {
         $(".main").removeClass("is-rotated-left");
     }, 195);
+    setTimeout(function(){
     fetchMonth(YEAR, MONTH, DAY)
+    }, 100)
 });
 
 $(".fa-angle-right").click(function() {
+    console.log("getNextMonth")
     clearLastClicked();
     getNextMonth();
+    console.log(YEAR, MONTH, DAY)
+
     $(".main").addClass("is-rotated-right");
     setTimeout(function() {
         $(".main").removeClass("is-rotated-right");
     }, 195);
-
-    fetchMonth(YEAR, MONTH, DAY)
+    console.log(document.getElementsByClassName(`dayCount_1`))
+    
+    
+        console.log("loop")
+        fetchMonth(YEAR, MONTH, DAY)
+        
 });
