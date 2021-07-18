@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .loging import login, logout
-from .tables import tables, create_table
+from .tables import tables, create_table, table_info, create_task
 from .landingpage import landpg
 
 urlpatterns = [
@@ -26,6 +26,10 @@ urlpatterns = [
     path('login/', login.Login.as_view(), name="login"),
     path('login/<str:tableid>', login.Login.as_view(), name="login"),
     path('logout/', logout.Logout.as_view(), name="logout"),
+    path('tables/', tables.Tables.as_view(), name="table"),
     path('tables/<str:tableid>', tables.Tables.as_view(), name="table"),
     path('create/', create_table.Table.as_view(), name="create"),
+    path('create/task/<str:tableid>', create_task.Task.as_view(), name="create_task"),
+    path('info/<str:tableid>', table_info.Info.as_view(), name="info"),
+
 ]

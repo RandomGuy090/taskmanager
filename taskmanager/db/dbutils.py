@@ -20,15 +20,20 @@ class Ddbutils(object):
 		table e.g. = [('foo',), ('bar',)]
 		index e.g. = "table_id"
 		'''
-
-		# ret = dict()
 		ret = list()
+		if index != "":
+			ret = dict()
+
 		for user in content:
 			tmp = {}
 			for pos, val in enumerate(user):
 				tmp[column[pos][0]] = val
-			# ret[tmp[index]]= tmp
-			ret.append(tmp)
+			
+			if index != "":
+				ret[tmp[index]]= tmp
+			else:
+				ret.append(tmp)
+
 
 		return ret
 
@@ -98,5 +103,13 @@ class Ddbutils(object):
 			users = cursor.fetchall()
 
 		return self.colsToData(self.getTableCols("taskmanager_user"), users, "id")
+
+	def genColor(self):
+		ret = "#"
+		for i in range(3):
+			r = random.randrange(0, 255)
+			r = hex(r)[2:]
+			ret += r
+		return ret
 
 

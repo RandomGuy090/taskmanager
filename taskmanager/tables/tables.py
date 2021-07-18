@@ -10,26 +10,53 @@ from taskmanager.forms.table_password_form  import Table_password
 
 
 class Tables(View):
-	def get(self, request, tableid):
+	def get(self, request, tableid=""):
+		if tableid == "":
+			# table not found
+			return HttpResponseRedirect("/")
+
 		info = Table().getTableInfo(url=tableid)[0]
-		if info[5] == "":
-			return HttpResponse(f"no password  {info}")
-
+		# userInfo = Table().listUsersTable(url=tableid)
+		userInfo = Table().getTableColor(url=tableid)
 		try:
-			login = request.session["login"]
-			if login == None:
-				return HttpResponseRedirect(f"/login/{tableid}")
+			login =  request.session["login"]
 		except:
-			return HttpResponseRedirect(f"/login/{tableid}")
+			login = None;
 
-		userInfo = Table().listUsersTable(tablename=tableid)
+	
+		ret = {
+		 	"users": userInfo,
+		 	"login": login
+		}
 
-		if login in str(userInfo):
-			pass
-		else:
-			return render(request, "table_pass.html", {})
 		
-		return render(request, "table_cal.html", {})
+		if info["password"] == "":
+			# no password needed
+			print("passowrd not required")
+			# no passed but add table to user
+			if login != None:
+				status = Table().addUserTable(user=login,url=info["url"])
+				return render(request, "table_cal.html", ret)
+			else:
+			# bo passed and no user
+				return render(request, "table_cal.html", ret)
+
+		
+
+		if login == None:
+			# user not logged in and password needed
+			return HttpResponseRedirect(f"/login/{tableid}")
+		
+		print("_----------------login")
+		print(login)
+		print(str(userInfo))
+
+		if not login in str(userInfo):
+			# user has to enter password
+			return render(request, "table_pass.html" )
+		# user logged in, password already entered
+
+		return render(request, "table_cal.html", ret)
 		
 
 	
@@ -43,20 +70,23 @@ class Tables(View):
 		form = Table_password(request.POST)
 
 		if not form.is_valid():
+			#invalid password
 			return render(request, "table_pass.html", {"error": "invalid password"})
 		
 
 		password = form.cleaned_data["password"]
 		info = Table().getTableInfo(url=tableid)[0]
 		
-		print(info)
-		if info[5] == password:
-			status = Table().addUserTable(user=login,url=info[2])
+		if info["password"] == password:
+			#password ok, adding user to table
+
+			status = Table().addUserTable(user=login,url=info["url"])
 		else:
+			# password not ok, returning error
 			return render(request, "table_pass.html", {"error": "invalid password"})
 
-		print("end")
-		return HttpResponse(f"no password  {info}")
+		# post ok password 
+		return HttpResponseRedirect(f"/tables/{tableid}")
 
 
 

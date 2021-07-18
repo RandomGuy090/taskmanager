@@ -40,7 +40,7 @@ function sendTable(){
 	var req = new XMLHttpRequest();
 	var url = window.location.href + "create/"
 	var vals = getVals();
-	console.log(vals)
+	
 	
 	var token = document.getElementsByName("csrfmiddlewaretoken")[0].value
 	var header = {"X-CSRFToken": token};
@@ -54,7 +54,7 @@ function sendTable(){
   .then(response => response.json())
   .then(data => {
   	loadLink(window.location.href +"tables/"+ data["url"])
-  	console.log(window.location.href +"tables/"+ data["url"])
+  	
 
   });
 

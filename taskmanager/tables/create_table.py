@@ -14,6 +14,11 @@ class Table(View):
 
 	def post(self, request):
 		user =  request.session["login"]
+		if user == None:
+			return JsonResponse({
+				"success": False,
+				"error": "login first"
+				})
 
 		vals = request.body.decode("utf-8")
 		vals = json.loads(vals)

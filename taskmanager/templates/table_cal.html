@@ -11,133 +11,67 @@
 
 {% block body %}
 
-	<nav>
+
+
+	<div id="newTaskMenu" class="nohid">
+		<div class="menuHeader" class="nohid">
+			<span class="nohid">New task:</span>
+		</div>
+		<div class="menuinfo nohid" >
+			<div>
+				<label for="hour_task" class="nohid">Hour:</label>
+				<label for="day_task" class="nohid">day:</label>
+				
+			</div>
+			<div>
+				<input type="time" id="hour_task" name="hour_task" class="nohid">
+				<input type="date" id="day_task" name="day_task" class="nohid">
+				
+			</div>
+
+			<label for="task_name" class="nohid">Task:</label>
+			<input type="text"  id="task_name" name="task_name" class="nohid">
 		
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
+			<input type="button" id="send_task" name="AddTask" value="Add task" class="nohid">
+			<div id="sendingError" class="nohid">
+			</div>
 		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
+	</div>
 
 
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
 
+<style type="text/css">
+	:root{
+		--3Col: {{ users.0.table_color }};
+	}
+</style>
+<!-- {{ users }} -->
+<!-- style="var(--3Col) = {{ users.0.table_color }}" -->
+	<nav> 
+		{% for elem in users %}
 		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
+			<img src="{% static elem.user_prof %}" class="profPic">
+			<p
+			{% if login == elem.user_name %}
+			style="
+				color: {{ elem.user_color }};
+				font-size: 2em;
+			{% endif %}
+			"
+			>
+			{{ elem.user_name }} {{ elem.task_color }} </p>
+			<div class="color" style="background-color: {{ elem.user_color }}"></div>
 		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
+		{% endfor %}
 
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div><div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-		<div class="user">
-			<img src="/static/img/profile.png" class="profPic">
-			<p>name</p>
-			<div class="color"></div>
-		</div>
-
+		<a  href="/">
+			<span>Go home</span>
+			
+		</a>
 	</nav>
 
 	<content>
-		<div class="title"> TITLE table</div>
+		<div class="title"> {{ users.0.table_name}}</div>
 		 <div class="main">
 
 			  <div class="sideb">
@@ -224,69 +158,35 @@
 			</div>
 
 	</content>
-
 	
 	<aside>
-		<header></header>
+		<header style="background-color: ">
+			
+			<div class="date">
+				<span id="sideDay" >12</span>
+				<span id="sideMonth" >july</span>
+			</div>
+
+		</header>
 		<div class="notes">
-			<div class="note">
-				<div class="hour">14:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">15:00</div>
-				<div class="author"> admin </div>
-				<div class="task">repair a car </div>
-			</div>
-			<div class="note">
-				<div class="hour">16:00</div>
-				<div class="author"> admin </div>
-				<div class="task">repair a car </div>
-			</div>
-			<div class="note">
-				<div class="hour">14:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">17:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">17:40</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">16:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">14:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">23:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
-			<div class="note">
-				<div class="hour">23:00</div>
-				<div class="author"> admin </div>
-				<div class="task">carcarcarcar carcarcarc arcarcarcarcarcarc arcarcarcarcar carcarcarcarcarcara rcarcarcarcarcarca rcarcarcarcar arcarcarcarca rcarcarcarcar carcar arcarcarcarcarca rcarcarcarcarcar arcarcarcarXXX </div>
-			</div>
 
 		</div>
+		{% if login !=  None %}
+		<div id="addNewNote" style="background-color: {{ users.0.table_color }}">
+			<div>
+				<img src="{% static 'img/add_new_Black.png' %}">
+				<span>Add new task</span>
+			</div>
+		</div>
+		{% endif %}
+
 	</aside>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  
 	<!-- <script type="text/javascript" src="{% static 'script/homepage.js' %}"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'script/calender.js' %}"></script>
+	<script type="text/javascript" src="{% static 'script/tables.js' %}"></script>
     
 
 {% endblock body %}

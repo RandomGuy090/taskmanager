@@ -31,6 +31,12 @@ var weekdayShort = [
     "sat"
 ];
 var monthDirection = 0;
+var lastClicked = "";
+
+var DAY = "";
+var MONTH = "";
+var YEAR = "";
+
 
 function getNextMonth() {
 	console.log("getNextMonth")
@@ -67,7 +73,6 @@ Date.prototype.isSameDateAs = function(pDate) {
 };
 
 function getMonth(currentDay) {
-	console.log("getMonth")
 
     var now = new Date();
     var currentMonth = month[currentDay.getMonth()];
@@ -125,6 +130,14 @@ function initCalender(monthData) {
             var column = 0;
             var index = i + 1;
 
+            DAY = value.date.day;
+            MONTH = ""+(month.indexOf(value.date.month)+1);
+
+            if (MONTH.length == 1) {
+                MONTH = "0"+MONTH;
+            }
+            YEAR = value.date.year;
+
             /*var month = $(".month").html();
             var year = $(".year").html();*/
 
@@ -132,7 +145,9 @@ function initCalender(monthData) {
 
             
         	/*console.log(`init  day: ${day}  month: ${month} year: ${year}` )*/
+          
 
+            
             $(".sideb .header .month").html(value.date.month);
             $(".sideb .header .year").html(value.date.year);
             if (value.date.current_day) {
@@ -159,11 +174,12 @@ function initCalender(monthData) {
             dayDiv.innerHTML = day
             var usedBy = document.createElement("div");
             usedBy.className = "usedBy"
+            usedBy.className += ` dayCount_${day}`
 
             lol.append(dayDiv);
             lol.append(usedBy);
             
-            console.log(lol)
+            /*console.log(lol)*/
             currentDay = "";
             if (column == 6) {
                 row++;
@@ -173,13 +189,37 @@ function initCalender(monthData) {
     	var day = $(this).find(".day").html();
     	var year = $(".year").html();
     	var monthInt = month.indexOf($(".month").html()) + 1;
-    	console.log(`${day}.${monthInt}.${year}`)
+    	/*console.log(`${day}.${monthInt}.${year}`)*/
+        
+        clearLastClicked()
+        this.style['background-color'] = "var(--3Col)";
+        lastClicked = this;
+
+        /*$(this).style("bacground-color var(--3Col); ");*/
+        changeDateSide(day, monthInt)
         /*here to handle click*/
+
+        click(day, monthInt, year)
+
         /*dateClickHandler($(this));*/
     });
 }
 initCalender(getMonth(new Date()));
 
+
+function clearLastClicked(){
+    if(lastClicked != ""){
+        lastClicked.style['background-color'] = "transparent";
+    }
+        
+
+}
+function changeDateSide(day, monthInt){
+    console.log("changeDateSide")
+    $("#sideDay").html(day);
+    $("#sideMonth").html(month[monthInt-1]);
+
+}
 /*var clickCounter = 0;
 $(".fa-angle-double-right").click(function() {
     $(".right-wrapper").toggleClass("is-active");
@@ -234,17 +274,23 @@ $(".fa-angle-double-right").click(function() {
 }*/
 
 $(".fa-angle-left").click(function() {
+    clearLastClicked();
     getPrevMonth();
+    /*console.log(YEAR, MONTH, DAY)<*/
     $(".main").addClass("is-rotated-left");
     setTimeout(function() {
         $(".main").removeClass("is-rotated-left");
     }, 195);
+    fetchMonth(YEAR, MONTH, DAY)
 });
 
 $(".fa-angle-right").click(function() {
+    clearLastClicked();
     getNextMonth();
     $(".main").addClass("is-rotated-right");
     setTimeout(function() {
         $(".main").removeClass("is-rotated-right");
     }, 195);
+
+    fetchMonth(YEAR, MONTH, DAY)
 });
