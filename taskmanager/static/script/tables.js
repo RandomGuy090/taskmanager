@@ -140,9 +140,27 @@ function parseTime(time){
 }
 
 
-window.onload =  setTimeout(fetchMonth(), 1000)
+window.onload =  setTimeout(x=>{
+		fetchMonth();
+		changeMainColor()
+	}
+	, 1000)
 
+function changeMainColor(){
+	var color =  $("body").css("--3Col").substring(2);
+	var x = Array()
+	x.push(`${color[0]}${color[1]}`)
 
+	x.push(`${color[2]}${color[3]}`)
+	x.push(`${color[4]}${color[5]}`)
+	console.log(x)
+	/*css("background-color", "")*/
+	if (x[0] == x[1] && x[0] == x[2]) {
+		console.log("similar")
+		/*$("body").css("--3Col", "#656565")*/
+		  $("body").get(0).style.setProperty("--3Col", "#656565");
+	}
+}
 
 function fetchMonth(year, month, day) { 
 	console.log("fetch")

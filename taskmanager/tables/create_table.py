@@ -38,5 +38,13 @@ class Table(View, Sec):
 
 		return JsonResponse({"url":url})
 
+	def changeBlackColor(self, color):
+		color = color[1:]
+		color = int(color[:2],16),int(color[2:4],16), int(color[4:],16)
+		if color[0] == color[1] and color[0] == color[2]:
+			if color[0] < 70:
+				color = "#656565"
+				return color
+
 
 
