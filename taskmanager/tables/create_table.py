@@ -7,10 +7,12 @@ import json
 
 from taskmanager.db.connector import UserManagement as User
 from taskmanager.db.connector import TablesManagement as Tbl
+from taskmanager.sec.secutils import Security as Sec
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class Table(View):
+class Table(View, Sec):
 
 	def post(self, request):
 		user =  request.session["login"]
@@ -22,6 +24,9 @@ class Table(View):
 
 		vals = request.body.decode("utf-8")
 		vals = json.loads(vals)
+		
+		vals = self.antiXSS(vals)
+
 		name = vals["title"]
 		color = vals["color"]
 		password = vals["password"]

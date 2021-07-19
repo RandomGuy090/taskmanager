@@ -46,11 +46,6 @@ class Tables(View):
 		if login == None:
 			# user not logged in and password needed
 			return HttpResponseRedirect(f"/login/{tableid}")
-		
-		print("_----------------login")
-		print(login)
-		print(str(userInfo))
-
 		if not login in str(userInfo):
 			# user has to enter password
 			return render(request, "table_pass.html" )

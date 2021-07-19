@@ -45,7 +45,9 @@ class Info(View):
 
 		vals = request.body
 		vals = json.loads(vals)
+		
 		print(vals)
+
 		day = vals["day"] if "day" in vals else False
 		month = vals["month"] if "month" in vals else False
 		year = vals["year"] if "year" in vals else False
@@ -69,11 +71,6 @@ class Info(View):
 			"status": False,
 			"error": "not enough data"
 			}
-
-
-
-		print(f"""{day} {month} {year} {url}""")
-		print({	"tasks": tasks	})
 
 		return JsonResponse({
 			"tasks": tasks
