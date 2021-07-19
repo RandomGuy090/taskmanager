@@ -25,7 +25,7 @@ class Table(View, Sec):
 		vals = request.body.decode("utf-8")
 		vals = json.loads(vals)
 		
-		vals = self.antiXSS(vals)
+		vals = self.makeSafe(vals)
 
 		name = vals["title"]
 		color = vals["color"]

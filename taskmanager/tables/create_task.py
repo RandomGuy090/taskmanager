@@ -31,7 +31,7 @@ class Task(View, Sec):
 		# anti xss parsing
 		vals = json.loads(vals)
 		
-		vals = self.antiXSS(vals)
+		vals = self.makeSafe(vals)
 
 		print(vals)
 

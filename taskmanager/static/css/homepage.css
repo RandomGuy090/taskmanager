@@ -50,9 +50,10 @@ content{
 	text-decoration: none; 
 }
 a, .new_cal{
-	margin: 1%;
-	text-decoration: none; 
-	height: 10vw;
+    margin: 1%;
+    text-decoration: none;
+    height: 10vw;
+    margin-right: 2%;
 }
 .cal{
 	height: 10vw;

@@ -1,6 +1,11 @@
 import json
 
 class Security(object):
+	def makeSafe(self, elem):
+		elem = self.antiXSS(elem)
+
+		return elem
+		
 	def antiXSS(self, dicElem):
 		for elem in dicElem:
 			dicElem[elem] = dicElem[elem].replace("'"," &#x27")

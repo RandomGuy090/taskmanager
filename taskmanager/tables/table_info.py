@@ -6,19 +6,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 from taskmanager.db.connector import TasksManagement as Task
 from taskmanager.db.connector import TablesManagement as Table
+from taskmanager.sec.secutils import Security as Sec
+
 
 import json
 
 @method_decorator(csrf_exempt, name='dispatch')
-class Info(View):
+class Info(View, Sec):
 	def post(self, request, tableid=""):
-		# if tableid == "":
-		# 	# table not found
-		# 	return JsonResponse({
-		# 		"success": False,
-		# 		"error": "table id not found"
-		# 		})
-
 		try:
 			login = request.session["login"]
 		except:
@@ -29,22 +24,9 @@ class Info(View):
 		users = Table().listUsersTable(url=tableid)
 
 
-		# if login == None and info["password"] != "":
-		# 	return JsonResponse({
-		# 		"success": False,
-		# 		"error": "join table first"
-		# 		})
-
-		# if not login in str(users):
-		# 	# user has to enter password
-
-		# 	return JsonResponse({
-		# 		"success": False,
-		# 		"error": "join table first"
-		# 		})
-
 		vals = request.body
 		vals = json.loads(vals)
+		vals = self.makeSafe(vals)
 		
 		print(vals)
 

@@ -10,17 +10,12 @@ class Homepage(View):
 		try:
 			login = request.session["login"]
 			print("login")
-			print(login)
-			print(login)
-			print(login)
 		except:
 			return HttpResponseRedirect("/login")
 
 		if login == None:
 			return HttpResponseRedirect("/login")
 		
-		# userInfo = User().getUserInfo(name=login)
-
 		data = User().getUsersTables(name=login)
 		res = {"name": login,
 			"posts":data}
