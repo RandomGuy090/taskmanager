@@ -20,7 +20,8 @@ form{
 .loginSpace{
 	display: flex;
 	flex-direction: column;
-	width: 30%;
+	/*width: 30%;*/
+	min-width: 25vw;
 	background-color: #E4E4E4;
 	z-index: 10;
 	align-items: center;

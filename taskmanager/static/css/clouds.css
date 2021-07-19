@@ -2,8 +2,11 @@
 .sky{
 	display: flex;
 	align-items: flex-end;
+	height: 100%;
+	width: 100%
 }
 .cloud{ 
+	position: absolute;
    margin-top:70px;
    width:350px;
    height:120px;
@@ -41,7 +44,7 @@
 	z-index: 1;
 	margin-bottom: 15%;
 	margin-left: 13%;
-	animation: example 64s infinite;
+	animation: movefirst 10s infinite;
 
 }
 .cloud:first-child:after{
@@ -57,7 +60,7 @@
 	transform: scale(2);
 	z-index: 1;
 	margin-bottom: 10%;
-	animation: example 16s infinite;
+	animation: moveMiddle 10s infinite;
 
 }
 
@@ -86,6 +89,6 @@
 	z-index: 1;
 	margin-bottom: 10%;
 
-	animation: example 10s infinite;
+	animation: movelast 10s infinite;
 }
 
