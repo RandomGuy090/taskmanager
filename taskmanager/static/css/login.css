@@ -29,6 +29,7 @@ form{
 input{
 	margin: 5% 10%;
 	height: 5%;
+	min-height:45px;
 	width: 80%;
 	border-radius: 5px;
 	border-color: #DCDCDC;
@@ -47,7 +48,6 @@ input[type="submit"]{
 }
 
 .error{
-	
 	display: flex;
 	background-color: red;
 	text-align: center;

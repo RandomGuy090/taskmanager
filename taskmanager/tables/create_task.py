@@ -27,8 +27,8 @@ class Task(View, Sec):
 
 
 		vals = request.body.decode("utf-8")
-		print(vals)
-		# anti xss parsing
+		
+
 		vals = json.loads(vals)
 		
 		vals = self.makeSafe(vals)

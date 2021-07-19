@@ -24,10 +24,6 @@ class Login(View):
 		ret = User().getPassword(name=login)
 		if ret == password:	
 			request.session["login"] = login
-			print(tableid)
-			print(tableid)
-			print(tableid)
-			print(tableid)
 			if tableid  != "":
 				return HttpResponseRedirect(f"/tables/{tableid}")
 
