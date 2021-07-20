@@ -47,7 +47,9 @@ class Notes(models.Model):
 	tableId = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	tableNote = models.CharField(max_length=500, default="")
 	addedDate = models.DateTimeField(auto_now_add=True, blank=True)
-	todoDate = models.DateTimeField(blank=True)
+	todoDate_start = models.DateTimeField(blank=True)
+	# todoDate_end = models.DateTimeField(blank=True)
+
 
 	
 
