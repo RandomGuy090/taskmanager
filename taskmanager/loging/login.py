@@ -16,10 +16,15 @@ class Login(View):
 		print(form.is_valid())
 
 		if not form.is_valid():
-			return HttpResponseRedirect("/login")
+			return render(request, "login.html", {
+				"title": "Log in",
+				"error": "invalid login or password"})
+
 
 		login = form.cleaned_data["login"]
 		password = form.cleaned_data["password"]
+
+
 
 		ret = User().getPassword(name=login)
 		if ret == password:	
