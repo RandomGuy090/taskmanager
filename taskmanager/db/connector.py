@@ -300,11 +300,11 @@ class TasksManagement(Ddbutils):
 			get_tasks
 			WHERE table_name IS NOT NULL 
 			AND added_date IS NOT NULL 
-			AND strftime('%%Y-%%m-%%d', to_do_date) >= date("%s-%s-01")
-			AND strftime('%%Y-%%m-%%d', to_do_date) <= date("%s-%s-31")
+			AND strftime('%%Y-%%m-%%d', to_do_date_start) >= date("%s-%s-01")
+			AND strftime('%%Y-%%m-%%d', to_do_date_end) <= date("%s-%s-31")
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
-			ORDER BY to_do_date ASC
+			ORDER BY to_do_date_start ASC
 			;
 			 '''%  (year, month, year, month, url))
 		try:
@@ -346,11 +346,11 @@ class TasksManagement(Ddbutils):
 			get_tasks
 			WHERE table_name IS NOT NULL 
 			AND added_date IS NOT NULL 
-			AND strftime('%%Y-%%m-%%d', to_do_date) >= date("%s-01-01")
-			AND strftime('%%Y-%%m-%%d', to_do_date) <= date("%s-12-31")
+			AND strftime('%%Y-%%m-%%d', to_do_date_start) >= date("%s-01-01")
+			AND strftime('%%Y-%%m-%%d', to_do_date_end) <= date("%s-12-31")
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
-			ORDER BY to_do_date ASC
+			ORDER BY to_do_date_start ASC
 			;
 			
 			 '''%  (year, year, url))
@@ -398,18 +398,18 @@ class TasksManagement(Ddbutils):
 			get_tasks
 			WHERE table_name IS NOT NULL 
 			AND added_date IS NOT NULL 
-			AND strftime('%%Y-%%m-%%d', to_do_date) >= date("%s-%s-%s")
-			AND strftime('%%Y-%%m-%%d', to_do_date) <= date("%s-%s-%s")
+			AND strftime('%%Y-%%m-%%d', to_do_date_start) >= date("%s-%s-%s")
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
-			ORDER BY to_do_date ASC
+			ORDER BY to_do_date_start ASC
 			;
 			
-			 '''%  (year,month, day, year,month, day, url))
+			 '''%  (year,month, day, url))
 		try:
 			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
 			response = self.queryToDict(content=content, column=cols)
+			print(response)
 			
 			if len(response) == 0:
 				response= {
@@ -426,18 +426,18 @@ class TasksManagement(Ddbutils):
 
 			return response
 
-	def createTask(self, date, user, content, url):
+	def createTask(self, date_start, date_end, user, content, url):
 		cursor = connection.cursor()
 		cursor.execute('''
 		insert into taskmanager_notes 
-		(tableNote, addedDate, todoDate, tableId_id, userId_id) 
+		(tableNote, addedDate, todoDate_start, todoDate_end, tableId_id, userId_id) 
 		
-		values("%s", datetime("now"), "%s", 
+		values("%s", datetime("now"), "%s", "%s", 
 		(select id from taskmanager_tables where url = "%s"),
 		(select id from taskmanager_user where name = "%s")
 		)
 		;
-		'''%  (content ,date ,url, user))
+		'''%  (content ,date_start, date_end ,url, user))
 		try:
 			return True
 		except :

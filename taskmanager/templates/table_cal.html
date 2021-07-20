@@ -12,19 +12,21 @@
 {% block body %}
 
 
-
+	
 	<div id="newTaskMenu" class="nohid">
 		<div class="menuHeader" class="nohid">
 			<span class="nohid">New task:</span>
 		</div>
 		<div class="menuinfo nohid" >
 			<div>
-				<label for="hour_task" class="nohid">Hour:</label>
+				<label for="hour_task" class="nohid">Hour start:</label>
+				<label for="hour_task" class="nohid">Hour end:</label>
 				<label for="day_task" class="nohid">day:</label>
 				
 			</div>
 			<div>
-				<input type="time" id="hour_task" name="hour_task" class="nohid">
+				<input type="time" id="hour_task_start" name="hour_task" class="nohid">
+				<input type="time" id="hour_task_end" name="hour_task" class="nohid">
 				<input type="date" id="day_task" name="day_task" class="nohid">
 				
 			</div>

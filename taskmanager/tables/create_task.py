@@ -34,22 +34,28 @@ class Task(View, Sec):
 		vals = self.makeSafe(vals)
 
 		print(vals)
+		
 
-
-		time = vals["time"]
+		time_start = vals["time_start"]
+		time_end = vals["time_end"]
 		day = vals["day"]
 		task = vals["task"]
-		date = f"{day} {time}:00"
-		if time == "" or day == "" or task == "":
+		
+		if time_start == "" or 	\
+			time_start == "" or \
+			day == "" or 		\
+			task == "":
 			print("not enough data")
 			return JsonResponse({
 				"success": False,
 				"error": "time input failure"
 				})
 
+		date_start = f"{day} {time_start}:00"
+		date_end = f"{day} {time_end}:00"
 
 
-		Tsk().createTask(date=date, user=login, content=task, url=tableid)
+		Tsk().createTask(date_start=date_start, date_end=date_end, user=login, content=task, url=tableid)
 	
 		return JsonResponse({
 				"success": True,

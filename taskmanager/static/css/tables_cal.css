@@ -18,6 +18,7 @@ nav	{
 
     display: flex;
     flex-direction: column;
+    user-select: none;
 
 }
 
@@ -66,6 +67,7 @@ aside{
 	 -moz-transition: width 1s; /* Firefox 4 */
     -webkit-transition: width 1s; /* Safari and Chrome */
     -o-transition: width 1s; /* Opera */
+    user-select: none;
 
 }
 aside:hover{
@@ -251,11 +253,23 @@ aside > header > .date{
 	justify-content: space-around;
 
 }
-.menuinfo > div > input, .menuinfo > input {
+/*.menuinfo > div > input, .menuinfo > input {
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}*/
+
+.menuinfo > input {
 	width: 40%;
 	height: 5vh;
 	font-size: 120%;
 }
+input[type=time]{
+	width: 30%;
+	height: 5vh;
+	font-size: 120%;
+}
+
 input[name=task_name]{
 	width: 80%;
 

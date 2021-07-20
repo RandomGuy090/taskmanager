@@ -1,6 +1,7 @@
 /*tables*/
 $("#send_task").click((event)=>{
-	var time = $("#hour_task").val();
+	var time_start = $("#hour_task_start").val();
+	var time_end = $("#hour_task_end").val();
 	var day = $("#day_task").val();
 	var task = $("#task_name").val();
 
@@ -8,10 +9,12 @@ $("#send_task").click((event)=>{
 	day = day.split("-");
 	day = `${day[2]}-${day[1]}-${day[0]}`*/
 	ret = {
-		"time": time,
+		"time_start": time_start,
+		"time_end": time_end,
 		"day": day,
 		"task": task
 	}
+	console.log(ret)
 	var tableId = window.location.href.substring(window.location.href.lastIndexOf("/")+1)
 	var url = window.location.origin + `/create/task/${tableId}`
 
@@ -108,6 +111,7 @@ function click(day, month, year){
 	post(url, ret)
   .then(data => {
   	data.json().then( data =>{
+  		console.log(data["tasks"])
   		pushDayNotes(data["tasks"])
   	})
 
@@ -123,7 +127,7 @@ function pushDayNotes(data){
 		divInput.className = "note"
 
 		var x = `
-				<div class="hour" style="background-color: ${data[i]["task_color"]}" >${parseTime(data[i]["to_do_date"])}</div>
+				<div class="hour" style="background-color: ${data[i]["task_color"]}" >${parseTime(data[i]["to_do_date_start"])}</div>
 				<div class="author">${data[i]["user"]}</div>
 				<div class="task">${data[i]["note"]}</div>
 		`
@@ -200,7 +204,7 @@ function fetchMonth(year, month, day) {
   			var elem = data[i];
   			console.log(elem)
 
-  			var day = elem["to_do_date"];
+  			var day = elem["to_do_date_start"];
   			console.log(day)
 
 

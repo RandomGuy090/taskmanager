@@ -53,6 +53,8 @@ class Info(View, Sec):
 			"status": False,
 			"error": "not enough data"
 			}
+		print('ret')
+		print(tasks)
 
 		return JsonResponse({
 			"tasks": tasks
