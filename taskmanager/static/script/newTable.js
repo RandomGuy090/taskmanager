@@ -20,8 +20,19 @@ document.onclick = function(event){
 
 /*_____ sending to server______*/
 var send = document.getElementById("send")
-
 send.addEventListener("click", sendTable)
+
+/*_____ joining table______*/
+var join = document.getElementById("join")
+join.addEventListener("click", goToTable)
+
+function goToTable(){
+	/*window.location.href = join.value*/
+	var lol = document.getElementById("join_table")
+	 window.location.href = lol.value
+
+}
+
 
 function getVals(){
 	var color = document.getElementsByName("color_main")[0].value
@@ -61,8 +72,10 @@ function sendTable(){
 // ...
 /*RUPnHJd1y6JfxD1TFXcqEt1q6EkFFypDbf1yL2mmBE1VoOx2M5hYoHfS93l4qzMC*/
 	function loadLink(link){
-		var show = document.getElementById("tableLink");
-		show.innerHTML = link;
+		 window.location.href = link
+
+		/*var show = document.getElementById("tableLink");
+		show.innerHTML = link;*/
 	}
 }
 	window.post = function(url, header, data) {
