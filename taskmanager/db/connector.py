@@ -1,7 +1,7 @@
 # import taskmanager.db.Db as db
 from django.db import connection
 from .dbutils import Ddbutils
-
+from django.db.utils import OperationalError
 
 class UserManagement(Ddbutils):
 	def __init__(self):
@@ -14,12 +14,7 @@ class UserManagement(Ddbutils):
 			insert into taskmanager_user (name, password, profImg, singupDate) values
 			("%s", "%s", "%s",%s);
 			'''% (name, password, "/static/img/profile.png", "datetime('now')"))
-		# try:
-		# 	# usr = db.User(name=name, password=password)
-		# 	# usr.save()
-		# 	return True
-		# except:
-		# 	return False
+
 
 	def deleteUser(self, name):
 		try:
@@ -444,6 +439,21 @@ class TasksManagement(Ddbutils):
 			return False		
 
 
+
+class LoadStartUp(object):
+	def __init__(self, file):
+
+		cont = ""
+		with open(file, "r") as f:
+			cont = f.read()
+		cont = cont.split(";")
+		cursor = connection.cursor()
+		for elem in cont:
+			try:
+				cursor.execute(elem)
+			except OperationalError:
+				print("------> cannot create")
+				print(elem.split("as")[0])
 
 
 
