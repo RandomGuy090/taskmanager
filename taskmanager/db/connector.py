@@ -450,10 +450,7 @@ class LoadStartUp(object):
 		cursor = connection.cursor()
 		try:
 			cursor.execute("select *  from taskmanager_user").fetchall()
-		except:
-			print("BREAK")
-			print("BREAK")
-			print("BREAK")
+		except OperationalError:
 			return 
 		with open(file, "r") as f:
 			cont = f.read()
