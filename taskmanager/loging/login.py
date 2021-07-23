@@ -4,8 +4,9 @@ from django.shortcuts import render
 
 from taskmanager.db.connector import UserManagement as User
 from taskmanager.forms.loginForm  import LoginForm
+from taskmanager.sec.secutils import Security as Sec
 
-class Login(View):
+class Login(View, Sec):
 	def get(self, request, tableid=""):
 		return render(request, "login.html", {
 			"title": "Log in"})
@@ -20,7 +21,7 @@ class Login(View):
 				"title": "Log in",
 				"error": "invalid login or password"})
 
-
+		form.cleaned_data = self.makeSafe(form.cleaned_data)
 		login = form.cleaned_data["login"]
 		password = form.cleaned_data["password"]
 

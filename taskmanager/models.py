@@ -11,10 +11,11 @@ def genUrl(lenght=16):
 
 
 class User(models.Model):
-	name = models.CharField(max_length=100)
+	name = models.CharField(max_length=100, unique=True)
 	password = models.CharField(max_length=100)
 	singupDate = models.DateTimeField(auto_now_add=True, blank=True)
 	profImg = models.CharField(max_length=100, default="/img/profile.png")
+
 
 
 class Tables(models.Model):
@@ -37,8 +38,6 @@ class Particip(models.Model):
 	joinedDate = models.DateTimeField(auto_now_add=True, blank=True)
 
 	
-	# class Meta:
-	# 	unique_together= (('userId', 'tableId'),)
 
 
 

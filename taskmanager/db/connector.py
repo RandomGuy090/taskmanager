@@ -1,7 +1,7 @@
 # import taskmanager.db.Db as db
 from django.db import connection
 from .dbutils import Ddbutils
-from django.db.utils import OperationalError
+from django.db.utils import OperationalError, IntegrityError
 
 class UserManagement(Ddbutils):
 	def __init__(self):
@@ -10,10 +10,13 @@ class UserManagement(Ddbutils):
 	
 	def createUser(self, name, password):
 		cursor = connection.cursor()
-		cursor.execute('''
-			insert into taskmanager_user (name, password, profImg, singupDate) values
-			("%s", "%s", "%s",%s);
-			'''% (name, password, "/img/profile.png", "datetime('now')"))
+		try:
+			cursor.execute('''
+				insert into taskmanager_user (name, password, profImg, singupDate) values
+				("%s", "%s", "%s",%s);
+				'''% (name, password, "/img/profile.png", "datetime('now')"))
+		except IntegrityError:
+			return "user with this name already exist"
 
 
 	def deleteUser(self, name):
