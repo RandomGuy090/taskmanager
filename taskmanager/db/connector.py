@@ -13,7 +13,7 @@ class UserManagement(Ddbutils):
 		cursor.execute('''
 			insert into taskmanager_user (name, password, profImg, singupDate) values
 			("%s", "%s", "%s",%s);
-			'''% (name, password, "/static/img/profile.png", "datetime('now')"))
+			'''% (name, password, "/img/profile.png", "datetime('now')"))
 
 
 	def deleteUser(self, name):
@@ -444,10 +444,17 @@ class LoadStartUp(object):
 	def __init__(self, file):
 
 		cont = ""
+		cursor = connection.cursor()
+		try:
+			cursor.execute("select *  from taskmanager_user").fetchall()
+		except:
+			print("BREAK")
+			print("BREAK")
+			print("BREAK")
+			return 
 		with open(file, "r") as f:
 			cont = f.read()
 		cont = cont.split(";")
-		cursor = connection.cursor()
 		for elem in cont:
 			try:
 				cursor.execute(elem)
