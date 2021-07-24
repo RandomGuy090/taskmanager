@@ -5,12 +5,22 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/clouds.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/cloudAnim.css' %}">
-	
 	<link rel="stylesheet" type="text/css" href="{% static 'table_pass.css' %}">
+	
 <title>{{ title }}</title>
 {% endblock header %}
 
 {% block body %}
+<style type="text/css">
+	.cloud{
+		margin-left: 35vw;
+	}
+	.cloud:first-child{
+		margin-left: 40vw;
+	}
+	
+</style>
+
 
 	<form method="POST"  style="flex-direction: row">
 		{% csrf_token %}

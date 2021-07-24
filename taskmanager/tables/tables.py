@@ -14,9 +14,13 @@ class Tables(View):
 		if tableid == "":
 			# table not found
 			return HttpResponseRedirect("/")
-
-		info = Table().getTableInfo(url=tableid)[0]
+		print("getTableInfo")
+		try:
+			info = Table().getTableInfo(url=tableid)[0]
+		except:
+			return HttpResponse("no such table")
 		# userInfo = Table().listUsersTable(url=tableid)
+		print("userInfo")
 		userInfo = Table().getTableColor(url=tableid)
 		try:
 			login =  request.session["login"]
