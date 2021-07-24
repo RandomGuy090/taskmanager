@@ -6,6 +6,8 @@ from taskmanager.db.connector import UserManagement as User
 from taskmanager.forms.registerForm  import RegisterForm
 from taskmanager.sec.secutils import Security as Sec
 
+import bcrypt 
+
 
 class Register(View, Sec):
 	def get(self, request, tableid=""):
@@ -35,8 +37,10 @@ class Register(View, Sec):
 				"title": "Register",
 				"error": "password's aren't same"})
 
+		password = password1.encode()
+		password = bcrypt.hashpw(password, bcrypt.gensalt())
 
-		ret = User().createUser(name=login, password=password1)
+		ret = User().createUser(name=login, password=password.decode("utf-8"))
 		
 		request.session["login"] = login
 		if isinstance(ret, str):

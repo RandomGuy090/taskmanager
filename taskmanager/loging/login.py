@@ -6,6 +6,8 @@ from taskmanager.db.connector import UserManagement as User
 from taskmanager.forms.loginForm  import LoginForm
 from taskmanager.sec.secutils import Security as Sec
 
+import bcrypt
+
 class Login(View, Sec):
 	def get(self, request, tableid=""):
 		return render(request, "login.html", {
@@ -24,11 +26,11 @@ class Login(View, Sec):
 		form.cleaned_data = self.makeSafe(form.cleaned_data)
 		login = form.cleaned_data["login"]
 		password = form.cleaned_data["password"]
+		password = password.encode()
 
-
-
-		ret = User().getPassword(name=login)
-		if ret == password:	
+		ret = User().getPassword(name=login).encode()
+		
+		if bcrypt.checkpw(password, ret):	
 			request.session["login"] = login
 			if tableid  != "":
 				return HttpResponseRedirect(f"/tables/{tableid}")
