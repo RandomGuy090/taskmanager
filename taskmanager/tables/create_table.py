@@ -9,7 +9,7 @@ from taskmanager.db.connector import UserManagement as User
 from taskmanager.db.connector import TablesManagement as Tbl
 from taskmanager.sec.secutils import Security as Sec
 
-
+import bcrypt
 
 @method_decorator(csrf_exempt, name='dispatch')
 class Table(View, Sec):
@@ -30,10 +30,13 @@ class Table(View, Sec):
 		name = vals["title"]
 		color = vals["color"]
 		password = vals["password"]
+		password = password.encode()
+		hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+		hashed = hashed.decode("utf-8")
 
 		print(f"name {name} color {color}")
 		url = Tbl().createTable(name=name, color=color, 
-			password=password, 
+			password=hashed, 
 			user=user)
 
 		return JsonResponse({"url":url})

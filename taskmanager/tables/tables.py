@@ -7,7 +7,7 @@ from taskmanager.db.connector import TablesManagement as Table
 
 from taskmanager.forms.table_password_form  import Table_password
 
-
+import bcrypt
 
 class Tables(View):
 	def get(self, request, tableid=""):
@@ -31,8 +31,6 @@ class Tables(View):
 
 		
 		if info["password"] == "":
-			# no password needed
-			print("passowrd not required")
 			# no passed but add table to user
 			if login != None:
 				status = Table().addUserTable(user=login,url=info["url"])
@@ -72,7 +70,7 @@ class Tables(View):
 		password = form.cleaned_data["password"]
 		info = Table().getTableInfo(url=tableid)[0]
 		
-		if info["password"] == password:
+		if bcrypt.checkpw(password.encode(),info["password"].encode()):
 			#password ok, adding user to table
 
 			status = Table().addUserTable(user=login,url=info["url"])
