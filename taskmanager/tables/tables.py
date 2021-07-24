@@ -18,7 +18,9 @@ class Tables(View):
 		try:
 			info = Table().getTableInfo(url=tableid)[0]
 		except:
-			return HttpResponse("no such table")
+			# return HttpResponse("no such table")
+			return render(request, "no_such_table.html")
+			
 		# userInfo = Table().listUsersTable(url=tableid)
 		print("userInfo")
 		userInfo = Table().getTableColor(url=tableid)
