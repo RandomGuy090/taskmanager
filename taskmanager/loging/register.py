@@ -23,7 +23,6 @@ class Register(View, Sec):
 				"title": "Register",
 				"error": "invalid login or password"})
 
-		print()
 		form.cleaned_data = self.makeSafe(form.cleaned_data)
 
 		login = form.cleaned_data["login"]

@@ -16,8 +16,7 @@ class Login(View, Sec):
 	def post(self, request, tableid=""):
 
 		form = LoginForm(request.POST)
-		print(form.is_valid())
-
+		
 		if not form.is_valid():
 			return render(request, "login.html", {
 				"title": "Log in",

@@ -192,7 +192,6 @@ class TablesManagement(Ddbutils):
 
 	def addUserTable(self, user, url):
 		cursor = connection.cursor()
-		print("addUserTable")
 		cursor.execute(''' 
 			SELECT 
 			user_name 
@@ -209,14 +208,8 @@ class TablesManagement(Ddbutils):
 			 '''%  (url, user))
 		res = cursor.fetchall();
 		if res != []:
-			print("user already added")
 			return False
 
-		print(res)
-		print(res)
-		print(res)
-		print(res)
-		print("add user")
 		cursor.execute('''INSERT 
 			into taskmanager_taskcolor (tableId_id, userId_id, color) 
 			values (
@@ -273,7 +266,6 @@ class TablesManagement(Ddbutils):
 			content = cursor.fetchall()
 
 			res = self.queryToDict(content=content, column=cols)
-			print(res)
 			return res
 		except:
 			return False
@@ -308,10 +300,6 @@ class TasksManagement(Ddbutils):
 		try:
 			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
-			print("content")
-			print("content")
-			print("content")
-			print(content)
 			response = self.queryToDict(content=content, column=cols)
 			
 			if len(response) == 0:
@@ -407,7 +395,7 @@ class TasksManagement(Ddbutils):
 			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
 			response = self.queryToDict(content=content, column=cols)
-			print(response)
+			
 			
 			if len(response) == 0:
 				response= {
@@ -459,8 +447,7 @@ class LoadStartUp(object):
 			try:
 				cursor.execute(elem)
 			except OperationalError:
-				print("------> cannot create")
-				print(elem.split("as")[0])
+				pass
 
 
 

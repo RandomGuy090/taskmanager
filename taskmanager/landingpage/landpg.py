@@ -9,7 +9,6 @@ class Homepage(View):
 	def get(self, request):
 		try:
 			login = request.session["login"]
-			print("login")
 		except:
 			return HttpResponseRedirect("/login")
 
@@ -19,7 +18,6 @@ class Homepage(View):
 		data = User().getUsersTables(name=login)
 		res = {"name": login,
 			"posts":data}
-					
 		
 		return render(request, "homepage.html", res)
 		

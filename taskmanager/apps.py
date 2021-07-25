@@ -9,5 +9,4 @@ class TaskmanagerConfig(AppConfig):
 
     def ready(self):
     	path = str(settings.BASE_DIR) + "/sqlite_startup_com.sql"
-    	print(path)
     	Load(path)
