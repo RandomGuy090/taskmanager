@@ -13,7 +13,9 @@ cd taskmanager
 ./manage.py  migrate
 ./manage.py  runserver
 ```
-Users table is empty in default, you need to add users in sqlite commandline after first startup.
+~~Users table is empty in default, you need to add users in sqlite commandline after first startup.~~
+Not anymore, /register page added.
+Passwords are hashed with bcrypt.
 # Images
 ![image](https://user-images.githubusercontent.com/64653975/126667219-11b9918f-c044-41fa-8c5e-34fe71cf97bc.png)
 
