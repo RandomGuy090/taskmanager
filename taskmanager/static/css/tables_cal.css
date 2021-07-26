@@ -166,7 +166,6 @@ aside > header > .date{
 	display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .note > .hour {
@@ -265,10 +264,16 @@ aside > header > .date{
 	font-size: 120%;
 }
 input[type=time]{
-	width: 30%;
+	width: 40%;
 	height: 5vh;
 	font-size: 120%;
 }
+input[type=date]{
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}
+
 
 input[name=task_name]{
 	width: 80%;

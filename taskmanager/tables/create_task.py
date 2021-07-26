@@ -38,12 +38,13 @@ class Task(View, Sec):
 
 		time_start = vals["time_start"]
 		time_end = vals["time_end"]
-		day = vals["day"]
+		day_start = vals["day_start"]
+		day_end = vals["day_end"]
 		task = vals["task"]
 		
 		if time_start == "" or 	\
 			time_start == "" or \
-			day == "" or 		\
+			day_start == "" or 		\
 			task == "":
 			print("not enough data")
 			return JsonResponse({
@@ -51,11 +52,12 @@ class Task(View, Sec):
 				"error": "time input failure"
 				})
 
-		date_start = f"{day} {time_start}:00"
-		date_end = f"{day} {time_end}:00"
+		date_start = f"{day_start} {time_start}:00"
+		date_end = f"{day_end} {time_end}:00"
 
 
-		Tsk().createTask(date_start=date_start, date_end=date_end, user=login, content=task, url=tableid)
+		Tsk().createTask(date_start=date_start, date_end=date_end, \
+							user=login, content=task, url=tableid)
 	
 		return JsonResponse({
 				"success": True,

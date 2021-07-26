@@ -2,7 +2,8 @@
 $("#send_task").click((event)=>{
 	var time_start = $("#hour_task_start").val();
 	var time_end = $("#hour_task_end").val();
-	var day = $("#day_task").val();
+	var day_start = $("#day_task_start").val();
+	var day_end = $("#day_task_end").val();
 	var task = $("#task_name").val();
 
 	/*
@@ -11,7 +12,8 @@ $("#send_task").click((event)=>{
 	ret = {
 		"time_start": time_start,
 		"time_end": time_end,
-		"day": day,
+		"day_start": day_start,
+		"day_end": day_end,
 		"task": task
 	}
 	console.log(ret)
@@ -95,7 +97,8 @@ function click(day, month, year){
 
 
 	console.log(`${year}-${month}-${day}`)
-	$("#day_task").val(`${year}-${month}-${day}`);
+	$("#day_task_start").val(`${year}-${month}-${day}`);
+	$("#day_task_end").val(`${year}-${month}-${day}`);
 
 
 	var tableId = window.location.href.substring(window.location.href.lastIndexOf("/")+1)
