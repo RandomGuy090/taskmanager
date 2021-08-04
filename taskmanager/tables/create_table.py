@@ -30,9 +30,11 @@ class Table(View, Sec):
 		name = vals["title"]
 		color = vals["color"]
 		password = vals["password"]
-		password = password.encode()
-		hashed = bcrypt.hashpw(password, bcrypt.gensalt())
-		hashed = hashed.decode("utf-8")
+		hashed = ""
+		if password != "":
+			password = password.encode()
+			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+			hashed = hashed.decode("utf-8")
 
 		print(f"name {name} color {color}")
 		url = Tbl().createTable(name=name, color=color, 
