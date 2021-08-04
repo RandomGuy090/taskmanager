@@ -201,34 +201,65 @@ function fetchMonth(year, month, day) {
   	.then(data => {
   	data.json().then( data =>{
   		data = data["tasks"];
+
   		console.log(data)
 
   		for(i=0; i<data.length; i++){
-  			var elem = data[i];
-  			console.log(elem)
-
-  			var day = elem["to_do_date_start"];
-  			console.log(day)
-
-
-  			day = day.split("-")[2].split("T")[0];
-  			day = parseInt(day)
-  			console.log(day)
-
-  			
-  			/*var divHandler = $(`dayCount_${day}`);*/
-  			var divHandler = document.getElementsByClassName(`dayCount_${day}`)[0];
-  			/*divHandler.innerHTML = ""*/
-
-            var lol = document.createElement("div");
-            lol.style["background-color"] = elem["task_color"]
-
-  			
-  			divHandler.append(lol)
-  		
+  			console.log(data.length)
+  			console.log(`elem ${i}`)
+  			loop(data[i])
+  			console.log("after loop")  			
+  			console.log(data.length)
   		}
   	})
-
   });
+}
 
-      }
+async function loop(elem){
+  	/*var elem = data[i]*/
+
+	var dates = parsePostData(elem)
+	
+
+	var diff = datediff(dates[0], dates[1]);
+	if(diff > 0 ){
+		for(j=0;  j < diff; j++){
+			insert_task(elem["task_color"], dates[0].getDate() + j)
+		}
+	}else if(diff <= 0 ){
+
+	insert_task(elem["task_color"], dates[0].getDate())
+
+	}
+
+
+}
+
+function parseDate(str) {
+    var mdy = str.split("T")[0];
+    mdy = mdy.split("-");
+    return new Date(mdy[0], mdy[1]-1, mdy[2]);
+}
+
+function parsePostData(elem){
+	var day_start = parseDate(elem["to_do_date_start"]);
+	var day_end = parseDate(elem["to_do_date_end"]);
+	return( [day_start, day_end] )
+	
+}
+
+function datediff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+
+function insert_task(task_color, day){
+
+	var divHandler = document.getElementsByClassName(`dayCount_${day}`)[0];
+
+	var lol = document.createElement("div");
+	lol.style["background-color"] = task_color
+
+	divHandler.append(lol)
+
+}
