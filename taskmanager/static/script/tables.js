@@ -223,7 +223,7 @@ async function loop(elem){
 
 	var diff = datediff(dates[0], dates[1]);
 	if(diff > 0 ){
-		for(j=0;  j < diff; j++){
+		for(j=0;  j < diff+1; j++){
 			insert_task(elem["task_color"], dates[0].getDate() + j)
 		}
 	}else if(diff <= 0 ){
