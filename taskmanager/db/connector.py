@@ -384,16 +384,19 @@ class TasksManagement(Ddbutils):
 			get_tasks
 			WHERE table_name IS NOT NULL 
 			AND added_date IS NOT NULL 
-			AND strftime('%%Y-%%m-%%d', to_do_date_start) >= date("%s-%s-%s")
+			AND strftime('%%Y-%%m-%%d', to_do_date_end) >= date("%s-%s-%s")
+			AND strftime('%%Y-%%m-%%d', to_do_date_start) <  date("%s-%s-%s")
 			AND table_url = "%s"
 			GROUP BY user_id, table_url, note_id
 			ORDER BY to_do_date_start ASC
 			;
+
 			
-			 '''%  (year,month, day, url))
+			 '''%  (year,month, day, year,month, day, url))
+
 		try:
-			cols = self.getColumn("get_tasks")
 			content = cursor.fetchall()
+			cols = self.getColumn("get_tasks")
 			response = self.queryToDict(content=content, column=cols)
 			
 			
