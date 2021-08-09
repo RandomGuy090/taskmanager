@@ -1,25 +1,25 @@
-# import taskmanager.db.Db as db
+# import taskmanager.db._db as db
 from django.db import connection
-from .dbutils import Ddbutils
+from .dbutils import DButils
 from django.db.utils import OperationalError, IntegrityError
 
-class UserManagement(Ddbutils):
+class User_management(DButils):
 	def __init__(self):
 		self.name = ""
 		self.password = ""
 	
-	def createUser(self, name, password):
+	def create_user(self, name, password):
 		cursor = connection.cursor()
 		try:
 			cursor.execute('''
-				insert into taskmanager_user (name, password, profImg, singupDate) values
+				insert into taskmanager_user (name, password, prof_img, singup_date) values
 				("%s", "%s", "%s",%s);
 				'''% (name, password, "/img/profile.png", "datetime('now')"))
 		except IntegrityError:
 			return "user with this name already exist"
 
 
-	def deleteUser(self, name):
+	def delete_user(self, name):
 		try:
 			cursor = connection.cursor()
 			cursor.execute('''SELECT password
@@ -31,7 +31,7 @@ class UserManagement(Ddbutils):
 		except:
 			return False
 	
-	def getUserInfo(self, name): # dep
+	def get_user_info(self, name): # dep
 		cursor = connection.cursor()
 		cursor.execute('''SELECT * 
 			FROM taskmanager_user
@@ -42,7 +42,7 @@ class UserManagement(Ddbutils):
 		return cursor.fetchall()
 
 
-	def getPassword(self, name):
+	def get_password(self, name):
 		try:
 			cursor = connection.cursor()
 			cursor.execute('''SELECT password
@@ -51,12 +51,16 @@ class UserManagement(Ddbutils):
 			     name = '%s'
 				'''% name)
 			res = cursor.fetchall()[0][0]
+			print(res)
+			print(res)
+			print(res)
+			print(res)
 
 			return res
 		except:
 			return False
 
-	def getUsersTables(self, name): 
+	def get_users_tables(self, name): 
 		cursor = connection.cursor()
 		cursor.execute('''SELECT
 		     *
@@ -66,18 +70,18 @@ class UserManagement(Ddbutils):
 		     user IS NOT NULL AND
 		     table_url IS NOT NULL
 		     GROUP BY table_url
-		     ORDER BY table_id DESC
+		     ORDER BY table_id 
 			'''% name)
 
-		cols = self.getColumn("main_page_info")
+		cols = self.get_column("main_page_info")
 		content = cursor.fetchall()
 
-		return self.queryToDict(content=content, column=cols)
+		return self.query_to_dict(content=content, column=cols)
 
 
-class TablesManagement(Ddbutils):
+class Tables_management(DButils):
 
-	def getTableInfo(self, link):
+	def get_table_info(self, link):
 		cursor = connection.cursor()
 
 		cursor.execute('''SELECT
@@ -85,7 +89,7 @@ class TablesManagement(Ddbutils):
 		
 		return cursor.fetchall()
 
-	def listUsersTable(self, tablename="", url=""):
+	def list_users_table(self, tablename="", url=""):
 		cursor = connection.cursor()
 		taken = False;
 		if tablename != "" and not taken:
@@ -115,14 +119,14 @@ class TablesManagement(Ddbutils):
 			taken = True
 
 			
-		cols = self.getColumn("list_users_table")
+		cols = self.get_column("list_users_table")
 		content = cursor.fetchall()
 
-		return self.queryToDict(content=content, column=cols)
+		return self.query_to_dict(content=content, column=cols)
 
 		
 	
-	def makeBorderColor(self, color):
+	def make_border_color(self, color):
 		if color.startswith("#"):
 			color = color[1:]
 		ret = "#"
@@ -135,27 +139,44 @@ class TablesManagement(Ddbutils):
 		return ret
 	
 
-	def createTable(self, name, color, password, user): #to opt
+	def create_table(self, name, color, password, user): #to opt
 		url = self.generate_url()
 		cursor = connection.cursor()
-		# passwordNeeded = True if password != "" else False
-		passwordNeeded = True
+		# password_needed = True if password != "" else False
+		password_needed = True
 
 		cursor.execute(''' 
 			INSERT INTO
-			   taskmanager_tables (name, url, color, borderColor, password, passwordNeeded) 
+			   taskmanager_tables (name, url, color, border_color, password, password_needed) 
 			values
 			   (
 			      "%s", "%s", "%s", "%s","%s", "%s"
 			   );
 
-			'''% (name, url, color, self.makeBorderColor(color), password, passwordNeeded))
+			'''% (name, url, color, self.make_border_color(color), password, password_needed))
 		
-		self.addUserTable(user=user, url=url)
+		self.add_user_table(user=user, url=url)
 
 		return url
 
-	def leaveTable(self, url=""):
+	def leave_table(self, url=""):
+		cursor = connection.cursor()
+		url = cursor.execute(''' 
+			s 
+			FROM 
+			taskmanager_particip
+			WHERE 
+			id =
+			(SELECT 
+			id
+			FROM 
+			taskmanager_tables
+			WHERE
+			url = '%s'
+			)'''% url)
+		res = cursor.execute
+
+	def delete_table(self, url=""):
 		cursor = connection.cursor()
 		url = cursor.execute(''' 
 			DELETE 
@@ -172,25 +193,8 @@ class TablesManagement(Ddbutils):
 			)'''% url)
 		res = cursor.execute
 
-	def deleteTable(self, url=""):
-		cursor = connection.cursor()
-		url = cursor.execute(''' 
-			DELETE 
-			FROM 
-			taskmanager_particip
-			WHERE 
-			id =
-			(SELECT 
-			id
-			FROM 
-			taskmanager_tables
-			WHERE
-			url = '%s'
-			)'''% url)
-		res = cursor.execute
 
-
-	def addUserTable(self, user, url):
+	def add_user_table(self, user, url):
 		cursor = connection.cursor()
 		cursor.execute(''' 
 			SELECT 
@@ -211,21 +215,21 @@ class TablesManagement(Ddbutils):
 			return False
 
 		cursor.execute('''INSERT 
-			into taskmanager_taskcolor (tableId_id, userId_id, color) 
+			into taskmanager_task_color (table_id_id, user_id_id, color) 
 			values (
 			(select id from taskmanager_tables where url = '%s'),
 			(select id from taskmanager_user where name = '%s'),
 			"%s"
 			);
-			 '''%  (url, user, self.genColor() ))
+			 '''%  (url, user, self.gen_color() ))
 
 
 		cursor.execute('''INSERT 
-				into taskmanager_particip (tableId_id, userId_id, color_id, joinedDate) 
+				into taskmanager_particip (table_id_id, user_id_id, color_id, joined_date) 
 				values (
 				(select id from taskmanager_tables where url = '%s'),
 				(select id from taskmanager_user where name = '%s'),
-				(select id from taskmanager_taskcolor where userId_id = (
+				(select id from taskmanager_task_color where user_id_id = (
 				select id from taskmanager_user where name = '%s')),
 				datetime("now")
 				);
@@ -234,7 +238,7 @@ class TablesManagement(Ddbutils):
 
 
 
-	def getTableInfo(self, url):
+	def get_table_info(self, url):
 		cursor = connection.cursor()
 		try:
 			cursor.execute('''
@@ -243,15 +247,15 @@ class TablesManagement(Ddbutils):
 				WHERE url = '%s'
 				;
 			 '''%  url)
-			cols = self.getColumn("taskmanager_tables")
+			cols = self.get_column("taskmanager_tables")
 			content = cursor.fetchall()
 
-			return self.queryToDict(content=content, column=cols)
+			return self.query_to_dict(content=content, column=cols)
 		except:
 			return False
 
 
-	def getTableColor(self, url):
+	def get_table_color(self, url):
 		cursor = connection.cursor()
 		try:
 			cursor.execute('''
@@ -262,10 +266,10 @@ class TablesManagement(Ddbutils):
 				table_url = "%s"
 				;
 			 '''%  url)
-			cols = self.getColumn("get_table_color")
+			cols = self.get_column("get_table_color")
 			content = cursor.fetchall()
 
-			res = self.queryToDict(content=content, column=cols)
+			res = self.query_to_dict(content=content, column=cols)
 			return res
 		except:
 			return False
@@ -273,18 +277,18 @@ class TablesManagement(Ddbutils):
 
 
 
-class TasksManagement(Ddbutils):
+class Tasks_management(DButils):
 
-	def getMonth(self, month, year, url):
+	def get_month(self, month, year, url):
 		cursor = connection.cursor()
 
 		if len(str(month)) == 1:
 			month = f"0{month}"
 		
-		dateFrom = f"{year}-{month}-01"
-		dateTo = f"{year}-{month}-31"
+		dateFROM = f"{year}-{month}-01"
+		date_to = f"{year}-{month}-31"
 		cursor.execute('''
-			select 
+			SELECT 
 			* 
 			from 
 			get_tasks
@@ -298,9 +302,9 @@ class TasksManagement(Ddbutils):
 			;
 			 '''%  (year, month, year, month, url))
 		try:
-			cols = self.getColumn("get_tasks")
+			cols = self.get_column("get_tasks")
 			content = cursor.fetchall()
-			response = self.queryToDict(content=content, column=cols)
+			response = self.query_to_dict(content=content, column=cols)
 			
 			if len(response) == 0:
 				response= {
@@ -326,7 +330,7 @@ class TasksManagement(Ddbutils):
 
 			return response
 		cursor.execute('''
-			select 
+			SELECT 
 			* 
 			from 
 			get_tasks
@@ -341,9 +345,9 @@ class TasksManagement(Ddbutils):
 			
 			 '''%  (year, year, url))
 		try:
-			cols = self.getColumn("get_tasks")
+			cols = self.get_column("get_tasks")
 			content = cursor.fetchall()
-			response = self.queryToDict(content=content, column=cols)
+			response = self.query_to_dict(content=content, column=cols)
 			
 			if len(response) == 0:
 				response= {
@@ -360,7 +364,7 @@ class TasksManagement(Ddbutils):
 			return response
 
 
-	def getDay(self, year, month, day, url):
+	def get_day(self, year, month, day, url):
 		
 		cursor = connection.cursor()
 		
@@ -378,7 +382,7 @@ class TasksManagement(Ddbutils):
 			month = f"0{day}"
 
 		cursor.execute('''
-			select 
+			SELECT 
 			* 
 			from 
 			get_tasks
@@ -396,8 +400,8 @@ class TasksManagement(Ddbutils):
 
 		try:
 			content = cursor.fetchall()
-			cols = self.getColumn("get_tasks")
-			response = self.queryToDict(content=content, column=cols)
+			cols = self.get_column("get_tasks")
+			response = self.query_to_dict(content=content, column=cols)
 			
 			
 			if len(response) == 0:
@@ -415,11 +419,11 @@ class TasksManagement(Ddbutils):
 
 			return response
 
-	def createTask(self, date_start, date_end, user, content, url):
+	def create_task(self, date_start, date_end, user, content, url):
 		cursor = connection.cursor()
 		cursor.execute('''
-		insert into taskmanager_notes 
-		(tableNote, addedDate, todoDate_start, todoDate_end, tableId_id, userId_id) 
+		INSERT into taskmanager_notes 
+		(table_note, added_date, todo_date_start, todo_date_end, table_id_id, user_id_id) 
 		
 		values("%s", datetime("now"), "%s", "%s", 
 		(select id from taskmanager_tables where url = "%s"),
@@ -434,13 +438,13 @@ class TasksManagement(Ddbutils):
 
 
 
-class LoadStartUp(object):
+class Load_start_up(object):
 	def __init__(self, file):
 
 		cont = ""
 		cursor = connection.cursor()
 		try:
-			cursor.execute("select *  from taskmanager_user").fetchall()
+			cursor.execute("SELECT *  from taskmanager_user").fetchall()
 		except OperationalError:
 			return 
 		with open(file, "r") as f:

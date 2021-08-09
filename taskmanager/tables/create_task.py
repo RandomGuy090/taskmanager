@@ -5,9 +5,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from taskmanager.db.connector import UserManagement as User
-from taskmanager.db.connector import TablesManagement as Table
-from taskmanager.db.connector import TasksManagement as Tsk
+from taskmanager.db.connector import User_management as User
+from taskmanager.db.connector import Tables_management as Table
+from taskmanager.db.connector import Tasks_management as Tsk
 
 from taskmanager.sec.secutils import Security as Sec
 
@@ -17,9 +17,9 @@ class Task(View, Sec):
 
 	def post(self, request, tableid):
 		login =  request.session["login"]
-		userInfo = Table().listUsersTable(url=tableid)
+		user_info = Table().list_users_table(url=tableid)
 
-		if login == None or not login in str(userInfo):
+		if login == None or not login in str(user_info):
 			return JsonResponse({
 				"success": False,
 				"error": "login first"
@@ -31,7 +31,7 @@ class Task(View, Sec):
 
 		vals = json.loads(vals)
 		
-		vals = self.makeSafe(vals)
+		vals = self.make_safe(vals)
 
 		print(vals)
 		
@@ -56,7 +56,7 @@ class Task(View, Sec):
 		date_end = f"{day_end} {time_end}:00"
 
 
-		Tsk().createTask(date_start=date_start, date_end=date_end, \
+		Tsk().create_task(date_start=date_start, date_end=date_end, \
 							user=login, content=task, url=tableid)
 	
 		return JsonResponse({

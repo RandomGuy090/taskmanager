@@ -2,9 +2,9 @@ from django.db import connection
 import random
 
 
-class Ddbutils(object):
+class DButils(object):
 
-	def getColumn(self, name):
+	def get_column(self, name):
 		cursor = connection.cursor()
 		cursor.execute('''
 			SELECT name FROM pragma_table_info('%s') 
@@ -14,7 +14,7 @@ class Ddbutils(object):
 
 		return cursor.fetchall()
 
-	def queryToDict(self, content, column, index=""):
+	def query_to_dict(self, content, column, index=""):
 		'''
 		content e.g. =[('foo', 'bar')]
 		table e.g. = [('foo',), ('bar',)]
@@ -44,7 +44,7 @@ class Ddbutils(object):
 		    rstr += (chr(integ))
 		return rstr
 
-	def getTableCols(self, table):
+	def get_table_cols(self, table):
 		cursor = connection.cursor()
 		cursor.execute('''
 			SELECT name FROM pragma_table_info('%s') 
@@ -58,7 +58,7 @@ class Ddbutils(object):
 			res.append(elem[0])
 		return res
 
-	def colsToData(self, table, users, field):
+	def cols_to_data(self, table, users, field):
 
 		ret = dict()
 		for user in users:
@@ -68,7 +68,7 @@ class Ddbutils(object):
 			ret[tmp[field]]= tmp
 		return ret
 
-	def userInfoSortID(self, name=None):
+	def user_info_sort_id(self, name=None):
 		cursor = connection.cursor()
 		if name == None:
 			cursor.execute('''SELECT * 
@@ -84,9 +84,9 @@ class Ddbutils(object):
 				'''% name)
 			users = cursor.fetchall()
 
-		return self.colsToData(self.getTableCols("taskmanager_user"), users, "id")
+		return self.cols_to_data(self.get_table_cols("taskmanager_user"), users, "id")
 
-	def userInfoSortName(self, name=None):
+	def user_info_sort_name(self, name=None):
 		cursor = connection.cursor()
 		if name == None:
 			cursor.execute('''SELECT * 
@@ -102,9 +102,9 @@ class Ddbutils(object):
 				'''% name)
 			users = cursor.fetchall()
 
-		return self.colsToData(self.getTableCols("taskmanager_user"), users, "id")
+		return self.cols_to_data(self.get_table_cols("taskmanager_user"), users, "id")
 
-	def genColor(self):
+	def gen_color(self):
 		ret = "#"
 		for i in range(3):
 			r = random.randrange(0, 255)

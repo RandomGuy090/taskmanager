@@ -4,8 +4,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 
-from taskmanager.db.connector import TasksManagement as Task
-from taskmanager.db.connector import TablesManagement as Table
+from taskmanager.db.connector import Tables_management as Table
+from taskmanager.db.connector import Tasks_management as Task
+
 from taskmanager.sec.secutils import Security as Sec
 
 
@@ -17,16 +18,16 @@ class Info(View, Sec):
 		try:
 			login = request.session["login"]
 		except:
-			login = None;
+			login = _none;
 		login = "admin"
 
-		info = Table().getTableInfo(url=tableid)[0]
-		users = Table().listUsersTable(url=tableid)
+		info = Table().get_table_info(url=tableid)[0]
+		users = Table().list_users_table(url=tableid)
 
 
 		vals = request.body
 		vals = json.loads(vals)
-		vals = self.makeSafe(vals)
+		vals = self.make_safe(vals)
 		
 		print(vals)
 
@@ -40,13 +41,13 @@ class Info(View, Sec):
 				"error": "bad table id"
 				})
 		if year and url and day:
-			tasks = Task().getDay(year=year, month=month, day=day, url=url)
+			tasks = Task().get_day(year=year, month=month, day=day, url=url)
 					
 		elif year and month and day == False:
-			tasks = Task().getMonth(month=month, year=year, url=url)
+			tasks = Task().get_month(month=month, year=year, url=url)
 		
 		elif year and month == False and day == False:
-			tasks = Task().getYear(year=year, url=url)
+			tasks = Task().get_year(year=year, url=url)
 		
 		else:
 			tasks = {

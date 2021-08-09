@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from django.conf import settings
-from taskmanager.db.connector import LoadStartUp as Load
+from taskmanager.db.connector import Load_start_up as Load
 
 
 class TaskmanagerConfig(AppConfig):

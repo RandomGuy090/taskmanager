@@ -1,8 +1,8 @@
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
-from taskmanager.db.connector import UserManagement as User
+from taskmanager.db.connector import User_management as User
 
 
 class Homepage(View):
@@ -15,7 +15,7 @@ class Homepage(View):
 		if login == None:
 			return HttpResponseRedirect("/login")
 		
-		data = User().getUsersTables(name=login)
+		data = User().get_users_tables(name=login)
 		res = {"name": login,
 			"posts":data}
 		

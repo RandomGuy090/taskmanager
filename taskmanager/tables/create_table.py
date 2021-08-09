@@ -5,8 +5,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from taskmanager.db.connector import UserManagement as User
-from taskmanager.db.connector import TablesManagement as Tbl
+from taskmanager.db.connector import User_management as User
+from taskmanager.db.connector import Tables_management as Tbl
 from taskmanager.sec.secutils import Security as Sec
 
 import bcrypt
@@ -25,7 +25,7 @@ class Table(View, Sec):
 		vals = request.body.decode("utf-8")
 		vals = json.loads(vals)
 		
-		vals = self.makeSafe(vals)
+		vals = self.make_safe(vals)
 
 		name = vals["title"]
 		color = vals["color"]
@@ -37,13 +37,13 @@ class Table(View, Sec):
 			hashed = hashed.decode("utf-8")
 
 		print(f"name {name} color {color}")
-		url = Tbl().createTable(name=name, color=color, 
+		url = Tbl().create_table(name=name, color=color, 
 			password=hashed, 
 			user=user)
 
 		return JsonResponse({"url":url})
 
-	def changeBlackColor(self, color):
+	def change_black_color(self, color):
 		color = color[1:]
 		color = int(color[:2],16),int(color[2:4],16), int(color[4:],16)
 		if color[0] == color[1] and color[0] == color[2]:
