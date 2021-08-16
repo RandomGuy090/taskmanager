@@ -21,9 +21,12 @@ class Tables(View):
 			# return _HttpResponse("no such table")
 			return render(request, "no_such_table.html")
 			
-		# user_info = Table().list_users_table(url=tableid)
-		print("user_info")
+
+
+
+		# print("user_info")
 		user_info = Table().get_table_color(url=tableid)
+		print(user_info)
 		try:
 			login =  request.session["login"]
 		except:
@@ -50,7 +53,9 @@ class Tables(View):
 		if login == None:
 			# user not logged in and password needed
 			return HttpResponseRedirect(f"/login/{tableid}")
-		if not login in str(user_info):
+		
+		user_info = Table().list_users_table(url=tableid)
+		if not login in user_info:
 			# user has to enter password
 			return render(request, "table_pass.html" )
 		# user logged in, password already entered
