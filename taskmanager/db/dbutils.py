@@ -113,3 +113,11 @@ class DButils(object):
 		return ret
 
 
+	def users_of_table(self, data):
+		ret_arr = list()
+		
+		for elem in data:
+			ret_arr.append(elem["user_name"])
+
+		return ret_arr
+

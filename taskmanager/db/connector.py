@@ -122,7 +122,9 @@ class Tables_management(DButils):
 		cols = self.get_column("list_users_table")
 		content = cursor.fetchall()
 
-		return self.query_to_dict(content=content, column=cols)
+		tmp = self.query_to_dict(content=content, column=cols)
+
+		return self.users_of_table(tmp)
 
 		
 	
