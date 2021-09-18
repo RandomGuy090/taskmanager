@@ -14,27 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
-from .loging import login, logout, register
-from .tables import tables, create_table, table_info, create_task
-from .landingpage import landpg
+from django.urls import path
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('', landpg.Homepage.as_view(), name="index"),
-    
-    path('login/', login.Login.as_view(), name="login"),
-    path('login/<str:tableid>', login.Login.as_view(), name="login"),
-    path('logout/', logout.Logout.as_view(), name="logout"),
-    path('register/', register.Register.as_view(), name="register"),
-
-    path('tables/', tables.Tables.as_view(), name="table"),
-    path('tables/<str:tableid>', tables.Tables.as_view(), name="table"),
-    
-    path('create/', create_table.Table.as_view(), name="create"),
-    path('create/task/<str:tableid>', create_task.Task.as_view(), name="create_task"),
-    
-    path('info/<str:tableid>', table_info.Info.as_view(), name="info"),
-
+    path('admin/', admin.site.urls),
 ]
