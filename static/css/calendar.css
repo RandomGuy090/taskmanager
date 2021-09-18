@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: var(--3Col);
+  overflow: hidden;
+  position: relative;
+  outline: none;
+  perspective: 1000px;
+}
+ 
+.main {
+  position: absolute;
+  width: 65vw;
+  height: 75vh;
+  top: 50%;
+  left: 47%;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  transition: all 0.195s ease;
+  transform-style: preserve-3d;
+  user-select: none;
+  z-index: 1;
+
+}
+/*.main.is-rotated-left {
+  transform: translate(-50%, -50%) rotateY(-4deg);
+}
+.main.is-rotated-right {
+  transform: translate(-50%, -50%) rotateY(4deg);
+}*/
+.main .sideb,
+.main .right-wrapper {
+  width: 100%;
+  float: left;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main .header {
+  padding: 15px 0 20px;
+  display: flex;
+  justify-content: space-around;;
+  width: 100%;
+}
+.main .header i {
+  padding: 0 5px;
+  cursor: pointer;
+}
+.main .header span {
+  display: inline-block;
+  margin: 0 3px;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+.main .right-wrapper {
+  background-color: var(--3Col);
+  color: white;
+  transform-origin: left center;
+  transform: rotateY(110deg);
+  transition: all 0.5s;
+}
+.main .right-wrapper.is-active {
+  transform: rotateY(0deg);
+}
+.main .right-wrapper .header {
+  text-align: left;
+  justify-content: center;
+}
+.main .right-wrapper .day {
+  font-size: 12em;
+  text-indent: -12px;
+  display: block;
+}
+.main .right-wrapper .month {
+  font-size: 2.5em;
+}
+.main .sideb .showDate {
+  color: white;
+  text-align: right;
+  width: 100%;
+}
+.main .sideb .showDate i {
+  cursor: pointer;
+  background: var(--3Col);
+  border-radius: 4px;
+  padding: 8px 12px;
+  transform: scale(1);
+  transition: all 0.3s;
+}
+.main .sideb .showDate i.is-active {
+  transform: scale(-1);
+}
+.main .sideb table {
+  text-align: center;
+ 
+  width: 90%;
+  margin: 0 auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.main .sideb table tbody:before {
+  content: "-";
+  display: block;
+  line-height: 0.75em;
+  color: transparent;
+}
+.main .sideb table th {
+  color: var(--3Col);
+  font-size: 1.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.main .sideb table td {
+  /*padding: 11px 5px;*/
+  color: #ced0ce;
+  font-size: 0.75em;
+  transition: all 0.3s;
+  position: relative;
+}
+.main .sideb table td::before {
+  content: "";
+  display: none;
+  width: 50%;
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -8px);
+  background-color: var(--3Col);
+}
+.main .sideb table td.currentDay::before {
+  display: block;
+}
+.main .sideb table td.selectable {
+  color: #303633;
+  font-size: 1em;
+  cursor: pointer;
+}
+.main .sideb table td.selectable:hover {
+  background: var(--3Col);
+  color: white;
+}
+.main .sideb table td.between {
+  background-color: #333;
+  color: white;
+}
+.main .sideb table td.active, .main .sideb table td.hover {
+  background: var(--3Col);
+  color: white;
+}
+.calender{
+  height: 100%;
+}
+table{
+  height: 100%;
+}
+td{
+  border: 1px solid black;
+}
+/*.selectable{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}*/
+.usedBy{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: -5.5vh;
+  -moz-transition: width 1s; /* Firefox 4 */
+  -webkit-transition: width 1s; /* Safari and Chrome */
+  -o-transition: width 1s; /* Opera */
+}
+
+
+.usedBy > div{
+ background: red;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+}
+.td{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+td[data-column="0"]{
+  border: 1px solid red;
+}
+
+
+.fa {
+  font-size: 2em;
+}
+
+.dayCount_22{
+}
+
+
+
+
+
+

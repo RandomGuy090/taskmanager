@@ -1,0 +1,17 @@
+<form method='POST' action="." enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    
+    {% if "Login" in title %}
+        <button type='submit' class='{{ btn_class }}' value="Log in!">Log in!</button>
+        <a href="/register/">
+           <input type="button" name="goToRegister" value="Sing up!">
+        </a>
+    {% elif "Register" in title %}
+
+        <button type='submit' class='{{ btn_class }}' value="Log in!">Sign Up!</button>
+        
+    {% endif %}
+
+
+{% endif %}
+</form>

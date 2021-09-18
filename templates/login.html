@@ -1,0 +1,28 @@
+{% extends "temp.html" %}
+
+{% block header %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cloudAnim.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/clouds.css' %}">
+
+<title>{{ title }}</title>
+{% endblock header %}
+
+
+{% block body %}
+		<div class="temp-form">
+		{% csrf_token %}
+		<div class="loginSpace">
+			{% include 'snippets/form.html' with form=form title=title %}
+		</div>
+
+		<div class="sky">
+			 <div class="cloud"></div>
+			 <div class="cloud"></div>
+			 <div class="cloud"></div>
+		</div>
+	</div>
+
+
+{% endblock body %}
