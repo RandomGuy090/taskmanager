@@ -1,0 +1,11 @@
+{% for elem in posts %}
+<!-- {{ elem.table_id.color }}
+{{ elem }} -->
+<p>{{ table_url }}</p>
+	<a href="/tables/{{ elem.table_id.url }}">
+		<div class="cal" style="background-color: {{ elem.table_id.color }};
+								border-color: {{ elem.table_id.border_color }}">
+			<p>{{ elem.table_id.name }}</p>
+		</div>
+	</a>
+{% endfor %}

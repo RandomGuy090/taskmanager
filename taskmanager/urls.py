@@ -19,10 +19,13 @@ from django.urls import path
 from account.login.views import Login
 from account.register.views import Register
 from landingpage.views import LandingPage
+from tables.views import Tables
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', Login.as_view()),
     path('register/', Register.as_view()),
+    path('tables/<str:table_id>', Tables.as_view()),
+    path('tables/', Tables.as_view()),
     path("", LandingPage.as_view()),
 ]

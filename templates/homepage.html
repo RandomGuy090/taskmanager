@@ -60,7 +60,7 @@
 	<a href="/logout" class="logout">
 		<div>Logout</div>
 	</a>
-	<p>{{ name }}</p>
+	<p>{{ object_list.first.user_id.username }}</p>
 	<img src="{% static 'img/profile.png'%}">
 </header>
 
@@ -72,15 +72,8 @@
 		</div>
 	</a>
 
-{% for elem in posts %}
-<p>{{ posts.elem.table_url }}</p>
-	<a href="/tables/{{ elem.table_url }}">
-		<div class="cal" style="background-color: {{ elem.table_color }};
-								border-color: {{ elem.table_b_color }}">
-			<p>{{ elem.table_name }}</p>
-		</div>
-	</a>
-{% endfor %}
+{% include 'snippets/homepage.html' with posts=object_list %}
+
 	
 
 </content>
