@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.contrib.auth import login
 
 from django.views.generic.list import ListView
-
 from tables.models import Particip
 
 # class LandingPage(View):
@@ -16,15 +15,22 @@ from tables.models import Particip
 
 class LandingPage(ListView):
 
-    model = Particip
-    template_name = "homepage.html"
+	model = Particip
+	template_name = "homepage.html"
 
 
-    def get_queryset(self, **kwargs):
-        # context = super().get_context_data(**kwargs)
-        context = Particip.objects.all().filter(user_id__username="admin").select_related("user_id")
-        for elem in context:
-        	print(elem.user_id.username, elem.table_id.name)
+	def get_queryset(self, **kwargs):
+		# context = super().get_context_data(**kwargs)
+		user = self.request.session.get("username")
+		self.context = Particip.objects.all().filter(user_id__username=user).select_related("user_id")
+		for elem in self.context:
+			print(elem.user_id.username, elem.table_id.name)
 
-        # context['now'] = timezone.now()
-        return context
+		# context['now'] = timezone.now()
+		return self.context
+
+	def get_context_data(self, **kwargs): 
+		ret = dict()
+		ret["object_list"] = self.context
+		ret["title"] = "Taskmanager"
+		return ret

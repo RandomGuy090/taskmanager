@@ -45,7 +45,7 @@ class Tables(models.Model):
 	def save(self, *args, **kwargs):
 		if not self.pk: # this will ensure that the object is new
 			self.border_color = make_border_color(self.color)
-		super().save(*args, **kwargs)
+		scuper().save(*args, **kwargs)
 
 
 

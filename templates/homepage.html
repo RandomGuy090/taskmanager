@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/homeAnim.css' %}">
 <title>{{ title }}</title>
+
 {% endblock header %}
 
 
@@ -12,46 +13,8 @@
 {% block body %}
 
 	<div id="background_blurred">
+	{% include 'snippets/homepage_form.html'  %}
 
-
-		<div id="new_table_menu" class="no_hid">
-			<div class="no_hid">
-				<div class="no_hid">
-					<h1 class="no_hid" >CREATE NEW</h1>
-				</div>
-				<div class="no_hid">
-					<h1 class="no_hid">JOIN</h1>
-				</div>
-			</div>
-			
-			<div class="no_hid">
-				<div class="no_hid" id="create_new_data" >
-
-					<!-- <label for="name" class="no_hid"> New table name</label> -->
-					<input type="text" name="name" class="no_hid" placeholder="name" autocomplete="off">
-
-
-					<!-- <label for="password" class="no_hid"> password </label> -->
-					<input type="password" name="password" class="no_hid" placeholder="password">
-
-					<div class="no_hid">
-						<label for="color_main" class="no_hid"> color </label>	
-						<input type="color" name="color_main" class="no_hid" placeholder="color">
-					</div>
-					<input type="button" id="send" name="send" value="create" class="no_hid">
-				 </div>
-				
-				<div class="no_hid add_new_cal">
-					<input type="text" autocomplete="off" id="join_table" name="join_table" class="no_hid" placeholder="link to calendar">
-					<input type="button" id="join" name="join" value="join" class="no_hid">
-
-				</div>				
-			</div>
-			{% csrf_token %}
-			
-
-			
-		</div>
 
 
 	</div>
