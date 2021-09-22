@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.conf import settings
 
@@ -29,19 +30,13 @@ from landingpage.views import LandingPage
 from tables.views import Tables
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('logout/', LogoutView),
-    path('logout/', Logout.as_view(), name='logout'),
-    # path('logout/', auth_views.LogoutView.as_view(
-    #     # template_name="login.html"
-    #     ), name='logout'),
-
-
-    path('login/', Login.as_view()),
-    path('register/', Register.as_view()),
-    path('tables/<str:table_id>', Tables.as_view()),
-    path('tables/', Tables.as_view()),
-    path("", login_required(LandingPage.as_view(), login_url="/login/?next=/")),
+    path('admin/', admin.site.urls, name="admin_route"),
+    path('logout/', Logout.as_view(), name='logout_route'),
+    path('login/', Login.as_view(), name="login_route"),
+    path('register/', Register.as_view(), name="register_route"),
+    path('tables/<str:table_id>', Tables.as_view(), name="tables_url"),
+    path('tables/', Tables.as_view(), name="tables_route"),
+    path("", login_required(LandingPage.as_view(), login_url="/login/?next=/"), name="landingpage_route"),
 ]
 
 
