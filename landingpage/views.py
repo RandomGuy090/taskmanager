@@ -33,4 +33,5 @@ class LandingPage(ListView):
 		ret = dict()
 		ret["object_list"] = self.context
 		ret["title"] = "Taskmanager"
+		ret["username"] = self.request.session.get("username")
 		return ret
