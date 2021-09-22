@@ -5,6 +5,7 @@ body{
 	align-items: center;
 	justify-content: center;
 	background-color: #D2D2D2;
+	overflow: hidden;
 }
 
 .temp-form{
