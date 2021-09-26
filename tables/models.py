@@ -47,18 +47,25 @@ class Tables(models.Model):
 			self.border_color = make_border_color(self.color)
 		scuper().save(*args, **kwargs)
 
+	def __str__(self):
+		return self.name
 
 
 class Task_color(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	color = models.CharField(max_length=7, default=gen_color)
+	def __str__(self):
+		return self.color
 
 class Particip(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
-	color = models.ForeignKey(Task_color, on_delete=models.CASCADE)
+	color = models.CharField(max_length=7, default=gen_color)
+
 	joined_date = models.DateTimeField(auto_now_add=True, blank=True)
+
+
 
 class Notes(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -67,6 +74,9 @@ class Notes(models.Model):
 	added_date = models.DateTimeField(auto_now_add=True, blank=True)
 	todo_date_start = models.DateTimeField(blank=True)
 	todo_date_end = models.DateTimeField(blank=True)
+
+	def __str__(self):
+		return self.table_note
 
 admin.site.register(Notes)
 admin.site.register(Particip)
