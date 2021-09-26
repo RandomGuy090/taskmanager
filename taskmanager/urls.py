@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
@@ -30,13 +30,14 @@ from landingpage.views import LandingPage
 from tables.views import Tables
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name="admin_route"),
+    path('admin/', admin.site.urls , name='admin'),
     path('logout/', Logout.as_view(), name='logout_route'),
     path('login/', Login.as_view(), name="login_route"),
     path('register/', Register.as_view(), name="register_route"),
     path('tables/<str:table_id>', Tables.as_view(), name="tables_url"),
     path('tables/', Tables.as_view(), name="tables_route"),
     path("", login_required(LandingPage.as_view(), login_url="/login/?next=/"), name="landingpage_route"),
+    path("api/", include("api.urls"))
 ]
 
 
