@@ -15,6 +15,7 @@ from .serializer import TablesSerializer, UserSerializer, NotesSerializer
 class NotesView(viewsets.ModelViewSet):
     queryset = Notes.objects.all()
     serializer_class = NotesSerializer
+    
 
 class UserView(viewsets.ModelViewSet):
     User = get_user_model()

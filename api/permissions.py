@@ -85,3 +85,7 @@ class CanReadTableContent(permissions.BasePermission):
 
 
 
+# class CanReadTable(permissions.BasePermission):
+
+# 	def has_permission(self, requset, view):
+		

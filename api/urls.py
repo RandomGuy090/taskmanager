@@ -29,11 +29,14 @@ from . import  get_table as get_tbl
 
 main_router = routers.SimpleRouter()
 main_router.register(r"tables",get_tbl.TableView, basename='api-tables')
+# notes_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users')
 
 
 
 users_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users')
 users_router.register(r'users', get_tbl.UserInTableView, basename="users_id")
+users_router.register(r'note', get_tbl.NotesView, basename="users-detail")
+
 
 
 app_name = "api"
@@ -41,8 +44,9 @@ app_name = "api"
 
 urlpatterns = [
     path('',include(main_router.urls)),
-
     path('',include(users_router.urls)),
+    # path('',include(notes_router.urls)),
+
 
 ]
 # https://github.com/alanjds/drf-nested-routers
@@ -83,17 +87,17 @@ urlpatterns = [
 # api/
 #     tables/
 #         <url>/
-#         users/
-#             <userid>
-#         notes/
-#             add/
-#                 <noteid>
-#             del/
-#                 <noteid>
-#         join/
-#             <userid>
-#         leave/
-#             <userid>
+#             users/
+#                 <userid>
+#             notes/
+#                 add/
+#                     <noteid>
+#                 del/
+#                     <noteid>
+#             join/
+#                 <userid>
+#             leave/
+#                 <userid>
 
 
 

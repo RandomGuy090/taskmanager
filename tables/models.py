@@ -45,7 +45,7 @@ class Tables(models.Model):
 	def save(self, *args, **kwargs):
 		if not self.pk: # this will ensure that the object is new
 			self.border_color = make_border_color(self.color)
-		scuper().save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.name
@@ -53,7 +53,6 @@ class Tables(models.Model):
 
 class Task_color(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	color = models.CharField(max_length=7, default=gen_color)
 	def __str__(self):
 		return self.color
@@ -68,6 +67,7 @@ class Particip(models.Model):
 
 
 class Notes(models.Model):
+	
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	table_note = models.CharField(max_length=500, default="")

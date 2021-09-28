@@ -10,13 +10,15 @@ from django.contrib.auth import get_user_model, authenticate, login
 
 User = get_user_model()
 
-class NotesSerializer(serializers.HyperlinkedModelSerializer):
-	url = serializers.HyperlinkedIdentityField(view_name='user-detail', source='profile',)
+class NotesSerializer(serializers.ModelSerializer):
+	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
+	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+	lookup_field = "id"
 
 	class Meta:
 		model = Notes
 		fields = "__all__"
-		# fields = ['user_id', 'table_id', 'table_note', 'added_date', 'todo_date_start', 'todo_date_end']
+
 
 class TablesSerializer(serializers.ModelSerializer):    
 	class Meta:        
@@ -28,6 +30,7 @@ class TablesSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):  
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+	lookup_field= "id"
 
 	class Meta:        
 		model = Particip      
