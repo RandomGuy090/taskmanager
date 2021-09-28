@@ -9,13 +9,13 @@ from django.contrib.auth import get_user_model, authenticate, login
 
 
 from tables.models import Notes , Tables
-from .serializer import TablesSerializer, UserSerializer, NotesSerializer
+from api.serializer import TablesSerializer, UserSerializer, NotesSerializer
 
 
 class NotesView(viewsets.ModelViewSet):
     queryset = Notes.objects.all()
     serializer_class = NotesSerializer
-    
+
 
 class UserView(viewsets.ModelViewSet):
     User = get_user_model()
