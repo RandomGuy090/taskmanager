@@ -23,14 +23,16 @@ class CanReadTableContent(permissions.BasePermission):
 		if url.endswith("/"):
 			url=url[:-1]
 		spl = url.split("/")
-		url = spl[spl.index(spl[-1])-1]
+		# url = spl[spl.index(spl[-1])-1]
+		url = spl[spl.index(spl[3])]
 		
 		#makeshift
 		if len(url) == 16:
 			self.table_ID = url
 			return url
 		else: 
-			url = spl[spl.index(spl[-1])]
+			# url = spl[spl.index(spl[-1])]
+			url = spl[spl.index(spl[3])]
 			self.table_ID = url
 			return url
 
@@ -39,6 +41,8 @@ class CanReadTableContent(permissions.BasePermission):
 		"does table need password?"
 
 		url = self.get_url()
+		print(url)
+		print(url)
 		try:
 			password = Tables.objects.filter(url=url).first()
 		except:
@@ -88,4 +92,4 @@ class CanReadTableContent(permissions.BasePermission):
 # class CanReadTable(permissions.BasePermission):
 
 # 	def has_permission(self, requset, view):
-		
+
