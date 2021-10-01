@@ -13,10 +13,10 @@ User = get_user_model()
 class NotesSerializer(serializers.ModelSerializer):
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
-	lookup_field = "id"
 
 	class Meta:
 		model = Notes
+		# fields = ["table_id", "table_note","user_id"]
 		fields = "__all__"
 
 

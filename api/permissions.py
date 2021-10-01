@@ -11,38 +11,45 @@ from tables.models import (
 	Particip
 )
 
+
+from api.tables.utils import (
+    get_table_url
+)
+
+
+
 class CanReadTableContent(permissions.BasePermission):
 	"permissions for allowing user read table content"
 
 	edit_methods = ("PUT", "PATCH")
 	
-	def get_url(self):
-		"get table id from url"
+	# def get_url(self):
+	# 	"get table id from url"
 
-		url = self.URL
-		if url.endswith("/"):
-			url=url[:-1]
-		spl = url.split("/")
-		# url = spl[spl.index(spl[-1])-1]
-		url = spl[spl.index(spl[3])]
+	# 	url = self.URL
+	# 	if url.endswith("/"):
+	# 		url=url[:-1]
+	# 	spl = url.split("/")
+	# 	# url = spl[spl.index(spl[-1])-1]
+	# 	url = spl[spl.index(spl[3])]
 		
-		#makeshift
-		if len(url) == 16:
-			self.table_ID = url
-			return url
-		else: 
-			# url = spl[spl.index(spl[-1])]
-			url = spl[spl.index(spl[3])]
-			self.table_ID = url
-			return url
+	# 	#makeshift
+	# 	if len(url) == 16:
+	# 		self.table_ID = url
+	# 		return url
+	# 	else: 
+	# 		# url = spl[spl.index(spl[-1])]
+	# 		url = spl[spl.index(spl[3])]
+	# 		self.table_ID = url
+	# 		return url
 
 
 	def need_password(self):
 		"does table need password?"
 
-		url = self.get_url()
-		print(url)
-		print(url)
+		# url = get_table_url(request.path)
+		url = get_table_url(self.URL)
+
 		try:
 			password = Tables.objects.filter(url=url).first()
 		except:
@@ -63,7 +70,7 @@ class CanReadTableContent(permissions.BasePermission):
 		#fist
 		"main function"
 		self.URL = request.path
-		self.table_ID = self.get_url()
+		self.table_ID = get_table_url(request.path)
 		self.USERNAME = request.session.get("username")
 
 		if request.user.is_authenticated:

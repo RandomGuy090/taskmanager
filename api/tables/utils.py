@@ -1,9 +1,27 @@
 
-def get_table_url(path):
-    "gets tbl_id from /api/tables/tbl_id/users"
-    url = path
-    if url.endswith("/"):
-        url=url[:-1]
-    url = url.split("/")
-    url = url[url.index(url[-1])-1]
-    return url
+def get_table_url(url):
+	"get table id from url"
+
+	if url.endswith("/"):
+		url=url[:-1]
+	spl = url.split("/")
+	# url = spl[spl.index(spl[-1])-1]
+	url = spl[spl.index(spl[3])]
+
+	#makeshift
+	if len(url) == 16:
+		return url
+	else: 
+		# url = spl[spl.index(spl[-1])]
+		url = spl[spl.index(spl[3])]
+
+		return url
+
+def get_lookup(url):
+	if url.endswith("/"):
+		url = url[:-1]
+	print(url)
+	
+	url = url.rsplit("/")
+	print(url)
+	return str(url[-1])
