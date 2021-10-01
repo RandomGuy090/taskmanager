@@ -21,12 +21,14 @@ from django.contrib.auth.decorators import login_required
 from rest_framework_nested import routers
 
 from .tables.tables_view import Table_view
-from .tables.notes_view import Notes_view
+from .tables.notes_view import (Notes_view
+    )
+
 from .tables.users_view import User_in_table_view
 
 main_router = routers.SimpleRouter()
 main_router.register(r"tables", Table_view, basename='api-tables')
-# notes_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users')
+
 
 
 
@@ -42,11 +44,8 @@ app_name = "api"
 urlpatterns = [
     path('',include(main_router.urls)),
     path('',include(users_router.urls)),
-    # path('',include(notes_router.urls)),
-
 
 ]
-# https://github.com/alanjds/drf-nested-routers
 
 
 # tables
