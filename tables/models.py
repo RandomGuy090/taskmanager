@@ -1,6 +1,6 @@
 from django.db import models
 import random
-from datetime import datetime
+from django.utils import timezone
 from django.contrib import admin
 from django.contrib.auth import get_user_model, authenticate, login
 User = get_user_model()
@@ -62,7 +62,8 @@ class Particip(models.Model):
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	color = models.CharField(max_length=7, default=gen_color)
 
-	joined_date = models.DateTimeField(auto_now_add=True, blank=True)
+	# joined_date = models.DateTimeField(auto_now_add=True, blank=True)
+	joined_date = models.DateTimeField(default=timezone.now, blank=True)
 
 
 
@@ -71,7 +72,10 @@ class Notes(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	table_note = models.CharField(max_length=500, default="")
-	added_date = models.DateTimeField(auto_now_add=True, blank=True)
+	# added_date = models.DateTimeField(auto_now_add=True, blank=True)
+	# todo_date_start = models.DateTimeField(blank=True)
+	# todo_date_end = models.DateTimeField(blank=True)
+	added_date = models.DateTimeField(default=timezone.now, blank=True)
 	todo_date_start = models.DateTimeField(blank=True)
 	todo_date_end = models.DateTimeField(blank=True)
 
