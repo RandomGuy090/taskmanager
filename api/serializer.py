@@ -21,9 +21,14 @@ class NotesSerializer(serializers.ModelSerializer):
 
 
 class TablesSerializer(serializers.ModelSerializer):    
+	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
+	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
 	class Meta:        
-		model = Tables     
-		exclude = ["password"]
+		# model = Tables     
+		# exclude = ["password"]
+		model = Particip
+		fields = "__all__"
+
 
 
 

@@ -19,6 +19,7 @@ from taskmanager.exceptions import (
     Unauthorized,
     NotAdded,
 )
+
 from tables.models import (
     Notes, 
     Tables, 
@@ -26,17 +27,20 @@ from tables.models import (
 )
 from api.serializer import (
     TablesSerializer, 
-    UserSerializer, 
-    NotesSerializer
-)
-from .utils import (
-    get_table_url
 )
 
-
+from django.db.models.query import QuerySet
 
 class Table_view(viewsets.ModelViewSet):
     "list all tables"
     queryset = Tables.objects.all()
     serializer_class = TablesSerializer
     lookup_field = "url"
+
+    def get_queryset(self):
+        user = self.request.session.get("username")
+        # pr = Particip.objects.select_related().filter(user_id__username=user)
+        pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
+        return pr
+
+
