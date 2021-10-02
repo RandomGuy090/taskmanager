@@ -25,22 +25,36 @@ from tables.models import (
     Tables, 
     Particip
 )
+from .utils import get_lookup
 from api.serializer import (
-    TablesSerializer, 
+    TablesSerializerList, 
+    TablesSerializerDetail
 )
 
 from django.db.models.query import QuerySet
 
 class Table_view(viewsets.ModelViewSet):
     "list all tables"
-    queryset = Tables.objects.all()
-    serializer_class = TablesSerializer
+
     lookup_field = "url"
 
-    def get_queryset(self):
-        user = self.request.session.get("username")
-        # pr = Particip.objects.select_related().filter(user_id__username=user)
-        pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
-        return pr
+    def get_serializer_class(self) -> serializers.ModelSerializer:
+        if self.action == "list":
+            return TablesSerializerList
+        return TablesSerializerDetail
+
+
+    def get_queryset(self) -> models.Model:
+        try:
+            url = get_lookup(self.request.path)
+            if len(url) == 16:
+                qr = Tables.objects.filter(url=url)
+                return qr
+            else:
+                raise 
+        except:
+            user = self.request.session.get("username")
+            pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
+            return pr
 
 

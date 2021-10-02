@@ -5,34 +5,38 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate, login
 
 
-
-
-
 User = get_user_model()
 
 class NotesSerializer(serializers.ModelSerializer):
+	"get all notes from table"
+
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
-
 	class Meta:
 		model = Notes
 		# fields = ["table_id", "table_note","user_id"]
 		fields = "__all__"
 
 
-class TablesSerializer(serializers.ModelSerializer):    
+class TablesSerializerList(serializers.ModelSerializer):    
+	"get table info in list view"
+	
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
 	class Meta:        
-		# model = Tables     
-		# exclude = ["password"]
 		model = Particip
 		fields = "__all__"
 
 
+class TablesSerializerDetail(serializers.ModelSerializer):    
+	"get table info in detailed view"
+	class Meta:        
+		exclude = ["password"]
+		model = Tables
 
 
 class UserSerializer(serializers.ModelSerializer):  
+	"get all users added to the table"
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
 	lookup_field= "id"

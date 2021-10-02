@@ -25,7 +25,6 @@ from tables.models import (
     Particip
 )
 from api.serializer import (
-    TablesSerializer, 
     UserSerializer, 
     NotesSerializer
 )
@@ -41,7 +40,6 @@ class User_in_table_view(viewsets.ModelViewSet):
     
     serializer_class = UserSerializer
     lookup_field = 'username' 
-    # permission_classes = [IsAuthenticated]
     permission_classes = [CanReadTableContent]
     
     def get_queryset(self):
