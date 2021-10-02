@@ -14,7 +14,6 @@ class NotesSerializer(serializers.ModelSerializer):
 	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
 	class Meta:
 		model = Notes
-		# fields = ["table_id", "table_note","user_id"]
 		fields = "__all__"
 
 

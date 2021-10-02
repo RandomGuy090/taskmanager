@@ -38,13 +38,13 @@ class Table_view(viewsets.ModelViewSet):
 
     lookup_field = "url"
 
-    def get_serializer_class(self) -> serializers.ModelSerializer:
+    def get_serializer_class(self):
         if self.action == "list":
             return TablesSerializerList
         return TablesSerializerDetail
 
 
-    def get_queryset(self) -> models.Model:
+    def get_queryset(self) :
         try:
             url = get_lookup(self.request.path)
             if len(url) == 16:

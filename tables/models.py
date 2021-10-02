@@ -1,7 +1,6 @@
 from django.db import models
 import random
 from django.utils import timezone
-from django.contrib import admin
 from django.contrib.auth import get_user_model, authenticate, login
 User = get_user_model()
 
@@ -34,13 +33,13 @@ def gen_url(lenght=16):
 		rstr += (chr(integ))
 	return rstr
 
+
 class Tables(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.CharField(max_length=16, default=gen_url)
 	color = models.CharField(max_length=7, default=gen_color)
 	border_color = models.CharField(max_length=7, blank=True)
 	password = models.CharField(max_length=200, default="", blank=True)
-	# password_needed = models.BooleanField(default=False)
 
 	def save(self, *args, **kwargs):
 		if not self.pk: # this will ensure that the object is new
@@ -61,8 +60,6 @@ class Particip(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	color = models.CharField(max_length=7, default=gen_color)
-
-	# joined_date = models.DateTimeField(auto_now_add=True, blank=True)
 	joined_date = models.DateTimeField(default=timezone.now, blank=True)
 
 
@@ -72,19 +69,10 @@ class Notes(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	table_note = models.CharField(max_length=500, default="")
-	# added_date = models.DateTimeField(auto_now_add=True, blank=True)
-	# todo_date_start = models.DateTimeField(blank=True)
-	# todo_date_end = models.DateTimeField(blank=True)
 	added_date = models.DateTimeField(default=timezone.now, blank=True)
 	todo_date_start = models.DateTimeField(blank=True)
 	todo_date_end = models.DateTimeField(blank=True)
 
 	def __str__(self):
 		return self.table_note
-
-admin.site.register(Notes)
-admin.site.register(Particip)
-admin.site.register(Task_color)
-admin.site.register(Tables)
-
 

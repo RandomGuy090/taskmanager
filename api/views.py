@@ -12,16 +12,16 @@ from tables.models import Notes , Tables
 from api.serializer import TablesSerializer, UserSerializer, NotesSerializer
 
 
-class NotesView(viewsets.ModelViewSet):
-    queryset = Notes.objects.all()
-    serializer_class = NotesSerializer
+# class NotesView(viewsets.ModelViewSet):
+#     queryset = Notes.objects.all()
+#     serializer_class = NotesSerializer
 
 
-class UserView(viewsets.ModelViewSet):
-    User = get_user_model()
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserView(viewsets.ModelViewSet):
+#     User = get_user_model()
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
-class TableView(viewsets.ModelViewSet):
-    queryset = Tables.objects.all()
-    serializer_class = TablesSerializer
+# class TableView(viewsets.ModelViewSet):
+#     queryset = Tables.objects.all()
+#     serializer_class = TablesSerializer
