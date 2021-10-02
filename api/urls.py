@@ -36,10 +36,7 @@ users_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users'
 users_router.register(r'users', User_in_table_view, basename="users_id")
 users_router.register(r'notes', Notes_view, basename="users-detail")
 
-
-
 app_name = "api"
-
 
 urlpatterns = [
     path('',include(main_router.urls)),
