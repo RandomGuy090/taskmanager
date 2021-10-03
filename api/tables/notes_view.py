@@ -5,7 +5,11 @@ from api.serializer import 	NotesSerializer
 from rest_framework.response import Response
 from .utils import 	get_table_url
 
-from taskmanager.exceptions import NullFields
+from taskmanager.exceptions import (
+	NullFields,
+	CantDeleteNote,
+	NoSuchTable,
+)
 
 class Notes_view(viewsets.ModelViewSet):
 	"list all notes in table"
@@ -43,6 +47,7 @@ class Notes_view(viewsets.ModelViewSet):
 			queryset = Notes.objects.select_related().filter(table_id__url=url)
 		
 		return queryset
+
 	def create(self, request, *args, **kwargs):
 		"create new task via post"
 
@@ -50,16 +55,39 @@ class Notes_view(viewsets.ModelViewSet):
 		for elem in request.data:
 			if request.data.get(elem) == "":
 				null_fields.append(elem)
+				
+		null_fields.remove("added_date")
 
 		if len(null_fields) != 0:
 			raise NullFields(detail=null_fields)
-		
-		serializer = self.serializer_class(detail=request.data)
+
+		if not request.POST._mutable:
+			request.POST._mutable = True
+
+		request.data["user_id"] = self.request.session.get("username")
+
+		serializer = self.serializer_class(data=request.data)
 
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
 			return Response(serializer.data)
 		else:
 			return Response('Invalid request')
+
+	def destroy(self, request, *args, **kwargs):
+		post_id = kwargs.get("id")
+		user = self.request.session.get("username")
+		
+		if post_id:
+			qr = Notes.objects.filter(id=post_id, user_id__username=user)
+			if qr.exists():
+				self.perform_destroy(qr)
+				raise NoSuchTable()
+
+			else:
+				raise CantDeleteNote(detail="You are not note's author so you can'r delete it")
+
+
+
 
 

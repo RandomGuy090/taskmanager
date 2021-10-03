@@ -30,6 +30,15 @@ class NullFields(APIException):
 	default_detail = "Null fields"
 	default_code = "invalid"
 
-	def __init__(self, detail):
+	def __init__(self, detail=None):
 		if detail is not None:
 			self.detail = f" Null fields: {detail}"
+
+class CantDeleteNote(APIException):
+	status_code = 404
+	default_detail = "Can't delete note"
+	default_code = "invalid"
+
+	def __init__(self, detail=None):
+		if detail is not None:
+			self.detail = detail
