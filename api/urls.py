@@ -83,10 +83,6 @@ urlpatterns = [
 #             users/
 #                 <userid>
 #             notes/
-#                 add/
-#                     <noteid>
-#                 del/
-#                     <noteid>
 #             join/
 #                 <userid>
 #             leave/

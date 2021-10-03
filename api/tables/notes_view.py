@@ -2,9 +2,10 @@ from rest_framework import viewsets
 from api.permissions import CanReadTableContent
 from tables.models import Notes
 from api.serializer import 	NotesSerializer
-
+from rest_framework.response import Response
 from .utils import 	get_table_url
 
+from taskmanager.exceptions import NullFields
 
 class Notes_view(viewsets.ModelViewSet):
 	"list all notes in table"
@@ -42,4 +43,23 @@ class Notes_view(viewsets.ModelViewSet):
 			queryset = Notes.objects.select_related().filter(table_id__url=url)
 		
 		return queryset
+	def create(self, request, *args, **kwargs):
+		"create new task via post"
+
+		null_fields = []
+		for elem in request.data:
+			if request.data.get(elem) == "":
+				null_fields.append(elem)
+
+		if len(null_fields) != 0:
+			raise NullFields(detail=null_fields)
+		
+		serializer = self.serializer_class(detail=request.data)
+
+		if serializer.is_valid(raise_exception=True):
+			serializer.save()
+			return Response(serializer.data)
+		else:
+			return Response('Invalid request')
+
 

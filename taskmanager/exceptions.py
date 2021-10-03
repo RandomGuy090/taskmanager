@@ -1,5 +1,6 @@
 from rest_framework.exceptions import APIException
 
+
 class ServiceUnavailable(APIException):
 	status_code = 503
 	default_detail = 'Service temporarily unavailable, try again later.'
@@ -23,4 +24,12 @@ class NotAdded(APIException):
 	default_detail = 'User not added to the table'
 	default_code = 'Unauthorized'
 	
-		
+
+class NullFields(APIException):
+	status_code = 404
+	default_detail = "Null fields"
+	default_code = "invalid"
+
+	def __init__(self, detail):
+		if detail is not None:
+			self.detail = f" Null fields: {detail}"
