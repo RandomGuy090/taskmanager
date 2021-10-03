@@ -20,8 +20,5 @@ def get_table_url(url):
 def get_lookup(url):
 	if url.endswith("/"):
 		url = url[:-1]
-	print(url)
-	
 	url = url.rsplit("/")
-	print(url)
 	return str(url[-1])

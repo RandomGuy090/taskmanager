@@ -6,7 +6,6 @@ from django.contrib.auth import  logout
 
 class Logout(View):
 	def get(self, request):
-		print("logout")
 		logout(request)
 		return redirect("/")
 

@@ -8,7 +8,6 @@ class LoginForm(forms.Form):
 
 	def clean(self):
 		user = authenticate(username=self.username, password=self.password)
-		print(user)
 		if user is None:
 			raise forms.ValidationError("This is a invalid user.")
 		self.user = user

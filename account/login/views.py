@@ -18,15 +18,12 @@ class Login(View):
 
 	def post(self, request):
 		form = LoginForm(request.POST or None)
-		print(form)
 		if form.is_valid():
 			username = form.cleaned_data.get("username")
 			password = form.cleaned_data.get("password")
-			print(f"{username}:   {password}")
 			login(request, form.user)
 
 		else: 
-			print("form invalid")
 			headers = {"title": "Login", "form":form}
 			return render(request, "login.html", headers)
 

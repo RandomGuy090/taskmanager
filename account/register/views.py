@@ -17,17 +17,13 @@ class Register(View):
 
 	def post(self, request):
 		form = RegisterForm(request.POST or None)
-		print(form)
-		print(form.is_valid())
 		if form.is_valid():
 			username = form.cleaned_data.get("username")
 			password = form.cleaned_data.get("password")
 
-			print(f"{username}:   {password}")
 			login(request, form.user)
 
 		else: 
-			print("form invalid")
 			headers = {"title": "Register", "form":form}
 			return render(request, "login.html", headers)
 			

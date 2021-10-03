@@ -23,8 +23,6 @@ class LandingPage(ListView):
 		# context = super().get_context_data(**kwargs)
 		user = self.request.session.get("username")
 		self.context = Particip.objects.all().filter(user_id__username=user).select_related("user_id")
-		for elem in self.context:
-			print(elem.user_id.username, elem.table_id.name)
 
 		# context['now'] = timezone.now()
 		return self.context
