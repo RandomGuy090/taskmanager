@@ -21,8 +21,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework_nested import routers
 
 from .tables.tables_view import Table_view
-from .tables.notes_view import (Notes_view
-    )
+from .tables.notes_view import (Notes_view    )
+from .tables.join_view import Join_table
 
 from .tables.users_view import User_in_table_view
 
@@ -35,6 +35,9 @@ main_router.register(r"tables", Table_view, basename='api-tables')
 users_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users')
 users_router.register(r'users', User_in_table_view, basename="users_id")
 users_router.register(r'notes', Notes_view, basename="users-detail")
+
+users_router.register(r'leave', Notes_view, basename="users-leave")
+users_router.register(r'join', Join_table, basename="users-join")
 
 app_name = "api"
 
