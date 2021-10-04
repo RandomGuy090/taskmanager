@@ -31,6 +31,8 @@ class TablesSerializerDetail(serializers.ModelSerializer):
 	"get table info in detailed view"
 	class Meta:        
 		exclude = ["password"]
+		# fields = "__all__"
+
 		model = Tables
 
 
@@ -43,3 +45,14 @@ class UserSerializer(serializers.ModelSerializer):
 	class Meta:        
 		model = Particip      
 		fields = "__all__"
+
+
+class TablesCreateSerializer(serializers.ModelSerializer):    
+	"get table info in detailed view"
+
+	class Meta:        
+		# exclude = ["url"]
+		fields = "__all__"
+
+		model = Particip
+

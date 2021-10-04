@@ -28,7 +28,8 @@ from tables.models import (
 from .utils import get_lookup
 from api.serializer import (
     TablesSerializerList, 
-    TablesSerializerDetail
+    TablesSerializerDetail,
+    TablesCreateSerializer
 )
 
 from django.db.models.query import QuerySet
@@ -39,8 +40,16 @@ class Table_view(viewsets.ModelViewSet):
     lookup_field = "url"
 
     def get_serializer_class(self):
+        print(self.action)
+        print(self.action)
+        print(self.action)
+        print(self.action)
+
         if self.action == "list":
             return TablesSerializerList
+        elif self.action == "revive":
+            return TablesCreateSerializer
+
         return TablesSerializerDetail
 
 
