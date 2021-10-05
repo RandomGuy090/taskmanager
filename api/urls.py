@@ -27,6 +27,8 @@ from .tables.leave_view import Leave_table
 
 from .tables.users_view import User_in_table_view
 
+from .user import user_view
+
 main_router = routers.SimpleRouter()
 main_router.register(r"tables", Table_view, basename='api-tables')
 
@@ -45,6 +47,7 @@ app_name = "api"
 urlpatterns = [
     path('',include(main_router.urls)),
     path('',include(users_router.urls)),
+    path("user", user_view.as_view({"get": "list"}))
 
 ]
 

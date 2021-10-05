@@ -42,19 +42,10 @@ class Leave_table(viewsets.ModelViewSet):
 
     permission_classes = [CanReadTableContent]
     
-    # def get_queryset(self):
-    #     url = get_table_url(self.request.path)
-    #     queryset = Particip.objects.select_related().filter(table_id__url=url)
-    #     return queryset
 
     def create(self, request, *args, **kwargs):
         "join new table via post"
         print("+++++++")
-        # try:
-        #     password = self.request.POST.get("password")
-        # except:
-        #     password = ""
-        # password = self.request.query_params.get("password")
         url = get_table_url(self.request.path)
         user = self.request.session.get("username")
 

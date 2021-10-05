@@ -60,7 +60,8 @@ class Table_view(viewsets.ModelViewSet):
 				raise 
 		except:
 			user = self.request.session.get("username")
-			pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
+			# pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
+			pr = Particip.objects.filter(user_id__username=user)
 			return pr
 
 

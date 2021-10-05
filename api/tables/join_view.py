@@ -40,12 +40,7 @@ class Join_table(viewsets.ModelViewSet):
     queryset = Tables.objects.all()
     http_method_names = ['post']
 
-    # permission_classes = [CanReadTableContent]
-    
-    # def get_queryset(self):
-    #     url = get_table_url(self.request.path)
-    #     queryset = Particip.objects.select_related().filter(table_id__url=url)
-    #     return queryset
+
 
     def create(self, request, *args, **kwargs):
         "join new table via post"
