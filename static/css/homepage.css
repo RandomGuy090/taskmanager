@@ -194,3 +194,7 @@ a, .new_cal{
 	text-align: center;
 	font-size: 150%;
 }
+
+#new_table{
+	display: flex;
+}
