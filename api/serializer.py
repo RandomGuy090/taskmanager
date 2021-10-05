@@ -53,6 +53,6 @@ class TablesCreateSerializer(serializers.ModelSerializer):
 	class Meta:        
 		# exclude = ["url"]
 		fields = "__all__"
-
+		lookup_field = "id"
 		model = Particip
 

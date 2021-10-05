@@ -6,64 +6,61 @@ from django.core import serializers
 from django.contrib.auth import get_user_model
 
 from rest_framework import (
-    routers, 
-    serializers, 
-    viewsets
+	routers, 
+	serializers, 
+	viewsets
 )
 from rest_framework.permissions import IsAuthenticated
 from api.permissions import CanReadTableContent
 User = get_user_model()
 
 from taskmanager.exceptions import (
-    ServiceUnavailable,
-    Unauthorized,
-    NotAdded,
+	ServiceUnavailable,
+	Unauthorized,
+	NotAdded,
 )
 
 from tables.models import (
-    Notes, 
-    Tables, 
-    Particip
+	Notes, 
+	Tables, 
+	Particip
 )
 from .utils import get_lookup
 from api.serializer import (
-    TablesSerializerList, 
-    TablesSerializerDetail,
-    TablesCreateSerializer
+	TablesSerializerList, 
+	TablesSerializerDetail,
+	TablesCreateSerializer
 )
 
 from django.db.models.query import QuerySet
 
 class Table_view(viewsets.ModelViewSet):
-    "list all tables"
+	"list all tables"
 
-    lookup_field = "url"
-
-    def get_serializer_class(self):
-        print(self.action)
-        print(self.action)
-        print(self.action)
-        print(self.action)
-
-        if self.action == "list":
-            return TablesSerializerList
-        elif self.action == "revive":
-            return TablesCreateSerializer
-
-        return TablesSerializerDetail
+	lookup_field = "url"
+	http_method_names = ['get']
 
 
-    def get_queryset(self) :
-        try:
-            url = get_lookup(self.request.path)
-            if len(url) == 16:
-                qr = Tables.objects.filter(url=url)
-                return qr
-            else:
-                raise 
-        except:
-            user = self.request.session.get("username")
-            pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
-            return pr
+	def get_serializer_class(self):
+		if self.action == "list":
+			return TablesSerializerList
+		elif self.action == "revive":
+			return TablesCreateSerializer
+
+		return TablesSerializerDetail
+
+
+	def get_queryset(self) :
+		try:
+			url = get_lookup(self.request.path)
+			if len(url) == 16:
+				qr = Tables.objects.filter(url=url)
+				return qr
+			else:
+				raise 
+		except:
+			user = self.request.session.get("username")
+			pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
+			return pr
 
 

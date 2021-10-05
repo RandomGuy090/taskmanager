@@ -28,19 +28,19 @@ from api.serializer import (
 from taskmanager.exceptions import (
     ServerError,
     PassowordNeeded,
-    Unauthorized
+    NoSuchTable,
+    LeftTable,
 )
 
+class Leave_table(viewsets.ModelViewSet):
 
-class Join_table(viewsets.ModelViewSet):
 
-    
     serializer_class = TablesCreateSerializer
     lookup_field = 'id' 
     queryset = Tables.objects.all()
     http_method_names = ['post']
 
-    # permission_classes = [CanReadTableContent]
+    permission_classes = [CanReadTableContent]
     
     # def get_queryset(self):
     #     url = get_table_url(self.request.path)
@@ -50,10 +50,10 @@ class Join_table(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         "join new table via post"
         print("+++++++")
-        try:
-            password = self.request.POST.get("password")
-        except:
-            password = ""
+        # try:
+        #     password = self.request.POST.get("password")
+        # except:
+        #     password = ""
         # password = self.request.query_params.get("password")
         url = get_table_url(self.request.path)
         user = self.request.session.get("username")
@@ -62,32 +62,10 @@ class Join_table(viewsets.ModelViewSet):
                                 table_id__url=url)
 
         if part.exists():
-            print("redirect")
-            return HttpResponseRedirect(redirect_to=f'/api/tables/{url}') 
-
-        qr = Tables.objects.filter(url=url).first()
-        if qr == None:
-            raise Unauthorized()
-
-        if password == qr.password:
-            if not request.POST._mutable:
-                request.POST._mutable = True
-
-            request.data["user_id"] = User.objects.filter(username=user).first().id
-            request.data["table_id"] = Tables.objects.filter(url=url).first().id
-            request.data.pop("password")
-
-            serializer = self.serializer_class(data=self.request.data)
-            
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            else:
-                raise ServerError()
+            part.delete()
+            raise LeftTable()
         else:
-            raise PassowordNeeded()
-        
-        return Response("leaving")
+            raise NoSuchTable()
 
-        
-        return Response(self.request.POST)
+
+

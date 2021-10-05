@@ -5,6 +5,8 @@ from django.contrib.auth import login
 
 
 class Tables(View):
+	http_method_names = ['get']
+
 	def get(self, request, table_id=""):
 		username = request.session.get("username")
 		# return render(request, "login.html", headers)

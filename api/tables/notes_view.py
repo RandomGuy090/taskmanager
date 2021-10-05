@@ -17,6 +17,8 @@ class Notes_view(viewsets.ModelViewSet):
 	serializer_class = NotesSerializer
 	lookup_field = "id"
 	permission_classes = [CanReadTableContent]
+	http_method_names = ['post', "get", "delete"]
+
 
 	def get_queryset(self):
 		#get url of table

@@ -26,6 +26,8 @@ class User_in_table_view(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     lookup_field = 'username' 
     permission_classes = [CanReadTableContent]
+    http_method_names = ['get']
+
     
     def get_queryset(self):
         url = get_table_url(self.request.path)

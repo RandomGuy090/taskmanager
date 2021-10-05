@@ -17,6 +17,8 @@ class LandingPage(ListView):
 
 	model = Particip
 	template_name = "homepage.html"
+	http_method_names = ['get']
+
 
 
 	def get_queryset(self, **kwargs):
