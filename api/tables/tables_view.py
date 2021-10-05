@@ -4,6 +4,7 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.contrib.auth import get_user_model
+from django.db.models import Count
 
 from rest_framework import (
 	routers, 
@@ -60,8 +61,20 @@ class Table_view(viewsets.ModelViewSet):
 				raise 
 		except:
 			user = self.request.session.get("username")
-			# pr = Particip.objects.raw("SELECT * FROM tables_particip GROUP BY table_id_id")
-			pr = Particip.objects.filter(user_id__username=user)
+			pr = Particip.objects.raw("""SELECT * FROM tables_particip
+										JOIN 	tables_tables ON table_id_id
+										GROUP BY table_id_id""")
+			# pr = Particip.objects.filter(user_id__username=user)
+
+			# query = Particip.objects.all().query
+			# query.group_by = ['id']
+			# pr = QuerySet(query=query, model=Particip)
+
+			
+			# print(pr)
+
+
+
 			return pr
 
 
