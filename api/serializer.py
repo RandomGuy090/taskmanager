@@ -16,17 +16,6 @@ class NotesSerializer(serializers.ModelSerializer):
 		model = Notes
 		fields = "__all__"
 
-
-class TablesSerializerList(serializers.ModelSerializer):    
-	"get table info in list view"
-	
-	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
-	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
-	class Meta:        
-		model = Particip
-		fields = "__all__"
-
-
 class TablesSerializerDetail(serializers.ModelSerializer):    
 	"get table info in detailed view"
 	class Meta:        
@@ -34,6 +23,20 @@ class TablesSerializerDetail(serializers.ModelSerializer):
 		# fields = "__all__"
 
 		model = Tables
+
+class TablesSerializerList(serializers.ModelSerializer):    
+	"get table info in list view"
+	
+	# table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
+	table_id = TablesSerializerDetail()
+	# table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
+	user_id= serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+	class Meta:        
+		model = Particip
+		fields = "__all__"
+
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):  
