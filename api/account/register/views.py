@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, JsonResponse
+import json
 
 from django.contrib.auth import  login
 
@@ -17,19 +18,27 @@ class Register(View):
 
 	def post(self, request):
 		form = RegisterForm(request.POST or None)
+		username = request.POST.get("username")
+		password = request.POST.get("password")
+		password2 = request.POST.get("password2")
+
+		print(username, password, password2)
+
 		if form.is_valid():
-			username = form.cleaned_data.get("username")
-			password = form.cleaned_data.get("password")
 
 			login(request, form.user)
 
 		else: 
 			# headers = {"title": "Register", "form":form}
-			return JsonResponse({
-			"status_code": 401,
-			"detail": "register failed",
-			}) 
-			# raise
+			# return JsonResponse({
+			# "status_code": 401,
+			# "detail": "register failed",
+			# }) 
+			# # raise
+			data = form.errors.as_json()
+			data = json.loads(data)
+			data = data["__all__"][0]
+			return JsonResponse(data) 
 
 		request.session["username"] = username
 		return JsonResponse({

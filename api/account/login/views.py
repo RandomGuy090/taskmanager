@@ -21,6 +21,7 @@ class Login(View):
 
 	def post(self, request):
 		form = LoginForm(request.POST or None)
+		
 		if form.is_valid():
 			username = form.cleaned_data.get("username")
 			password = form.cleaned_data.get("password")
@@ -28,11 +29,10 @@ class Login(View):
 
 		else: 
 			headers = {"title": "Login", "form":form}
-			return JsonResponse({
-			"status_code": 401,
-			"detail": "login failed",
-			}) 
-			# raise
+			data = form.errors.as_json()
+			data = json.loads(data)
+			data = data["__all__"][0]
+			return JsonResponse(data) 
 
 		request.session["username"] = username
 		return JsonResponse({

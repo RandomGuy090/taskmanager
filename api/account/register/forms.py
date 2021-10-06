@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model, authenticate, login
 User = get_user_model()
 
+from taskmanager.exceptions import Unauthorized
+
 class RegisterForm(forms.Form):
 	username = forms.CharField(widget=forms.TextInput())
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -10,12 +12,14 @@ class RegisterForm(forms.Form):
 	def clean(self):
 		if self.password != self.password2:
 			raise forms.ValidationError("passwords are not equal!")
+			# raise Unauthorized
 
 		qs = User.objects.filter(username=self.username)		
 		
 		user = authenticate(username=self.username, password=self.password)
 		if qs.exists():
 			raise forms.ValidationError("Such user already exists")
+
 
 		user = User.objects.create_user(username=self.username, password=self.password)
 		user.save()
