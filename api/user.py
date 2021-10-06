@@ -18,13 +18,13 @@ from api.serializer import (
 )
 
 
-class user_view(viewsets.ViewSet):
+class User_username_view(viewsets.ViewSet):
 
     queryset=Tables.objects.all()
     
 
     def list(self, request, *args, **kwargs):
-        "join new table via post"
+        "show logged user"
 
         
         user = self.request.session.get("username")

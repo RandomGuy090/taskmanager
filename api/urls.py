@@ -27,12 +27,17 @@ from .tables.leave_view import Leave_table
 
 from .tables.users_view import User_in_table_view
 
-from .user import user_view
+
+from .user import User_username_view
+
+
+from .account.login.views import Login
+from .account.register.views import Register
+from .account.logout.views import Logout
+
 
 main_router = routers.SimpleRouter()
 main_router.register(r"tables", Table_view, basename='api-tables')
-
-
 
 
 users_router = routers.NestedSimpleRouter(main_router, r'tables', lookup='users')
@@ -47,7 +52,15 @@ app_name = "api"
 urlpatterns = [
     path('',include(main_router.urls)),
     path('',include(users_router.urls)),
-    path("user", user_view.as_view({"get": "list"}))
+    path("user/", User_username_view.as_view({"get": "list"})),
+    # path("login", UserLoginView.as_view({"post": "create"}))
+    # path("login",include())
+  
+    path('logout/', Logout.as_view(), name='logout_route'),
+    path('login/', Login.as_view(), name="login_route"),
+    path('register/', Register.as_view(), name="register_route"),
+
+
 
 ]
 

@@ -36,9 +36,6 @@ class TablesSerializerList(serializers.ModelSerializer):
 		fields = "__all__"
 
 
-
-
-
 class UserSerializer(serializers.ModelSerializer):  
 	"get all users added to the table"
 	table_id = serializers.SlugRelatedField(queryset=Tables.objects.all(), slug_field='url')
