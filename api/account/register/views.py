@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 import json
-
-from django.contrib.auth import  login
+from django.contrib.auth import authenticate, logout, login, get_user_model
 
 
 from .forms import RegisterForm
+User = get_user_model()
+
 
 class Register(View):
 	def get(self, request):
@@ -17,28 +18,34 @@ class Register(View):
 
 
 	def post(self, request):
-		form = RegisterForm(request.POST or None)
-		username = request.POST.get("username")
-		password = request.POST.get("password")
-		password2 = request.POST.get("password2")
+		data = self.request.body
+		data = data.decode("utf-8")
+		data = json.loads(data)
+
+		username = data.get("username")
+		password = data.get("password")
+		password2 = data.get("password2")
 
 		print(username, password, password2)
+		if password2 != password:
+			print("password does not match")
+			return JsonResponse({
+				"status_code": 403,
+				"detail": "passwords does not match",
+				})
 
-		if form.is_valid():
+		qr = User.objects.filter(username=username)
+		if qr.exists():
+			print("user already exists")
+			return JsonResponse({
+				"status_code": 403,
+				"detail": "user already exists",
+				})
+		user = User.objects.create_user(username=username, password=password)
+		user.save()
+		user = authenticate(username=username, password=password)
 
-			login(request, form.user)
-
-		else: 
-			# headers = {"title": "Register", "form":form}
-			# return JsonResponse({
-			# "status_code": 401,
-			# "detail": "register failed",
-			# }) 
-			# # raise
-			data = form.errors.as_json()
-			data = json.loads(data)
-			data = data["__all__"][0]
-			return JsonResponse(data) 
+		login(request, user)
 
 		request.session["username"] = username
 		return JsonResponse({

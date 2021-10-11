@@ -1,41 +1,44 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, logout, login, get_user_model
 
 from rest_framework.response import Response
 
 from .forms import LoginForm
+import json
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
 
-from taskmanager.exceptions import LoginOK
 
+from taskmanager.exceptions import (
+	NotLogged
+	)
 
+from rest_framework import permissions
+
+User = get_user_model()
 class Login(View):
-	def get(self, request):
-		form = LoginForm(None)
-
-		headers = {"title": "Login", "form":form}
-		# return ("login.html")
-		return render(request, "login.html", headers)
 
 
 	def post(self, request):
-		form = LoginForm(request.POST or None)
-		
-		if form.is_valid():
-			username = form.cleaned_data.get("username")
-			password = form.cleaned_data.get("password")
-			login(request, form.user)
+		data = self.request.body
+		data = data.decode("utf-8")
+		data = json.loads(data)
 
-		else: 
-			headers = {"title": "Login", "form":form}
-			data = form.errors.as_json()
-			data = json.loads(data)
-			data = data["__all__"][0]
-			return JsonResponse(data) 
-
-		request.session["username"] = username
-		return JsonResponse({
-			"status_code": 201,
-			"detail": "logged correctly",
-			}) 
+		username = data.get("username")
+		user = User.objects.filter(username=username)
+		password = data.get("password")
+		user = authenticate(username=username, password=password)
+		if user != None:
+			login(request, user)
+			request.session["username"] = username
+			return JsonResponse({
+				"status_code": 201,
+				"detail": "logged correctly",
+				})
+		else:
+			return JsonResponse({
+				"status_code": 403,
+				"detail": "login failed",
+				}) 
