@@ -34,6 +34,7 @@ from .user import User_username_view
 from .account.login.views import Login
 from .account.register.views import Register
 from .account.logout.views import Logout
+from .csrf import Get_csrf
 
 
 main_router = routers.SimpleRouter()
@@ -59,6 +60,7 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout_route'),
     path('login/', Login.as_view(), name="login_route"),
     path('register/', Register.as_view(), name="register_route"),
+    path('csrftoken/', Get_csrf.as_view(), name="csrftoken"),
 
 
 

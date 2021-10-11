@@ -56,3 +56,11 @@ class TablesCreateSerializer(serializers.ModelSerializer):
 		lookup_field = "id"
 		model = Particip
 
+class UserInfo(serializers.ModelSerializer):
+
+	"get user info"
+	class Meta:
+		lookup_field = "username"
+		model = User
+		# exclude = ["password", "user_permissions"]
+		fields = ["username", "date_joined"]
