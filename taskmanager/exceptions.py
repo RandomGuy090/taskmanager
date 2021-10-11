@@ -1,8 +1,34 @@
 from rest_framework.exceptions import APIException
 
+class LoginOK(APIException):
+	status_code = 200
+	default_detail = 'Logged ok'
+	default_code = 'OK'
+
+class LogoutOK(APIException):
+	status_code = 200
+	default_detail = 'Logout ok'
+	default_code = 'OK'
+
+class RegisterOK(APIException):
+	status_code = 200
+	default_detail = 'Register ok'
+	default_code = 'OK'
+
+
 class Unauthorized(APIException):
 	status_code = 401
 	default_detail = 'Authorization required'
+	default_code = 'Unauthorized'
+
+class NotLogged(APIException):
+	status_code = 401
+	default_detail = 'Not logged'
+	default_code = 'Unauthorized'
+
+class BadLoginOrPassword(APIException):
+	status_code = 401
+	default_detail = 'Bad login or password'
 	default_code = 'Unauthorized'
 
 class NotAdded(APIException):
@@ -42,6 +68,7 @@ class CantDeleteNote(APIException):
 	def __init__(self, detail=None):
 		if detail is not None:
 			self.detail = detail
+			
 
 class ServerError(APIException):
 	status_code = 500
