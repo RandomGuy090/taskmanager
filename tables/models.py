@@ -62,6 +62,9 @@ class Particip(models.Model):
 	color = models.CharField(max_length=7, default=gen_color)
 	joined_date = models.DateTimeField(default=timezone.now, blank=True)
 
+	class Meta:
+		unique_together= (('user_id', 'table_id'),)
+
 
 
 class Notes(models.Model):
