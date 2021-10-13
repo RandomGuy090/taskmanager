@@ -16,6 +16,8 @@ body{
 	flex-direction: row-reverse;
 	border-radius: 5px;
 	font-size: 130%;
+	text-align: center;
+
 }
 
 .loginSpace{
@@ -69,9 +71,10 @@ button[type="submit"]{
 	width: 20%;
 	height: 5vh;
 }
+
 a{
-	width: 100%;
-	height: 10%;
+/*	width: 100%;
+	height: 10%;*/
 }
 
 a > [type="button"]{
@@ -87,9 +90,12 @@ p{
 	align-items: center;
 }
 
-form{
+/*.mainform{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
+	text-align: center;
+
 }
+*/

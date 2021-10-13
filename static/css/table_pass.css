@@ -1,3 +1,7 @@
-form{
+/*form{
+	flex-direction: row;
+}
+*/
+.mainform{
 	flex-direction: row;
 }

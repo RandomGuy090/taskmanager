@@ -1,3 +1,9 @@
+.asd{
+	background-color: red;
+	height: 100vh;
+	width: 100vw;
+}
+
 body{
 	margin: 0;
 	padding: 0;
@@ -198,3 +204,4 @@ a, .new_cal{
 #new_table{
 	display: flex;
 }
+
