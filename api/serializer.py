@@ -23,6 +23,13 @@ class TablesSerializerDetail(serializers.ModelSerializer):
 		# fields = "__all__"
 
 		model = Tables
+class TablesSerializerCreate(serializers.ModelSerializer):    
+	"get table info in detailed view"
+	class Meta:        
+		# exclude = ["password"]
+		fields = "__all__"
+
+		model = Tables
 
 class TablesSerializerList(serializers.ModelSerializer):    
 	"get table info in list view"

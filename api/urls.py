@@ -32,9 +32,12 @@ from .user import User_username_view
 
 
 from .account.login.views import Login
+from .account.login.tokenAuth import Token
 from .account.register.views import Register
 from .account.logout.views import Logout
 from .csrf import Get_csrf
+
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 main_router = routers.SimpleRouter()
@@ -61,9 +64,7 @@ urlpatterns = [
     path('login/', Login.as_view(), name="login_route"),
     path('register/', Register.as_view(), name="register_route"),
     path('csrftoken/', Get_csrf.as_view(), name="csrftoken"),
-
-
-
+    path('token/', obtain_auth_token),
 ]
 
 

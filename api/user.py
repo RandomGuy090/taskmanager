@@ -31,19 +31,24 @@ class User_username_view(viewsets.ViewSet):
     def list(self, request):
         "show logged user"
     
-        user = self.request.session.get("username")
+        user = self.request.user.username
+
         queryset = self.queryset.filter(username=user)
         print(queryset)
         if len(queryset) == 0:
-
+            print("not logged")
             res={
-            "detail":"no info"
+            "code": "403",
+            "detail":"Not logged"
             }
             # raise NotLogged
             return JsonResponse(res)
 
         # return queryset
+        print("logged")
+
         res={
+            "code": "201",
             "detail":"no info",
             "username":user,
             }
