@@ -28,7 +28,8 @@ from api.serializer import (
 from taskmanager.exceptions import (
     ServerError,
     PassowordNeeded,
-    Unauthorized
+    Unauthorized,
+    JoinOK
 )
 
 import json
@@ -63,6 +64,7 @@ class Join_table(viewsets.ModelViewSet):
             password = data.get("password")
         except:
             password = ""
+
         print(password)
         # password = self.request.query_params.get("password")
         url = get_table_url(self.request.path)
@@ -77,7 +79,8 @@ class Join_table(viewsets.ModelViewSet):
 
         if part.exists():
             print("redirect")
-            return HttpResponseRedirect(redirect_to=f'/api/tables/{url}') 
+            raise JoinOK()
+            # return HttpResponseRedirect(redirect_to=f'/api/tables/{url}') 
 
         qr = Tables.objects.filter(url=url).first()
        

@@ -15,6 +15,12 @@ class RegisterOK(APIException):
 	default_detail = 'Register ok'
 	default_code = 'OK'
 
+class JoinOK(APIException):
+	status_code = 200
+	default_detail = 'Join ok'
+	default_code = 'OK'
+
+
 
 class Unauthorized(APIException):
 	status_code = 401
