@@ -13,6 +13,7 @@ import Page from './Page';
 import LoignPage from './LoginPage.jsx';
 import Logout from './logout.jsx';
 import RegisterPage from './RegisterPage.jsx';
+import TableMain from './tableMain.jsx'
 
 import UserStore from "./stores/UserStore.jsx"
 import ServerStore from "./stores/ServerStore.jsx"
@@ -25,7 +26,6 @@ import history from './components/history';
 class App extends React.Component {
   constructor(){
     super()
-    console.log()
     this.componentDidMount()
 
   } 
@@ -33,20 +33,22 @@ class App extends React.Component {
 
   componentDidMount(){
     try{
+      let headers = {}
       //console.log(`${ServerStore.url}/api/user/`)
       UserStore.token = localStorage.getItem("token")
+      if(UserStore.token != null){
+        headers = {
+        "Authorization": `Token ${UserStore.token}`,
+        }
+      }
+     
       let res = fetch(`${ServerStore.url}/api/user/`, {
       credentials: 'include',
-      headers: {
-        "Authorization": `Token ${UserStore.token}`,
-      },
         method: "GET",
+        headers: headers,
         }).then(res => {         
           return res.json()
         }).then((res) => {
-          console.log(res)
-          console.log(res)
-          console.log(res)
             if(res.code == "201"){
               UserStore.isLogged = true;
               UserStore.username = res.username;
@@ -57,7 +59,6 @@ class App extends React.Component {
     
         })
         .catch(err => {
-          console.log(err)
           UserStore.isLogged = false
         });
       
@@ -104,7 +105,7 @@ class App extends React.Component {
       </Route>
 
       <Route path="/table/">
-          <h1>TABLES </h1>
+          <TableMain />
       </Route>
     
      </Switch>

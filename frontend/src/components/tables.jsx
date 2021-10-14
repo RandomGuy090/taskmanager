@@ -20,6 +20,7 @@ class Tables extends React.Component {
         tables : null,
         loading: true
       };
+      this.fetchLoop = 0;
 
     }
 
@@ -31,14 +32,28 @@ class Tables extends React.Component {
     }
 
    fetchTables(){
+        this.fetchLoop++
         let res =  fetch(`${ServerStore.url}/api/tables/`, {
       credentials: 'include',
         method: "GET",
         headers: {
         "Authorization": `Token ${UserStore.token}`,
       },
-        }).then(res => {         
-          return res.json()
+        }).then(res => {   
+        console.log(res)  
+        console.log(res.status)  
+
+            if (res.status == 200){
+                return res.json()
+            }
+            console.log("error")
+            if(this.fetchTables> 5){
+                throw new Error('loading error');
+
+            }
+            this.fetchTables()
+
+
         }).then(res => {
             var asd = res;
             console.log(res)
@@ -48,7 +63,10 @@ class Tables extends React.Component {
          })
            return this.state.tables
     
-        });
+        })
+        .catch((error) => {
+          console.log(error)
+        });;
     }
     addNew(){
         return(
@@ -67,7 +85,7 @@ class Tables extends React.Component {
 
     render(){
         console.log("tbl")
-        console.log(this.state.loading)
+        console.log(this.state.tables)
         if(this.state.loading == true || this.state.tables == null){
             console.log("loading")
             return this.loading()
