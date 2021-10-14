@@ -1,0 +1,200 @@
+.asd{
+	background-color: white;
+	width: 100vw;
+
+
+}
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #FFFFFF;
+
+}
+
+header{
+	width: 100%;
+	min-height: 100px;
+	flex-grow: 1.5;
+	max-height: 150px;
+	background-color: #99D9EA;
+
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+header>img{
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+	border-radius: 30%;
+}
+header>p{
+	margin: 0 5%;
+	color:#FFFFFF;
+	font-size: 200%;
+}
+
+content{
+	flex-grow: 8.5;
+	width: 100vw;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	/*justify-content: start;*/
+	justify-content: center;
+  
+}
+.new_cal{
+	background-color: transparent;
+	height: 10vw;
+	width: 10vw;
+	margin: 1%;
+
+	margin: 1%;
+	text-decoration: none; 
+}
+a, .new_cal{
+    margin: 1%;
+    text-decoration: none;
+    height: 10vw;
+    margin-right: 2%;
+}
+.cal{
+	height: 10vw;
+	width: 10vw;
+	background-color:#B5E61D;
+	border: 5px solid #8cae22;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+
+}
+.add_new{
+	background-color: transparent;
+	border-radius: 50%;
+	border: 5px solid red;
+	height: 60%;
+	width: 60%;
+	display: flex;
+}
+
+.add_new_img{
+	height: 90%;
+	width: 90%;
+}
+[class="cal"] > p{
+ transform: rotate(45deg);
+ color: white;
+ font-size: 230%;
+}
+ 
+.cal:hover {
+	animation: size_up 100000000s infinite;
+}
+
+.logout{
+	display: flex;
+	height: 50%;
+	width: 9%;
+	min-width: 50px;
+	min-height: 50px;
+	background-color: red;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 150%;
+}
+
+#background_blurred{
+	top: 0;
+	position: fixed;
+	height: 100%;
+	width: 100vw;
+	background-color: rgb(88 123 133 / 33%);
+	--webkit-backdrop-filter: blur(5px);
+  	backdrop-filter: blur(5px);
+  	z-index: 10;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+#new_table_menu{
+	position: absolute;
+	height: 70vh;
+	width: 50vw;
+	background-color: #d7f7ff;
+	z-index: 15;
+	display: flex;
+	flex-direction: row;
+	border-radius: 10px;
+    border: 3px solid #a4c7d0;
+
+}
+
+#new_table_menu> div{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+
+#new_table_menu> div > div{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#create_new_data{
+	flex-direction: column;
+}
+#create_new_data > input{
+	width: 80%;
+	height: 15%;
+	border-radius: 10px;
+	margin: 1%;
+	justify-content: center;
+	text-align: center;
+	font-size: 150%;
+}
+#create_new_data > div{
+	display: flex;
+	flex-direction: row;
+	width: 80%;
+	height: 15%;
+}
+#create_new_data > div > input {
+	height: 80%;
+	width: 70%;
+}
+#create_new_data > div > label {
+	font-size: 150%;
+	justify-content: center;
+	align-items: center;
+	margin: 0 10%;
+}
+.add_new_cal{
+	flex-direction: column;
+}
+.add_new_cal > input{
+	width: 80%;
+	height: 15%;
+	border-radius: 10px;
+	margin: 1%;
+	justify-content: center;
+	text-align: center;
+	font-size: 150%;
+}
+
+#new_table{
+	display: flex;
+}

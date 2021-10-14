@@ -1,0 +1,300 @@
+
+body{
+	margin: 0;
+
+	display: flex;
+	flex-direction: row;
+	min-height: 100vh;
+	min-width: 100vh;
+}
+
+nav	{
+	background-color:#ffffff;
+	flex-grow: 1;
+	max-width: 14vw;
+	overflow: scroll;
+    height: 100vh;
+    overflow-x: clip;
+
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+
+}
+
+nav > a{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 10vh;
+	width: 14vw;
+	background-color: var(--3Col);
+	text-decoration: none;
+	font-size: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+nav > a:visited{
+	color: black
+}
+
+content	{
+	background-color: #ffffff;
+	flex-grow: 5;
+}
+
+content > .title{
+	flex-grow: 1;
+
+	height: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 300%;
+}
+
+aside{
+	background-color: var(--3Col);
+	flex-grow: 2;
+	/*max-width: 35vw;*/
+	
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	z-index: 10;
+	width: 5vw;
+	 -moz-transition: width 1s; /* Firefox 4 */
+    -webkit-transition: width 1s; /* Safari and Chrome */
+    -o-transition: width 1s; /* Opera */
+    user-select: none;
+
+}
+aside:hover{
+	width: 30vw;
+}
+
+.user{
+	width: 100%;
+	height: 7vh;
+	border: 1px solid #ABABAB;
+	justify-content: space-between;
+	align-items: center;
+	display: flex;
+}
+.user > img{
+	height: 5vh;
+	width: 5vh;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: 1vw;
+	padding: 3px;
+	border: 1px solid var(--1Col);
+}
+
+.user > p{
+
+}
+
+.color{
+	height: 25%;
+	width: 4vw;
+	background-color: red;
+}
+
+aside > .notes{
+	width: 100%;
+	flex-grow: 5;
+	background-color: #ffffff;
+	border-left: 1px solid #ABABAB;
+	
+}
+/*
+aside:hover{
+	z-index: 10;
+	overflow: wrap;
+	width: auto;
+}
+*/
+
+.notes{
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+.note{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+    min-height: 5vh;
+	border-top: 1px solid #ababab;
+}
+.note:last-child{
+	border-bottom: 1px solid #ababab;
+	margin-bottom: 10vh;
+}
+
+.hour{
+	flex-grow: 1;
+
+} 
+.author{
+	flex-grow: 2;
+
+}
+.task{
+	flex-grow: 7;
+	width: 100px;
+	overflow: wrap;
+	overflow-wrap: break-word;
+}
+aside > header {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5em;
+
+	background-color: var(--3Col);
+	width: 100%;
+	flex-grow: 2;
+    min-height: 15vh;
+
+}
+
+
+aside > header > .date{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.note > .hour {
+	background: red;
+	height: 100%;
+	display: flex;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+
+#addNewNote{
+	width: 100%;
+	background-color: red;
+	height: 10vh;
+	bottom: 0;
+	position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#addNewNote > div >img{
+	position: absolute;
+	top: 0;
+	left: 1%;
+	height: 5vw;
+    width: 5vw;
+	object-fit: cover;
+}
+#addNewNote > div >span{
+	position: absolute;
+	font-size: 2em;
+	top: 50%;
+	left: 7%;
+
+}
+
+#newTaskMenu{
+	position: absolute;
+	height: 40%;
+	width: 30%;
+	
+	visibility: hidden;
+	
+	right: 0;
+	bottom: -40vh;
+	z-index: 99;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border: 1px solid var(--1Col);
+
+}
+#newTaskMenu > .menuHeader{
+	width: 100%;
+
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.5em;
+
+}
+#newTaskMenu > .menuinfo{
+	width: 100%;
+	flex-grow: 4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	justify-content: center
+	 -moz-transition: width 1s; /* Firefox 4 */
+    -webkit-transition: width 1s; /* Safari and Chrome */
+    -o-transition: width 1s; /* Opera */
+
+}
+.menuinfo > div{
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+
+}
+/*.menuinfo > div > input, .menuinfo > input {
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}*/
+
+.menuinfo > input {
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}
+input[type=time]{
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}
+input[type=date]{
+	width: 40%;
+	height: 5vh;
+	font-size: 120%;
+}
+
+
+input[name=task_name]{
+	width: 80%;
+
+}
+
+.menuinfo > div > span {
+width: 40%;
+}
+
+input[value="Add task"]{
+	width: 90%;
+	height: 5vh;
+
+}
+#sendingError{
+	height: 10vh;
+	background-color: red;
+	font-size: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+}

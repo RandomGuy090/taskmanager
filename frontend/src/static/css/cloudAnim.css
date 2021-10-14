@@ -1,0 +1,73 @@
+/*@keyframes example {
+  0%{
+  	left: -15px;
+  	bottom: 20px;
+  }
+  50%{
+  	left: 15px;
+  	bottom: -20px;
+
+  }
+ 
+}
+*/
+
+@keyframes movefirst {
+
+  0%{
+    left: 2%;
+    bottom: 15%;
+
+  }
+  50%{
+    left: 20%;
+    bottom: 10%;
+  }
+  100%{
+    left: 2%;
+    bottom: 15%;
+
+  }
+ 
+ 
+}
+
+@keyframes moveMiddle {
+
+  0%{
+    left: 40%;
+    bottom: 10%;
+
+  }
+  50%{
+    left: 20%;
+    bottom: 5%;
+  }
+  100%{
+    left: 40%;
+    bottom: 10%;
+
+  }
+ 
+}
+
+@keyframes movelast{
+
+  0%{
+    left: 35%;
+    bottom: 1%;
+
+  }
+  50%{
+    left: 25%;
+    bottom: 10%;
+
+  }
+  100%{
+    left: 35%;
+    bottom: 1%;
+
+  }
+ 
+}
+
