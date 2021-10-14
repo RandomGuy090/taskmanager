@@ -47,7 +47,7 @@ class Tables extends React.Component {
                 return res.json()
             }
             console.log("error")
-            if(this.fetchTables> 5){
+            if(this.fetchLoop> 5){
                 throw new Error('loading error');
 
             }

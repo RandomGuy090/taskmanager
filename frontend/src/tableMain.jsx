@@ -1,7 +1,9 @@
 import './static/css/style.css';
 import './static/css/homepage.css';
-import './static/css/calendar.css';
 import 'react-calendar/dist/Calendar.css';
+import './static/css/calendar.css';
+
+import LeftPanel from './components/calendarComp/leftpanel.jsx'
 
 import React from "react";
 import $ from 'jquery'
@@ -28,15 +30,16 @@ class TableMain extends React.Component {
 //______________________________________
 
 	render(){
-		return(<>
-			<h1> 
-				Table
-			</h1>
-			 
-			<p>tableID = {this.tableID}</p>
+		return(
+		<div class="tablesBG">
+			<LeftPanel url={this.tableID} />
 
-			<Calendar />
-		</>)
+			<div>
+				<p>tableID = {this.tableID}</p>
+				<Calendar />
+			</div>
+		</div>
+		)
 				
 	}
 }
