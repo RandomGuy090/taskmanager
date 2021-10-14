@@ -20,13 +20,16 @@ class CreateNewForm extends React.Component {
       this.state = {
         name: "",
         password: "",
+        passwordLink: "",
         color: "#000000",
         link: "",
-        tableUrl: ""
+        tableUrl: "",
+        getPassword: false
 
       };
       this.handleName = this.handleName.bind(this)
       this.handlePassword = this.handlePassword.bind(this)
+      this.handlePasswordLink = this.handlePasswordLink.bind(this)
       this.handleColor = this.handleColor.bind(this)
       this.handleLink = this.handleLink.bind(this)
       this.handleJoin = this.handleJoin.bind(this)
@@ -41,6 +44,9 @@ class CreateNewForm extends React.Component {
     }
     handlePassword(event){
     	this.setState({password: event.target.value})
+    }
+    handlePasswordLink(event){
+    	this.setState({passwordLink: event.target.value})
     }
     handleLink(event){
     	this.setState({link: event.target.value})
@@ -77,7 +83,7 @@ class CreateNewForm extends React.Component {
 			body: JSON.stringify({
 	   			"name": this.state.name,
 	   			"color": this.state.color,
-	   			"password": this.state.password
+	   			"password": this.state.password,
    				}
    			)
    		})
@@ -134,9 +140,37 @@ class CreateNewForm extends React.Component {
    	}else{
 
 		console.log("LINK")
-		/*window.location.href = `/tables/${this.state.link}`*/
-		//history.push(`/table/${this.state.link}`);
-   	}
+		fetch(`${ServerStore.url}/api/tables/${this.state.link}/join/`,{
+   			method: "POST",
+   			credentials: "same-origin",
+   			headers:{
+   				Accept: 'application/json',
+			    "Content-Type": "application/json",
+			    "Authorization": `Token ${UserStore.token}`
+   			},
+			body: JSON.stringify({
+				"password": this.state.passwordLink
+			})
+	   		})
+	   		.then(res => {
+	   			console.log(res.status)
+	   			if(res.status == 200){
+	   				this.setState({
+	   					tableUrl: this.state.link
+	   				})
+	   				return
+	   			}
+	   			return res.json()
+	   		})
+	   		.then(res => {
+	   			console.log(res)
+	   			console.log("PASSWORD NEEDED")   
+	   			this.setState({
+	   				getPassword: true
+	   			})			
+
+	   		})
+		}
    }
     
     render(){
@@ -146,6 +180,8 @@ class CreateNewForm extends React.Component {
     		return <Redirect to={url} push={true} />
 
     	}
+
+
     	return (
 		<div id="background_blurred">
 			<div id="new_table_menu" className="no_hid">
@@ -182,7 +218,8 @@ class CreateNewForm extends React.Component {
 					 </div>
 					
 					<div className="no_hid add_new_cal">
-						<input type="text" autoComplete="off" id="join_table" name="join_table" className="no_hid" placeholder="link to calendar" onChange={this.handleLink} />
+						<input type="text" autoComplete="off" id="join_table" name="join_table" className="no_hid" placeholder="calendar ID" onChange={this.handleLink} />
+						<input type="text" autoComplete="off" id="join_table" name="join_table_password" className="no_hid" placeholder="password" onChange={this.handlePasswordLink} />
 						<input type="button" id="join" name="join" value="join" className="no_hid" onClick={this.handleJoin} />
 
 					</div>				

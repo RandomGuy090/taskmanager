@@ -140,8 +140,8 @@ class LoignPage extends React.Component {
                     <input type="password" name="password" onChange={this.updatePassword}/>
                   </p>
                     <Link to="/"> 
-                    </Link>
                       <button type='submit' className='singup' value="Log in!" onClick={this.handleSubmit}>Log in!</button>
+                    </Link>
                     <Link  to="/register/" className="singupLink">
                         <input type="button" name="goToRegister" className="singup"value="Sing up!" />
                     </Link>
