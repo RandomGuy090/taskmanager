@@ -31,6 +31,9 @@ class User_in_table_view(viewsets.ModelViewSet):
     
     def get_queryset(self):
         url = get_table_url(self.request.path)
+        print(url)
+        print(url)
+        print(url)
         queryset = Particip.objects.select_related().filter(table_id__url=url)
         return queryset
 

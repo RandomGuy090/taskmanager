@@ -49,13 +49,14 @@ class CanReadTableContent(permissions.BasePermission):
 		"main function"
 		self.URL = request.path
 		self.table_ID = get_table_url(request.path)
-		self.USERNAME = request.session.get("username")
+		self.USERNAME = request.user.username
 
 		if request.user.is_authenticated:
 			#if user already added to the table
 			if self.already_added():
 				#if added
 				queryset = Particip.objects.select_related().filter(table_id__url=self.table_ID)
+
 				return queryset
 			else:
 				#not added
