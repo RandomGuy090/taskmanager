@@ -60,6 +60,7 @@ class Particip(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	table_id = models.ForeignKey(Tables, on_delete=models.CASCADE)
 	color = models.CharField(max_length=7, default=gen_color)
+	# color = models.ForeignKey(Task_color, default=gen_color)
 	joined_date = models.DateTimeField(default=timezone.now, blank=True)
 
 	class Meta:

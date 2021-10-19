@@ -182,7 +182,7 @@ td{
 
 
 .usedBy > div{
- background: red;
+   background: red;
     height: 100%;
     width: 100%;
     opacity: 50%;
