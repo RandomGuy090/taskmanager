@@ -32,7 +32,6 @@ class CanReadTableContent(permissions.BasePermission):
 		except:
 			# status 404
 			raise NoSuchTable
-		
 		if not password and password.password == "":
 			return False
 
@@ -50,6 +49,7 @@ class CanReadTableContent(permissions.BasePermission):
 		self.URL = request.path
 		self.table_ID = get_table_url(request.path)
 		self.USERNAME = request.user.username
+
 
 		if request.user.is_authenticated:
 			#if user already added to the table

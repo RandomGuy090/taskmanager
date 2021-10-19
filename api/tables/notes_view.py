@@ -5,6 +5,9 @@ from api.serializer import 	NotesSerializer
 from rest_framework.response import Response
 from .utils import 	get_table_url
 
+import datetime
+from calendar import monthrange
+
 from taskmanager.exceptions import (
 	NullFields,
 	CantDeleteNote,
@@ -30,24 +33,56 @@ class Notes_view(viewsets.ModelViewSet):
 
 		#get one day
 		if year and month and day:
+			print(day)
+			date = datetime.date(int(year), int(month), int(day)+1)
+			date2 = datetime.date(int(year), int(month), int(day))
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
-						todo_date_start__year=int(year),
-						todo_date_start__month=int(month),
-						todo_date_start__day=int(day))
+						todo_date_start__lte=date,
+						todo_date_end__gte=date2)
+			
+
+			# queryset = Notes.objects.select_related().filter(table_id__url=url,
+			# 			todo_date_start__year__lte=int(year),
+			# 			todo_date_end__year__gte=int(year),
+
+			# 			todo_date_start__month__lte=int(month),
+			# 			todo_date_end__month__gte=int(month),
+						
+			# 			todo_date_start__day__lte=int(day),
+			# 			todo_date_end__day__gte=int(day))
 		#get one month
 		elif year and month :
+			date = datetime.date(int(year), int(month), 1)
+			date2 = datetime.date(int(year), int(month), monthrange(int(year), int(month))[1])
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
-						todo_date_start__year=int(year),
-						todo_date_start__month=int(month))
+						todo_date_start__lte=date2,
+						todo_date_end__gte=date)
+
+			# queryset = Notes.objects.select_related().filter(table_id__url=url,
+			# 			todo_date_start__year__lte=int(year),
+			# 			todo_date_end__year__gte=int(year),
+			# 			todo_date_start__month__lte=int(month),
+			# 			todo_date_end__month__gte=int(month))
 		#get one year
 		elif year :
+			date = datetime.date(int(year), 1, 1)
+			date2 = datetime.date(int(year), 12, monthrange(int(year), int(month))[1])
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
-						todo_date_start__year=int(year))
+						todo_date_start__lte=date2,
+						todo_date_end__gte=date)
+
+			# queryset = Notes.objects.select_related().filter(table_id__url=url,
+			# 			todo_date_start__year__lte=int(year),
+			# 			todo_date_end__year__gte=int(year))
+
 		
 		#get all notes from table
 		else:
 			queryset = Notes.objects.select_related().filter(table_id__url=url)
 		
+		
+		
+		print(queryset)
 		return queryset
 
 	def create(self, request, *args, **kwargs):
