@@ -4,6 +4,7 @@ import UserStore from "../stores/UserStore.jsx"
 class TablesStore{
 	constructor(){
 		this.tables = "";
+		this.id = ""
 	}
 
 

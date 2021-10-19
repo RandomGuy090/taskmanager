@@ -5,6 +5,7 @@
 	position: absolute;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
 
 .LeftPanel{
@@ -14,6 +15,8 @@
 	overflow-x: hidden;
 	resize: horizontal;
 	max-width: 40vw;
+    flex-grow: 0.5;
+
 }
 
 .user{
@@ -39,6 +42,17 @@
 .user > p{
 	width: 10vw;
 }
+.calendarDiv{
+	width: auto;
+    flex-grow: 2;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
 .user-color{
 	position: relative;
 	background-color: yellow;
@@ -48,4 +62,69 @@
 	border-bottom: 1px solid var(--1Col);
 	border-left: 1px solid var(--1Col);
 
+}
+.RightPanel{
+    /* background: red; */
+    width: 20%;
+    border-left: 1px solid black;
+    overflow-y: inherit;
+    overflow-x: hidden;
+    direction: rtl;
+    resize:  horizontal;
+    flex-grow: 0.2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:  center;
+}
+.RightPanel-header{
+	height: 30vh;
+	width: 100%;
+	background-color: red;
+
+}
+.panelNotes{
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    overflow-y: scroll;
+    width: 100%;
+}
+.react-calendar{
+	height: 65%;
+	width: 80%;
+}
+.react-calendar__month-view__days{
+	height: 100%;
+	width: 100%;
+}
+.react-calendar__month-view  > div> div{
+	height: 50vh;
+}
+.react-calendar__tile{
+	padding: 0;
+}
+
+.innerButton{
+	    height: 10vh;
+    width: 6vw;
+    position: absolute;
+    margin-top: -6vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.innerButton > div{
+	flex-grow: 1;
+    opacity: 40%;
+
+}
+.react-calendar__tile--now{
+	opacity: 100%;
+	/*background: none;*/
+	background:  #aaaaaa;
 }

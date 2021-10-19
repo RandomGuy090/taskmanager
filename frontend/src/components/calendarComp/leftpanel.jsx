@@ -3,16 +3,17 @@ import UserPanel from './userpanel.jsx'
 
 import ServerStore from "../../stores/ServerStore.jsx"
 import UserStore from "../../stores/UserStore.jsx"
+import TablesStore from "../../stores/TablesStore.jsx"
+import UserCache from "../../stores/UserCacheStore.jsx"
 
 import { useState } from 'react';
 
 class LeftPanel extends React.Component {
-	constructor(props){
+/*	constructor(props){
 		super()
-		console.log(props)
-		this.tableID = props.url
-		console.log(this.tableID)
-		console.log(this.tableID)
+
+		this.tableID = TablesStore.id
+
 		this.fetchLoop = 0;
 		this.state = {
 			loading: true,
@@ -20,35 +21,34 @@ class LeftPanel extends React.Component {
 		};
 		this.fetchLoop = 0;
 	}
-
+*/
 	componentWillMount(){
 		//this.fetchUsers()
-		this.fetchUsers()
+		//this.fetchUsers()
 
 
-		console.log(this.state.users)
+		
 	}
 
-	fetchUsers(){
+/*	fetchUsers(){
 		const that = this;
 
         this.fetchLoop++
-        let res =  fetch(`${ServerStore.url}/api/tables/${this.tableID}/users/`, {
+        let res =  fetch(`${ServerStore.url}/api/tables/${TablesStore.id}/users/`, {
       credentials: 'include',
         method: "GET",
         headers: {
         "Authorization": `Token ${UserStore.token}`,
       },
         }).then(res => {   
-        console.log(res)  
-        console.log(res.status)  
+        
 
             if (res.status == 200){
                 return res.json()
             }
-            console.log("error")
+            
             if(this.fetchLoop> 5){
-            	console.log("error")
+            	
                 throw new Error('loading error');
             }
             this.fetchUsers()
@@ -58,7 +58,7 @@ class LeftPanel extends React.Component {
         		users: data,
         		loading: false,
         	})
-        	console.log(data)
+        	
            return data
     
         })
@@ -67,14 +67,10 @@ class LeftPanel extends React.Component {
           return "error"
         });;
     }
+*/
 
-    asd(){
-    	return(
-    	this.state.users.map(users => (<UserPanel table={users} />))
-    	)
-    }
 	render(){
-    	if(this.state.loading){
+    	if(this.props.users == null){
 
 			return(
 				<div className="LeftPanel">
@@ -84,11 +80,16 @@ class LeftPanel extends React.Component {
 	          	
 				)
     		}else{
-    		console.log(this.state.users)
+    		
     			return(
 				<div className="LeftPanel">
 		          	{
-		          		this.state.users.map(user => {
+		          		this.props.users.map(user => {
+		          			var data = {
+		          				[user.user_id]:{
+		          					color: user.color
+		          				}
+		          			}
 		          			return <UserPanel user={ user } />
 
 		          		})
