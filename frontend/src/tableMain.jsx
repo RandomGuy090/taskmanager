@@ -39,15 +39,14 @@ class TableMain extends React.Component {
         	users: null,
 
 		}
+
 		this.userColors = {}
 		this.fetchLoop = 0
       
       this.dateChange = this.dateChange.bind(this);
-      this.monthChange = this.monthChange.bind(this);
-
-
-		
+      this.monthChange = this.monthChange.bind(this);	
 	}
+
 	componentWillMount(){
 		this.fetchTable();
 		var date = new Date()
@@ -55,10 +54,8 @@ class TableMain extends React.Component {
 			date:date
 		})
 
-
 		this.fetchUsers()
 		this.fetchNotes(0,date.getMonth()+1, date.getFullYear());
-		
 	}
 	
 	componentWillUnmount() {
@@ -66,32 +63,28 @@ class TableMain extends React.Component {
 	}
 
 
+
 	fetchTable(){
-		
-
-
         this.fetchLoop++
         let res =  fetch(`${ServerStore.url}/api/tables/${TablesStore.id}/`, {
-      credentials: 'include',
-        method: "GET",
-        headers: {
-        "Authorization": `Token ${UserStore.token}`,
-      },
+	      	credentials: 'include',
+	        method: "GET",
+	        headers: {
+	        "Authorization": `Token ${UserStore.token}`,
+	     	},
         }).then(res => {   
-        
-
             if (res.status == 200){
                 return res.json()
             }
-            
+
             if(this.fetchLoop > 5){
-            	//console.log("error")
                 throw new Error('loading error');
             }
+
             this.fetchTable()
 
         }).then((data) => {
-                	this.setState({
+            this.setState({
         		tableName: data.name,
         		tableColor: data.color,
         		tableColorBorder: data.border_color,
@@ -101,15 +94,14 @@ class TableMain extends React.Component {
     
         })
         .catch((error) => {
-
-          return "error"
+        	return "error"
         });;
     }
 
+
     fetchNotes(day, month, year){
-
-
 		let params = "?"
+
 		if(day){
 			params += `day=${day}&`
 		}
@@ -118,20 +110,16 @@ class TableMain extends React.Component {
 		}
 		if (year){
 			params+= `year=${year}&`
-
 		}
-		
-
-		//console.log(params)
+        
         this.fetchLoop++
         let res =  fetch(`${ServerStore.url}/api/tables/${TablesStore.id}/notes/${params}`, {
-      credentials: 'include',
-        method: "GET",
-        headers: {
-        "Authorization": `Token ${UserStore.token}`,
-      },
+	      	credentials: 'include',
+	        method: "GET",
+	        headers: {
+	        "Authorization": `Token ${UserStore.token}`,
+	      	},
         }).then(res => {   
-
             if (res.status == 200){
                 return res.json()
             }
@@ -140,10 +128,9 @@ class TableMain extends React.Component {
                 throw new Error('loading error');
             }
             this.fetchNotes()
-
         }).then((data) => {
-        	//console.log(data)
         	var firstRun = false
+        	
         	if(this.state.notes == null){
         		firstRun = true
         	}
@@ -154,37 +141,31 @@ class TableMain extends React.Component {
 
         	if(firstRun){
 	        	this.pushPerDay(data)
-        	}
-
-   
-    
+        	}    
         })
         .catch((error) => {
           console.log(error)
           return "error"
         });;
     }
-fetchUsers(){
 
 
+	fetchUsers(){
         this.fetchLoop++
         let res =  fetch(`${ServerStore.url}/api/tables/${TablesStore.id}/users/`, {
-      credentials: 'include',
-        method: "GET",
-        headers: {
-        "Authorization": `Token ${UserStore.token}`,
-      },
+	    	credentials: 'include',
+	        method: "GET",
+	        headers: {
+	        "Authorization": `Token ${UserStore.token}`,
+	      	},
         }).then(res => {   
-        
-
-            if (res.status == 200){
+        	if (res.status == 200){
                 return res.json()
             }
-            
             if(this.fetchLoop> 5){
-            	
-                throw new Error('loading error');
+				throw new Error('loading error');
             }
+
             this.fetchUsers()
 
         }).then((data) => {
@@ -198,32 +179,29 @@ fetchUsers(){
         		this.userColors[data[i].user_id] = data[i].color
         	}
            return data
-    
         })
         .catch((error) => {
-          //console.log(error)
           return "error"
         });;
     }
 
 
     monthChange(event){
-
-    	console.log(event.activeStartDate)
     	var date = event.activeStartDate
     	this.setState({
     		notes: null,
     		date: event.activeStartDate
     	})
+
 		this.fetchNotes(0,date.getMonth()+1, date.getFullYear());
 
     }	
 
 	dateChange(event){
-
 		this.setState({
 			date:event
 		})
+
 		this.fetchNotes(event.getDate(), event.getMonth()+1, event.getFullYear());
 
 	}
@@ -232,56 +210,50 @@ fetchUsers(){
 			var start = new Date(data[i].todo_date_start)
 			var end = new Date(data[i].todo_date_end)
 			var user = data[i].user_id
-			if(this.state.date.getMonth() < end.getMonth()){
-					end = new Date(start.getFullYear(), start.getMonth(), 31, end.getHours(), end.getMinutes())
-					if(end.getDate() != 31){
-						end = new Date(start.getFullYear(), start.getMonth(), 30, end.getHours(), end.getMinutes())
 
-					}
+			if(this.state.date.getMonth() < end.getMonth()){
+				end = new Date(start.getFullYear(), start.getMonth(), 31, end.getHours(), end.getMinutes())
+				
+				if(end.getDate() != 31){
+					end = new Date(start.getFullYear(), start.getMonth(), 30, end.getHours(), end.getMinutes())
 				}
+			}
 
 			var dif = end.getDate() - start.getDate()
-			if(dif < 0 ){
 
+			if(dif < 0 ){
+				
 				if(this.state.date.getMonth() == start.getMonth()){
 
 					var evenMonths = [2,4,6,9,11,]
+
 					if (evenMonths.indexOf(start.getMonth()+1) ){
 						dif = 30 - start.getDate()+1
 					}else{
 						dif = 31 - start.getDate()
 					}
+
 				}else if(this.state.date.getMonth() == end.getMonth()){
 					dif = end.getDate()-1
 				
 					start = new Date(start.getFullYear(), start.getMonth()+1, 1 , start.getHours(), start.getMinutes())
 				
-				}
-
-				
-				
-
-				
+				}	
 			}
 			if(dif == 0){
-			
 				var asd = this.getButtonByDay(start.getDate())
 				this.createInnerElement(asd, data[i])
-			}else{
-				
+			
+			}else{	
 				for(var j = 0; j<=dif; j++){
 					var asd = this.getButtonByDay(start.getDate()+j)
 					this.createInnerElement(asd, data[i])	
 				}
 			}
 		}
-
 	}
 
 	getButtonByDay(day){
-
-		// var elem = document.getElementsByTagName("button")
-
 		var monthName = document.getElementsByClassName("react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from")[0].innerHTML
 		var yearName = monthName.split(" ")[1]
 		monthName = monthName.split(" ")[0]
@@ -319,40 +291,32 @@ fetchUsers(){
 		var tmpDiv = document.createElement("div")
 		tmpDiv.style.backgroundColor = this.userColors[data.user_id]
 		inner.appendChild(tmpDiv)
-		
-		//for(var i = 0; i<data.length; i++){
-		//}
 		mainDiv.append(inner)
 
 	}
 
-
-
 	render(){
-			//console.log(this.state)
+		return(
+		<div class="tablesBG">
+			{this.state.users != null ? <LeftPanel users={this.state.users} />  : <h1>Loading..</h1>}
 
-			return(
-			<div class="tablesBG">
-				{this.state.users != null ? <LeftPanel users={this.state.users} />  : <h1>Loading..</h1>}
-
-				<div className="calendarDiv">
-				
-					<h1>{this.state.tableName}</h1>
-					{/*{this.state.LoadingTable != null ? <Calendar onChange={this.dateChange} />  : <h1>Loading...</h1>}*/}
-					<Calendar onChange={this.dateChange} 
-					locale="en-EN" 
-					onActiveStartDateChange={this.monthChange}
-					view="month"
-					 />  
-
-				
-				</div>
-				{ this.state.date  != null? <RightPanel  date={this.state.date} notes={this.state.notes} /> : <h1>Loading...</h1>}
+			<div className="calendarDiv">
+			
+				<h1>{this.state.tableName}</h1>
+				<Calendar onChange={this.dateChange} 
+				locale="en-EN" 
+				onActiveStartDateChange={this.monthChange}
+				view="month"
+				/> 				
 			</div>
-			)
-
-		
-				
-	}
+			{ this.state.date  != null? <RightPanel  
+										date={this.state.date} 
+										notes={this.state.notes}
+										userData={this.userColors}
+										 /> : <h1>Loading...</h1>}
+										}
+		</div>
+			)				
+		}
 }
 export default TableMain

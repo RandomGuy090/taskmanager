@@ -15,7 +15,6 @@
 	overflow-x: hidden;
 	resize: horizontal;
 	max-width: 40vw;
-    flex-grow: 0.5;
 
 }
 
@@ -27,9 +26,11 @@
 	height: 10vh;
 	border-bottom: 1px solid var(--1Col);
 }
+
 .user:last-child{
 	margin-bottom: 15vh;
 }
+
 .user > img{
 	height: 9vh;
 	width: 9vh;
@@ -39,9 +40,11 @@
 	border: 1px solid var(--1Col);
 
 }
+
 .user > p{
 	width: 10vw;
 }
+
 .calendarDiv{
 	width: auto;
     flex-grow: 2;
@@ -63,27 +66,28 @@
 	border-left: 1px solid var(--1Col);
 
 }
+
 .RightPanel{
-    /* background: red; */
-    width: 20%;
+    width: auto;
     border-left: 1px solid black;
     overflow-y: inherit;
     overflow-x: hidden;
     direction: rtl;
     resize:  horizontal;
-    flex-grow: 0.2;
+    
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items:  center;
 }
+
 .RightPanel-header{
 	height: 30vh;
 	width: 100%;
 	background-color: red;
-
 }
+
 .panelNotes{
     align-items: center;
     justify-content: center;
@@ -94,17 +98,21 @@
     overflow-y: scroll;
     width: 100%;
 }
+
 .react-calendar{
 	height: 65%;
 	width: 80%;
 }
+
 .react-calendar__month-view__days{
 	height: 100%;
 	width: 100%;
 }
+
 .react-calendar__month-view  > div> div{
 	height: 50vh;
 }
+
 .react-calendar__tile{
 	padding: 0;
 }
@@ -117,17 +125,24 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .innerButton > div{
 	flex-grow: 1;
     opacity: 40%;
-
 }
+
 .react-calendar__tile--now{
 	opacity: 100%;
-	/*background: none;*/
 	background:  #aaaaaa;
 }
 
 .react-calendar__month-view__days__day{
 	border:  1px solid var(--2Col);
+}
+.taskContainer{
+	display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+
 }
