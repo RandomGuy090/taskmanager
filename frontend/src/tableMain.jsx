@@ -220,10 +220,6 @@ fetchUsers(){
     }	
 
 	dateChange(event){
-		console.log(event)
-		console.log(event)
-		console.log(event)
-		console.log(event)
 
 		this.setState({
 			date:event

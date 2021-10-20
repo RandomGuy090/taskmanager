@@ -110,10 +110,9 @@
 }
 
 .innerButton{
-	    height: 10vh;
-    width: 6vw;
-    position: absolute;
-    margin-top: -6vh;
+    margin-top: -20%;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -127,4 +126,8 @@
 	opacity: 100%;
 	/*background: none;*/
 	background:  #aaaaaa;
+}
+
+.react-calendar__month-view__days__day{
+	border:  1px solid var(--2Col);
 }
