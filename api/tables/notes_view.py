@@ -38,7 +38,7 @@ class Notes_view(viewsets.ModelViewSet):
 			date2 = datetime.date(int(year), int(month), int(day))
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
 						todo_date_start__lte=date,
-						todo_date_end__gte=date2)
+						todo_date_end__gte=date2).order_by("-todo_date_start")
 			
 
 			# queryset = Notes.objects.select_related().filter(table_id__url=url,
@@ -56,7 +56,7 @@ class Notes_view(viewsets.ModelViewSet):
 			date2 = datetime.date(int(year), int(month), monthrange(int(year), int(month))[1])
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
 						todo_date_start__lte=date2,
-						todo_date_end__gte=date)
+						todo_date_end__gte=date).order_by("-todo_date_start")
 
 			# queryset = Notes.objects.select_related().filter(table_id__url=url,
 			# 			todo_date_start__year__lte=int(year),
@@ -69,7 +69,7 @@ class Notes_view(viewsets.ModelViewSet):
 			date2 = datetime.date(int(year), 12, monthrange(int(year), int(month))[1])
 			queryset = Notes.objects.select_related().filter(table_id__url=url,
 						todo_date_start__lte=date2,
-						todo_date_end__gte=date)
+						todo_date_end__gte=date).order_by("-todo_date_start")
 
 			# queryset = Notes.objects.select_related().filter(table_id__url=url,
 			# 			todo_date_start__year__lte=int(year),
@@ -78,7 +78,7 @@ class Notes_view(viewsets.ModelViewSet):
 		
 		#get all notes from table
 		else:
-			queryset = Notes.objects.select_related().filter(table_id__url=url)
+			queryset = Notes.objects.select_related().filter(table_id__url=url).order_by("-todo_date_start")
 		
 		
 		
