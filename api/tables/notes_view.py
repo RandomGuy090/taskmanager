@@ -1,5 +1,8 @@
 from rest_framework import viewsets
-from api.permissions import CanReadTableContent
+from api.permissions import (
+	CanReadTableContent,
+	CanSendNote
+	)
 from tables.models import Notes
 from api.serializer import 	NotesSerializer
 from rest_framework.response import Response
@@ -19,7 +22,7 @@ class Notes_view(viewsets.ModelViewSet):
 
 	serializer_class = NotesSerializer
 	lookup_field = "id"
-	permission_classes = [CanReadTableContent]
+	permission_classes = [CanSendNote]
 	http_method_names = ['post', "get", "delete"]
 
 
@@ -87,6 +90,7 @@ class Notes_view(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		"create new task via post"
+		self.permission_classes = CanSendNote
 
 		null_fields = []
 		for elem in request.data:
