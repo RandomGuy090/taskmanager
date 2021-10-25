@@ -326,6 +326,7 @@ class TableMain extends React.Component {
 										tableColor={this.state.tableColor}
 										 /> : <h1>Loading...</h1>
 										}
+			
 										
 		</div>
 			)				

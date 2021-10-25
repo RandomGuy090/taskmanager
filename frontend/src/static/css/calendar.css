@@ -56,7 +56,6 @@
 
 }
 
-
 .user-color{
 	position: relative;
 	background-color: yellow;
@@ -152,19 +151,62 @@
 
 }
 
-.panelNotes::-webkit-scrollbar-track {
+.panelNotes::-webkit-scrollbar-track, 
+#newTaskMenu::-webkit-scrollbar-track {
   border: 1px solid #ffffff;
   padding: 2px 0;
   background-color: var(--2Col);
 }
 
-.panelNotes::-webkit-scrollbar {
+.panelNotes::-webkit-scrollbar ,
+#newTaskMenu::-webkit-scrollbar {
   width: 5px;
 }
 
-.panelNotes::-webkit-scrollbar-thumb {
+.panelNotes::-webkit-scrollbar-thumb ,
+#newTaskMenu::-webkit-scrollbar-thumb {
   border-radius: 5px;
   box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: var(--2Col);
   border: 1px solid #ffffff;
+}
+
+#newTaskMenu{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40vw;
+    height: 100vh;
+		overflow-y: auto;
+
+    background: red;
+    left: 0;
+}
+.add_new_task{
+	height: 10vh;
+	width: 100%;
+	background-color: red;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+}
+.add_new_task_img{
+	height: 100%;
+}
+.menuinfo{
+	  display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuinfo > input { 
+	height: 10px;
+	 }
+[name="task_name"]{
+		height: 10vh;
+    width: 80%;
+    margin-top: 2vh;
 }

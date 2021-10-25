@@ -5,21 +5,34 @@ import ServerStore from "../../stores/ServerStore.jsx"
 import UserStore from "../../stores/UserStore.jsx"
 import CalendarStore from '../../stores/calendarStore.jsx'
 import TablesStore from '../../stores/TablesStore.jsx'
+import NewTask from "../createNewTask.jsx"
 
 import { useState } from 'react';
 
 
 
 class RightPanel extends React.Component {
+	constructor(){
+		super()
+		this.state = {
+			addNew: false,
+		}
+		this.openNewTask = this.openNewTask.bind(this)
+	}
+	openNewTask(event){
+		console.log(event)
+		console.log(this.state.addNew)
+		this.setState({
+			addNew: !this.state.addNew,
+		})
+		console.log(this.state.addNew)
+	}
 
 	render(){
 		if(this.props.notes){
-			console.log(this.props.notes)
-			console.log(this.props.notes)
-			console.log(this.props.date)
-			console.log(this.props.tableColor)
-
 				return(
+		          <>
+
 				<div className="RightPanel">
 		       		<div className="RightPanel-header" style={{backgroundColor: this.props.tableColor}}>
 		       			<h1>{this.props.date.getDate()}/{this.props.date.getMonth() +1 }/{this.props.date.getFullYear()}</h1>
@@ -27,8 +40,7 @@ class RightPanel extends React.Component {
 		       		</div>
 		       		<div className="panelNotes">
 
-		          	{
-
+		          	{ 
 		          		this.props.notes.map(note => {
 		          			//return <UserPanel user={ note } />
 		          			//retsurn <h1>{ note.table_note }</h1>
@@ -46,9 +58,14 @@ class RightPanel extends React.Component {
 		          				)
 		          		})
 		          	}
-						
+						<div className="add_new_task">
+							Add new task
+							<img className="add_new_task_img" src='/add_new_black.png' onClick={this.openNewTask}/>
+						</div>
 		       		</div>
 				</div>
+				{this.state.addNew ? <NewTask  state={this.state}/> : "" }
+		          </>
 	          	
 				)
 
