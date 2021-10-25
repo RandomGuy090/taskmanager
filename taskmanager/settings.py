@@ -44,23 +44,24 @@ INSTALLED_APPS = [
     "landingpage",
     "tables",
     "api",
-
+    "rest_framework.authtoken"
 
 
 ]
 
     # 'django.middleware.csrf.CsrfViewMiddleware',
 MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware', 
+    'corsheaders.middleware.CorsMiddleware', 
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 
-
-    'django.middleware.common.CommonMiddleware', 
-    'corsheaders.middleware.CorsMiddleware', 
-    'taskmanager.middleware.open_access_middleware'
+    # 'taskmanager.middleware.open_access_middleware'
 ]
 
 ROOT_URLCONF = 'taskmanager.urls'
@@ -145,9 +146,6 @@ STATICFILES_DIRS = (
 )
 
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -160,8 +158,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:8000'
 ]
 
 
@@ -172,7 +170,7 @@ CORS_ALLOW_HEADERS = ["*"]
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -198,3 +196,11 @@ CORS_ALLOW_HEADERS = [
 ]
 
 CSRF_COOKIE_HTTPONLY = False
+
+
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': (
+'rest_framework.authentication.BasicAuthentication',
+'rest_framework.authentication.TokenAuthentication',
+'rest_framework.authentication.SessionAuthentication',
+)}
