@@ -14,10 +14,14 @@ class RightPanel extends React.Component {
 
 	render(){
 		if(this.props.notes){
+			console.log(this.props.notes)
+			console.log(this.props.notes)
+			console.log(this.props.date)
+			console.log(this.props.tableColor)
 
 				return(
 				<div className="RightPanel">
-		       		<div className="RightPanel-header">
+		       		<div className="RightPanel-header" style={{backgroundColor: this.props.tableColor}}>
 		       			<h1>{this.props.date.getDate()}/{this.props.date.getMonth() +1 }/{this.props.date.getFullYear()}</h1>
 		       			<h3></h3>
 		       		</div>

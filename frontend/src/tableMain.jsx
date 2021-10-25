@@ -48,18 +48,28 @@ class TableMain extends React.Component {
 	}
 
 	componentWillMount(){
-		this.fetchTable();
 		var date = new Date()
 		this.setState({
 			date:date
 		})
 
+		this.fetchTable();
 		this.fetchUsers()
 		this.fetchNotes(0,date.getMonth()+1, date.getFullYear());
+
+		
+		/*this.interval = setInterval(() => {
+			this.fetchTable();
+			this.fetchUsers()
+			this.fetchNotes(0,date.getMonth()+1, date.getFullYear());
+		}, 2000);*/
+
 	}
 	
 	componentWillUnmount() {
 	  this.timer = null; // here...
+	  //clearInterval(this.interval);
+
 	}
 
 
@@ -313,8 +323,10 @@ class TableMain extends React.Component {
 										date={this.state.date} 
 										notes={this.state.notes}
 										userData={this.userColors}
-										 /> : <h1>Loading...</h1>}
+										tableColor={this.state.tableColor}
+										 /> : <h1>Loading...</h1>
 										}
+										
 		</div>
 			)				
 		}
